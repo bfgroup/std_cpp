@@ -1,0 +1,6 @@
+= Standard C++ Compile
+
+This library provides a standard interface for transforming C++ source into
+usable binary images. As such it also is a vehicle for proving the viability
+and fitness of a C++ Language standard proposal to add such an interface to
+the C++ standard.

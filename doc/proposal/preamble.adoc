@@ -1,0 +1,16 @@
+= Intriduction
+
+This proposes the addition of an interface for transforming C++ source into
+usable binary images. As such it aims to provide a common definition of
+existing compiler frontend tool options for generating programs and libraries
+for translation units.
+
+== Motivation
+
+This proposal is based on the notion that it should be possible for C++
+user, both beginner and advanced, to easily transform their source to
+immediately executable form.
+
+One key aspect of this proposal is to make it possible for future C++
+educators to provide complete usage examples that work for any particular
+tool they and their students use.
