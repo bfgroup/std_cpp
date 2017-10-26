@@ -1,11 +1,26 @@
-= Intriduction
+= C++ Compile
+:author: Rene Rivera
+:email: rrivera@acm.org
+:revnumber: PxxxR0
+:revdate: 2017-MM-DD
+:revremark: Initial
+:version-label!: 
+:sectnums:
+
+[horizontal]
+Document number:: {revnumber}
+Date:: {revdate}
+Reply-to:: {author}, {email}
+Audience:: Library Evolution
+
+== Introduction
 
 This proposes the addition of an interface for transforming C++ source into
 usable binary images. As such it aims to provide a common definition of
 existing compiler frontend tool options for generating programs and libraries
 for translation units.
 
-== Motivation
+=== Motivation
 
 This proposal is based on the notion that it should be possible for C++
 user, both beginner and advanced, to easily transform their source to
@@ -13,4 +28,6 @@ immediately executable form.
 
 One key aspect of this proposal is to make it possible for future C++
 educators to provide complete usage examples that work for any particular
-tool they and their students use.
+tool they and their students use. While this proposal does not prescribe
+a particular executable tool, it is trivial to write minimal tool that pases
+arguments directly to these interfaces.
