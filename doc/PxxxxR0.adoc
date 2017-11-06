@@ -1,11 +1,16 @@
 = C++ Compile
+:copyright: Copyright 2017 Rene Rivera
 :author: Rene Rivera
 :email: rrivera@acm.org
 :revnumber: PxxxR0
-:revdate: 2017-MM-DD
+:revdate: {docdate}
 :revremark: Initial
 :version-label!: 
+:reproducible:
+:nofooter:
 :sectnums:
+:source-highlighter: highlightjs
+:source-language: c++
 
 [horizontal]
 Document number:: {revnumber}
@@ -22,12 +27,79 @@ for translation units.
 
 === Motivation
 
-This proposal is based on the notion that it should be possible for C++
+This proposal is based on the notion that it should be possible for a C++
 user, both beginner and advanced, to easily transform their source to
-immediately executable form.
+immediately executable form in a consistent form across compilers.
 
 One key aspect of this proposal is to make it possible for future C++
-educators to provide complete usage examples that work for any particular
-tool they and their students use. While this proposal does not prescribe
-a particular executable tool, it is trivial to write minimal tool that pases
-arguments directly to these interfaces.
+educators, and book authors, to provide complete usage examples that work for
+any particular tool they and their audience use. While this proposal does not
+prescribe a particular executable tool, it is trivial to write minimal tool
+that pases arguments directly to these interfaces.
+
+=== Impact On the Standard
+
+This proposal is a library extension and specification. As such it does not
+proscribe changes to any standard classes or functions. It adds one function
+and some definitions to a new header file, `<compile>`.
+
+=== Design Decisions
+
+The design herein is driven primarily by the following, in approximate
+order of importance:
+
+* Mirror the `main` entry point to make frontend program trivial.
+* Minimize variability in arguments and options.
+* Use common practice option names for familiarity.
+* Do not attempt to specify all possible options as that's not technically
+possible.
+
+==== Exceptions
+
+So as to reduce error handling cases for callers of `compile`, i.e. `main`,
+there are no exceptions allowed from calls to `compile`. This has the effect
+of removing the need for exception handling at the caller as any error
+situations are indicated by the simpler return value which can be directly
+mapped to the return value of `main`.
+
+==== Vendor Arguments
+
+Recognizing that specifying a complete set of argument options is not possible
+we need to provide for a mechanism to pass vendor specific arguments for
+compilation; but at the same time we want to ensure that defined arguments
+are not ignored in favor of vendor only arguments. Hence we specify this
+implementation rule:
+
+When a defined argument option exists a vendor specific argument is *not*
+allowed as an acceptable argument option.
+
+=== Technical Specification
+
+==== Header `<compile>` Synopsis
+
+----
+namespace std
+{
+  int compile(int, char * *) noexcept;
+}
+----
+
+==== Specification
+
+----
+int compile(int argument_count, char * * arguments) noexcept;
+----
+
+[horizontal]
+
+Requires:: `argument_count > 0`, where `arguments[0]` is the name of the
+program executable.
+
+Effect:: Executes the compilation according to the given `arguments` 
+
+Returns:: zero (`0`) for success, non-zero (`!= 0`) for an error.
+
+=== Prior Art
+
+=== Acknowledgements
+
