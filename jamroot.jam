@@ -7,6 +7,12 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 project std_cpp
     : build-dir bin
+    : requirements
+        <cxxstd>11
+        [ conditional <target-os>darwin :
+            <address-model>64 <architecture>x86 ]
     ;
 
 path-constant STD_CPP_ROOT : . ;
+
+build-project build ;

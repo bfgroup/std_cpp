@@ -1,0 +1,7 @@
+[requires]
+b2gen/[>0]@bfgroup/testing
+clara/[>=1.1.0]@bincrafters/stable
+boost_predef/[>=1.66.0]@bincrafters/stable
+
+[generators]
+b2gen

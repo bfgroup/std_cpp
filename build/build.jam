@@ -1,0 +1,26 @@
+#|
+Copyright Rene Rivera 2017-2018
+Distributed under the Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt or copy at
+http://www.boost.org/LICENSE_1_0.txt)
+|#
+
+project
+    : source-location $(STD_CPP_ROOT)/src
+    : requirements
+        <include>$(STD_CPP_ROOT)/include
+    ;
+
+lib std_cpp_clang
+    :   [ glob *.cpp ]
+        boost_predef//libs
+        clara//libs
+    :   <define>BFG_STD_CPP_CLANG=1
+    ;
+
+lib std_cpp_gcc
+    :   [ glob *.cpp ]
+        boost_predef//libs
+        clara//libs
+    :   <define>BFG_STD_CPP_GCC=1
+    ;
