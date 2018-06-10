@@ -1,22 +1,56 @@
 = C++ Compile
-:copyright: Copyright 2017 Rene Rivera
+:copyright: Copyright 2017-2018 Rene Rivera
 :author: Rene Rivera
-:email: rrivera@acm.org
+:email: grafikrobot@gmail.com
 :revnumber: PxxxR0
 :revdate: {docdate}
 :revremark: Initial
 :version-label!: 
 :reproducible:
 :nofooter:
+:sectanchors:
 :sectnums:
 :source-highlighter: highlightjs
 :source-language: c++
+:toc: left
+:toclevels: 3
+:caution-caption: ⚑
+:important-caption: ‼
+:note-caption: ℹ
+:tip-caption: ☀
+:warning-caption: ⚠
+
+ifdef::backend-html5[]
+++++
+<style>
+.admonitionblock .icon .title {
+    font-size: 2.5em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
+}
+.caution .icon .title {
+    color: rgba(192, 51, 0, 1);
+}
+.important .icon .title {
+    color: rgba(192, 0, 0, 1);
+}
+.note .icon .title {
+    color: rgba(26, 64, 128, 1);
+}
+.tip .icon .title {
+    color: rgba(255, 192, 0, 1);
+}
+.warning .icon .title {
+    color: rgba(192, 102, 0, 1);
+}
+</style>
+++++
+endif::[]
 
 [horizontal]
 Document number:: {revnumber}
 Date:: {revdate}
 Reply-to:: {author}, {email}
-Audience:: Library Evolution
+Audience:: Study Group 15, Library Evolution
 
 == Introduction
 
@@ -25,17 +59,22 @@ usable binary images. As such it aims to provide a common definition of
 existing compiler frontend tool options for generating programs and libraries
 for translation units.
 
-=== Motivation
+=== Background and Motivation
 
 This proposal is based on the notion that it should be possible for a C++
 user, both beginner and advanced, to easily transform their source to
-immediately executable form in a consistent form across compilers.
+immediately executable form in a consistent method across compilers.
 
 One key aspect of this proposal is to make it possible for future C++
 educators, and book authors, to provide complete usage examples that work for
 any particular tool they and their audience use. While this proposal does not
 prescribe a particular executable tool, it is trivial to write minimal tool
-that pases arguments directly to these interfaces.
+that passes arguments directly to these interfaces.
+
+It is also the intent for this proposal to be an initial step in the road
+towards standardizing the tooling around C++. With the goal of having a
+global and consistent tooling ecosystem to facilitate the introduction into
+C++ for anyone and to ease the interoperability of future tooling.
 
 === Impact On the Standard
 
@@ -43,16 +82,19 @@ This proposal is a library extension and specification. As such it does not
 proscribe changes to any standard classes or functions. It adds one function
 and some definitions to a new header file, `<compile>`.
 
-=== Design Decisions
+=== Design Goals
 
 The design herein is driven primarily by the following, in approximate
 order of importance:
 
-* Mirror the `main` entry point to make frontend program trivial.
+* Mirror the `main` entry point to make a frontend program trivial.
 * Minimize variability in arguments and options.
 * Use common practice option names for familiarity.
 * Do not attempt to specify all possible options as that's not technically
 possible.
+* Specify how, and if, options are compatible with others.
+
+=== Design Decisions
 
 ==== Exceptions
 
@@ -73,9 +115,24 @@ implementation rule:
 When a defined argument option exists a vendor specific argument is *not*
 allowed as an acceptable argument option.
 
-=== Technical Specification
+For instance::
+??
 
-==== Header `<compile>` Synopsis
+==== Extension Arguments
+
+Given the faster rate at which compilers change with respect to the C++
+standard we need to allow for specification of arguments as quickly as
+possible to facilitate support in tooling.
+
+For instance::
+A vendor release a new version of their compiler to support a new CPU.
+This new CPU is not compatible with an existing CPU and hence packages must
+be recompiled for it. But the next possibility scheduled committee meeting
+that could approve adding that new CPU option is months later.
+
+== Technical Specification
+
+=== Header `<compile>` Synopsis
 
 ----
 namespace std
@@ -84,7 +141,7 @@ namespace std
 }
 ----
 
-==== Specification
+=== Specification
 
 ----
 int compile(int argument_count, char * * arguments) noexcept;
@@ -93,13 +150,23 @@ int compile(int argument_count, char * * arguments) noexcept;
 [horizontal]
 
 Requires:: `argument_count > 0`, where `arguments[0]` is the name of the
-program executable.
+program executable. And `arguments[1..argument_count)` are either either
+options or names of source files.
 
-Effect:: Executes the compilation according to the given `arguments` 
+Effect:: Executes the compilation according to the given `arguments`.
 
 Returns:: zero (`0`) for success, non-zero (`!= 0`) for an error.
 
-=== Prior Art
+==== Arguments
 
-=== Acknowledgements
+The `arguments` specify the set of options and source translation units to
+compile.
+
+===== Core Options
+
+include::../src/opt_core.cpp[leveloffset=+5,tag=std_cpp]
+
+== Prior Art
+
+== Acknowledgements
 
