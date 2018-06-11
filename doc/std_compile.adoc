@@ -130,6 +130,85 @@ This new CPU is not compatible with an existing CPU and hence packages must
 be recompiled for it. But the next possibility scheduled committee meeting
 that could approve adding that new CPU option is months later.
 
+==== `+` Option Prefix
+
+Like choosing names for programming language constructs, choosing a prefix
+for the option arguments is a contentious decision. For this we chose to
+use `+` as the prefix, and hence `++` for the long form, for these reasons:
+
+* It's not used in current compiler tooling and hence avoids confusion with
+existing options.
+* It doesn't conflict with operating specific path specifications.
+* Is a non-alphanumeric ASCII glyph.
+* Not frequently used as the first character of file names.
+* And finally, it harkens to C++ itself.
+
+==== Use Cases
+
+This facility is designed to facilitate primarily two groups of users:
+teachers (and their students), and tool creators. For teachers this feature
+would improve, by simplifying, the teaching materials presented to students.
+
+For instance::
+???
+
+For tool creators the uses vary depending on the tools in question. They could
+be a build system, like `b2` (aka Boost.Build) that has complicated toolset
+definition files that translate portable build descriptions to specific
+tool invocations.
+
+For instance::
+In `b2` one would indicate include search paths by adding
+`<include>my/include` to the specification of the build definition. It will
+then translate that to a compile invocation depending on the tool:
+`cl.exe /I "my/include"`, `cc -Imy/include`, `bcc32.exe -I"my/include"`,
+`clang -I"my/include"`, `gcc -I"my/include"`, `cl.exe /I"my/include"`, and so
+on. This is obviously a very simple example and the options get less uniform
+across compilers the more "esoteric" the options are. And the build system
+needs lots of human programed knowledge to create these mappings. Instead
+with this proposal the mapping would be universal and only non-core options
+and the tool executable would need special treatment.
+
+Publishing libraries, with or without source, also poses a problem for those
+doing the publishing. As part of publishing your library will have specific
+options it needs you program to compile with to make use of the library. This
+can involve rather complex distributions to account for the varied compilers
+end users have. And many time this involves publishing many different files
+for each possible configuration and compiler you support.
+
+For instance::
+One common method of doing that is to use pkg-config. You might end up with
+this kind of file for GCC:
++
+----
+Name: libpng
+Description: Loads and saves PNG files
+Version: 1.2.8
+Libs: -L${libdir} -lpng12 -lz
+Cflags: -I${includedir}/libpng12
+----
++
+And another for MSVC:
++
+----
+Name: libpng
+Description: Loads and saves PNG files
+Version: 1.2.8
+Libs: /LIBPATH:${libdir} png12.lib z.lib
+Cflags: /I${includedir}/libpng12
+----
++
+With this proposal it would be possible to only include one such file
+regardless of compiler used:
++
+----
+Name: libpng
+Description: Loads and saves PNG files
+Version: 1.2.8
+Libs: ++library_path=${libdir} +lpng12 +lz
+Cflags: +I${includedir}/libpng12
+----
+
 == Technical Specification
 
 === Header `<compile>` Synopsis
