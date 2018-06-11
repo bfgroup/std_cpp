@@ -5,4 +5,4 @@ usable binary images. As such it also is a vehicle for proving the viability
 and fitness of a C++ Language standard proposal to add such an interface to
 the C++ standard.
 
-* link:doc/std_compile_DxxxxR0.html[Draft standards proposal for `std::compile`]
+* link:https://rawgit.com/bfgroup/std_cpp/master/doc/std_compile_DxxxxR0.html[Draft standards proposal for `std::compile`]
