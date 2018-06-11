@@ -438,8 +438,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">Rene Rivera</span><br>
 <span id="email" class="email"><a href="mailto:grafikrobot@gmail.com">grafikrobot@gmail.com</a></span><br>
-<span id="revnumber"> PxxxR0,</span>
-<span id="revdate">2018-06-10</span>
+<span id="revnumber"> DxxxR0,</span>
+<span id="revdate">2018-06-11</span>
 <br><span id="revremark">Initial</span>
 </div>
 <div id="toc" class="toc2">
@@ -505,7 +505,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 Document number
 </td>
 <td class="hdlist2">
-<p>PxxxR0</p>
+<p>DxxxR0</p>
 </td>
 </tr>
 <tr>
@@ -513,7 +513,7 @@ Document number
 Date
 </td>
 <td class="hdlist2">
-<p>2018-06-10</p>
+<p>2018-06-11</p>
 </td>
 </tr>
 <tr>
@@ -714,6 +714,11 @@ Returns
 <p>The <code>arguments</code> specify the set of options and source translation units to
 compile.</p>
 </div>
+<div class="paragraph">
+<p>Options, and their values, can be "link incompatible". Wherein translation
+units compiled with differing options or values can not be linked together
+into a program.</p>
+</div>
 <div class="sect4">
 <h5 id="_core_options"><a class="anchor" href="#_core_options"></a>Core Options</h5>
 <div class="sect5">
@@ -832,7 +837,7 @@ Effect
 Argument
 </td>
 <td class="hdlist2">
-<p>One of: 2a, 17, 14, 11, 03, 98 indicating the year of the <em>standard</em>.</p>
+<p>One of: <code>98</code>, <code>03</code>, <code>11</code>, <code>14</code>, <code>17</code>, or <code>2a</code> indicating the year of the <em>standard</em>.</p>
 </td>
 </tr>
 <tr>
@@ -850,6 +855,14 @@ Support
 </td>
 <td class="hdlist2">
 <p>The language levels accepted, within the allowed values, is implementation defined.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Compatibility
+</td>
+<td class="hdlist2">
+<p>Link incompatible between <em>standard</em> values.</p>
 </td>
 </tr>
 </table>

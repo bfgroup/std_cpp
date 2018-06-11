@@ -101,10 +101,11 @@ pass:q[++standard=_standard_]
 ....
 
 [horizontal]
-Argument:: One of: 2a, 17, 14, 11, 03, 98 indicating the year of the _standard_.
+Argument:: One of: `98`, `03`, `11`, `14`, `17`, or `2a` indicating the year of the _standard_.
 Effect:: Instructs compilation to use the given _standard_ as the version of
-the C++ language standard for the source TU.
+    the C++ language standard for the source TU.
 Support:: The language levels accepted, within the allowed values, is implementation defined.
+Compatibility:: Link incompatible between _standard_ values.
 
 */ // end::std_cpp[]
     standard.hint("standard")

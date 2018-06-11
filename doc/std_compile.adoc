@@ -162,6 +162,10 @@ Returns:: zero (`0`) for success, non-zero (`!= 0`) for an error.
 The `arguments` specify the set of options and source translation units to
 compile.
 
+Options, and their values, can be "link incompatible". Wherein translation
+units compiled with differing options or values can not be linked together
+into a program.
+
 ===== Core Options
 
 include::../src/opt_core.cpp[leveloffset=+5,tag=std_cpp]
