@@ -7,5 +7,5 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 import asciidoctor ;
 
-html PxxxxR0.html : PxxxxR0.adoc ;
-install html : PxxxxR0.html : <location>html ;
+html std_compile_DxxxxR0.html : std_compile.adoc ;
+install html : std_compile_DxxxxR0.html : <location>. ;

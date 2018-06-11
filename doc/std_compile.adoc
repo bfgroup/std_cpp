@@ -2,7 +2,7 @@
 :copyright: Copyright 2017-2018 Rene Rivera
 :author: Rene Rivera
 :email: grafikrobot@gmail.com
-:revnumber: PxxxR0
+:revnumber: DxxxR0
 :revdate: {docdate}
 :revremark: Initial
 :version-label!: 
