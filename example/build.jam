@@ -12,10 +12,10 @@ project
 
 exe std_cpp_clang
     :   std_cpp.cpp
-        ../build//std_cpp_clang/<link>static
+        ../build//std_cpp/<link>static/<std_cpp_tool>clang
     ;
 
 exe std_cpp_gcc
     :   std_cpp.cpp
-        ../build//std_cpp_clang/<link>static
+        ../build//std_cpp/<link>static/<std_cpp_tool>gcc
     ;

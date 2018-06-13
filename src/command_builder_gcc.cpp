@@ -6,6 +6,7 @@ http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #include "command_builder_gcc_like.hpp"
+#include "util.hpp"
 
 
 namespace bfg_std_cpp {
@@ -13,6 +14,11 @@ namespace bfg_std_cpp {
 class command_builder_gcc : public command_builder_gcc_like
 {
     public:
+
+    command_builder_gcc()
+    {
+        this->operator<<(safe_getenv("CXX", "gcc"));
+    }
 };
 
 #ifdef BFG_STD_CPP_GCC
