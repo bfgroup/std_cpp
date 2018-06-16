@@ -12,6 +12,7 @@
 #include "cli.hpp"
 #include "command_builder.hpp"
 #include "opt_core.hpp"
+#include "util.hpp"
 
 namespace std_cpp
 {
@@ -35,6 +36,7 @@ int compile(int argc, char * * argv) noexcept
     else
     {
         std::cout << cli.command() << "\n";
+        return exec_command(cli.command().get_command());
     }
     return 0;
 }

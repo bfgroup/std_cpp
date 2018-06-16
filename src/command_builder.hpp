@@ -51,6 +51,11 @@ class command_builder
         return os;
     }
 
+    std::vector<std::string> const & get_command() const
+    {
+        return arguments;
+    }
+
     protected:
 
     std::vector<std::string> arguments;
