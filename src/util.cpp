@@ -13,9 +13,13 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 #include "util.hpp"
 
-#if BOOST_OS_WINDOWS
-#else
-#include <unistd.h>  // vfork() and such
+#define BFG_STD_CPP_USE_EXEC 0
+
+#if BFG_STD_CPP_USE_EXEC
+#   if BOOST_OS_WINDOWS
+#   else
+#   include <unistd.h>  // vfork() and such
+#   endif
 #endif
 
 namespace bfg_std_cpp {
@@ -30,8 +34,9 @@ std::string safe_getenv(std::string const & name, std::string const & default_va
 
 int exec_command(std::vector<std::string> const & command)
 {
-    #if BOOST_OS_WINDOWS
-    #else
+    #if BFG_STD_CPP_USE_EXEC
+    #   if BOOST_OS_WINDOWS
+    #   else
     int child_pid = ::vfork();
     if (child_pid == -1)
     {
@@ -42,7 +47,7 @@ int exec_command(std::vector<std::string> const & command)
         const char * command_exec = command[0].c_str();
         std::vector<const char *> command_args;
         for (int i = 1; i < command.size(); ++i) command_args.push_back(command[i].c_str());
-        int exec_result = ::execvp(command_exec, const_cast<char * const *>(&command_args[1]));
+        int exec_result = ::execvp(command_exec, const_cast<char * const *>(&command_args[0]));
         if (exec_result == -1)
         {
             return -1;
@@ -54,8 +59,16 @@ int exec_command(std::vector<std::string> const & command)
         while (::wait(&status) != child_pid) ;
         return status;
     }
-    #endif
+    #   endif
     return 0;
+    #else
+    std::string command_string;
+    for (auto c: command)
+    {
+        command_string += "\""+c+"\" ";
+    }
+    return std::system(command_string.c_str());
+    #endif
 }
 
 }

@@ -56,7 +56,8 @@ class cli
         return result(parser.parse(clara::Args(argc, argv)));
     }
 
-    friend auto operator<<(std::ostream &os, cli const &c) -> std::ostream& {
+    friend auto operator<<(std::ostream &os, cli const &c) -> std::ostream&
+    {
         c.parser.writeToStream(os);
         return os;
     }
