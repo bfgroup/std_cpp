@@ -19,6 +19,7 @@
 :note-caption: ℹ
 :tip-caption: ☀
 :warning-caption: ⚠
+:CPP: C++
 
 ifdef::backend-html5[]
 ++++
@@ -54,27 +55,27 @@ Audience:: Study Group 15, Library Evolution
 
 == Introduction
 
-This proposes the addition of an interface for transforming C++ source into
+This proposes the addition of an interface for transforming {CPP} source into
 usable binary images. As such it aims to provide a common definition of
 existing compiler frontend tool options for generating programs and libraries
 for translation units.
 
 === Background and Motivation
 
-This proposal is based on the notion that it should be possible for a C++
+This proposal is based on the notion that it should be possible for a {CPP}
 user, both beginner and advanced, to easily transform their source to
 immediately executable form in a consistent method across compilers.
 
-One key aspect of this proposal is to make it possible for future C++
+One key aspect of this proposal is to make it possible for future {CPP}
 educators, and book authors, to provide complete usage examples that work for
 any particular tool they and their audience use. While this proposal does not
 prescribe a particular executable tool, it is trivial to write minimal tool
 that passes arguments directly to these interfaces.
 
 It is also the intent for this proposal to be an initial step in the road
-towards standardizing the tooling around C++. With the goal of having a
+towards standardizing the tooling around {CPP}. With the goal of having a
 global and consistent tooling ecosystem to facilitate the introduction into
-C++ for anyone and to ease the interoperability of future tooling.
+{CPP} for anyone and to ease the interoperability of future tooling.
 
 === Impact On the Standard
 
@@ -120,7 +121,7 @@ For instance::
 
 ==== Extension Arguments
 
-Given the faster rate at which compilers change with respect to the C++
+Given the faster rate at which compilers change with respect to the {CPP}
 standard we need to allow for specification of arguments as quickly as
 possible to facilitate support in tooling.
 
@@ -141,7 +142,7 @@ existing options.
 * It doesn't conflict with operating specific path specifications.
 * Is a non-alphanumeric ASCII glyph.
 * Not frequently used as the first character of file names.
-* And finally, it harkens to C++ itself.
+* And finally, it harkens to {CPP} itself.
 
 ==== Use Cases
 
