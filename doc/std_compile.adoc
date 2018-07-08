@@ -139,7 +139,7 @@ use `+` as the prefix, and hence `++` for the long form, for these reasons:
 
 * It's not used in current compiler tooling and hence avoids confusion with
 existing options.
-* It doesn't conflict with operating specific path specifications.
+* It doesn't conflict with operating system specific path specifications.
 * Is a non-alphanumeric ASCII glyph.
 * Not frequently used as the first character of file names.
 * And finally, it harkens to {CPP} itself.
@@ -172,9 +172,9 @@ and the tool executable would need special treatment.
 
 Publishing libraries, with or without source, also poses a problem for those
 doing the publishing. As part of publishing your library will have specific
-options it needs you program to compile with to make use of the library. This
+options it needs your program to compile with to make use of the library. This
 can involve rather complex distributions to account for the varied compilers
-end users have. And many time this involves publishing many different files
+end users have. And many times this involves publishing many different files
 for each possible configuration and compiler you support.
 
 For instance::

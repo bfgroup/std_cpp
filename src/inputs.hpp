@@ -14,7 +14,7 @@ http://www.boost.org/LICENSE_1_0.txt)
 #include <typeinfo>
 #include <vector>
 
-#include <clara.hpp>
+#include "clara.hpp"
 
 #include "cli.hpp"
 #include "opt.hpp"

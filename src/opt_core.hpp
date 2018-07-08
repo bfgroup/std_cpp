@@ -23,14 +23,10 @@ struct core
 
     opt_string<struct output_key> output;
     opt_strings<struct include_dir_key> include_dir;
-
-    /////////////////////////////////////////////////////////////////////////////
-
     opt_flag<struct debug_info_key> debug_info;
-
-    /////////////////////////////////////////////////////////////////////////////
-
     opt_string<struct standard_key> standard;
+    opt_string<struct warnings_key> warnings;
+    opt_string<struct optimize_key> optimize;
 
     core();
     core(cli & cli);

@@ -14,7 +14,8 @@ project
 lib std_cpp
     :   [ glob *.cpp ]
         boost_predef//libs
-        clara//libs
+        # clara//libs
     :   <std_cpp_tool>clang:<define>BFG_STD_CPP_CLANG=1
         <std_cpp_tool>gcc:<define>BFG_STD_CPP_GCC=1
+        <include>../src/ext/clara/include
     ;

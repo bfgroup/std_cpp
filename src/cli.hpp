@@ -10,7 +10,7 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 #include <type_traits>
 
-#include <clara.hpp>
+#include "clara.hpp"
 
 #include "command_builder.hpp"
 
@@ -53,7 +53,10 @@ class cli
 
     auto parse(int argc, char * * argv) -> result
     {
-        return result(parser.parse(clara::Args(argc, argv)));
+        cb->pre();
+        auto r = result(parser.parse(clara::Args(argc, argv), ClaraParserCustomize()));
+        cb->post();
+        return r;
     }
 
     friend auto operator<<(std::ostream &os, cli const &c) -> std::ostream&
@@ -78,6 +81,12 @@ class cli
     }
 
     private:
+
+    struct ClaraParserCustomize : clara::ParserCustomization
+    {
+        auto token_delimiters() const -> std::string override { return " ="; }
+        auto option_prefix() const -> std::string override { return "+"; }
+    };
 
     clara::Parser parser;
     std::shared_ptr<command_builder> cb;

@@ -112,6 +112,57 @@ Compatibility:: Link incompatible between _standard_ values.
         ["-std"]["--standard"]
         ("Specify that the input sources are for <standard>.")
         >> cli;
+
+/* tag::std_cpp[]
+
+= warnings
+
+[subs=+macros]
+....
+pass:q[+W _warning_option_]
+pass:q[++warnings=_warning_option_]
+....
+
+[horizontal]
+Argument:: One of: `off`, `on`, `all`, `error` indicating the level of
+    warnings to report and whether to treat warnings as errors.
+Effect:: Instructs compilation to: not report warning (`off`), report a default
+    set of warnings that is implementation defined (`on`), to report all
+    possible warnings (`all`), and if instead of reporting warnings they
+    should be considered compilation errors (`errors`).
+Support:: Implementations are only required to have an effect for `off` and
+    `on` values. Other unimplemented values must be ignored.
+Compatibility:: Link compatible between all values.
+
+*/ // end::std_cpp[]
+    warnings.hint("warning_option")
+        ["-W"]["--warnings"]
+        ("Specify what kind of warnings to report during compilation.")
+        >> cli;
+
+/* tag::std_cpp[]
+
+= optimize
+
+[subs=+macros]
+....
+pass:q[+W _optimization_level_]
+pass:q[++warnings=_optimization_level_]
+....
+
+[horizontal]
+Argument:: One of: `off`, `on`, `speed`, or `size`.
+Effect:: Instructs compilation to optimize the generated code using the
+    indicated level and type.
+Support:: Implementations are only required to have an effect for `off` and
+    `on` values. Other unimplemented values must be ignored.
+Compatibility:: Link compatible between all values.
+
+*/ // end::std_cpp[]
+    optimize.hint("optimization_level")
+        ["-O"]["--optimize"]
+        ("Specify the level and type of optimizations.")
+        >> cli;
 }
 
 } }

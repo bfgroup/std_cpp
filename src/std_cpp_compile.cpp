@@ -14,6 +14,9 @@
 #include "opt_core.hpp"
 #include "inputs.hpp"
 #include "util.hpp"
+#ifdef BFG_STD_CPP_GCC
+#   include "opt_vendor_gcc.hpp"
+#endif
 
 namespace std_cpp
 {
@@ -24,6 +27,9 @@ int compile(int argc, char * * argv) noexcept
 {
     cli cli(command_builder::make());
     options::core opt_core(cli);
+    #ifdef BFG_STD_CPP_GCC
+    options::vendor_gcc opt_vendor_gcc(cli);
+    #endif
     inputs arg_inputs;
     arg_inputs >> cli;
     auto result = cli.parse(argc, argv);

@@ -26,6 +26,9 @@ class command_builder
 
     static std::shared_ptr<command_builder> make();
 
+    virtual void pre() {}
+    virtual void post() {}
+
     template <typename V>
     void process(V v, void * o)
     {

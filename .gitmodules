@@ -1,0 +1,4 @@
+[submodule "clara"]
+	path = src/ext/clara
+	url = https://github.com/bfgroup/Clara.git
+	branch = master
