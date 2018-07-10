@@ -1,0 +1,69 @@
+= C++ Compile: GCC Options
+:copyright: Copyright 2018 Rene Rivera
+:author: Rene Rivera
+:email: grafikrobot@gmail.com
+:revnumber: SD-NN (D0xxxR0)
+:revdate: {docdate}
+:revremark: Initial
+:version-label!: 
+:reproducible:
+:nofooter:
+:sectanchors:
+:sectnums:
+:source-highlighter: highlightjs
+:source-language: c++
+:toc: left
+:toclevels: 3
+:caution-caption: ⚑
+:important-caption: ‼
+:note-caption: ℹ
+:tip-caption: ☀
+:warning-caption: ⚠
+:CPP: C++
+
+ifdef::backend-html5[]
+++++
+<style>
+.admonitionblock .icon .title {
+    font-size: 2.5em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
+}
+.caution .icon .title {
+    color: rgba(192, 51, 0, 1);
+}
+.important .icon .title {
+    color: rgba(192, 0, 0, 1);
+}
+.note .icon .title {
+    color: rgba(26, 64, 128, 1);
+}
+.tip .icon .title {
+    color: rgba(255, 192, 0, 1);
+}
+.warning .icon .title {
+    color: rgba(192, 102, 0, 1);
+}
+</style>
+++++
+endif::[]
+
+[horizontal]
+Document number:: ISO/IEC/JTC1/SC22/WG21/{revnumber}
+Date:: {revdate}
+Reply-to:: {author}, {email}
+Audience:: Study Group 15
+
+== Introduction
+
+This specifies the GCC vendor specific options for `std::compile`.
+
+== Specification
+
+include::../src/opt_vendor_gcc.cpp[leveloffset=+2,tag=std_cpp_vendor_gcc]
+
+== Revision History
+
+[horizontal]
+Date:: 2018-MM-DD
+Document:: D0xxxR0
+Description:: Initial

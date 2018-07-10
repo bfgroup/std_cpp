@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.7.1">
 <meta name="author" content="Rene Rivera">
-<meta name="copyright" content="Copyright 2017-2018 Rene Rivera">
-<title>C++ Compile</title>
+<meta name="copyright" content="Copyright 2018 Rene Rivera">
+<title>C++ Compile: GCC Options</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -434,45 +434,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>C++ Compile</h1>
+<h1>C++ Compile: GCC Options</h1>
 <div class="details">
 <span id="author" class="author">Rene Rivera</span><br>
 <span id="email" class="email"><a href="mailto:grafikrobot@gmail.com">grafikrobot@gmail.com</a></span><br>
-<span id="revnumber"> DxxxR0,</span>
-<span id="revdate">2018-06-21</span>
+<span id="revnumber"> SD-NN (D0xxxR0),</span>
+<span id="revdate">2018-07-10</span>
 <br><span id="revremark">Initial</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_introduction">1. Introduction</a>
+<li><a href="#_introduction">1. Introduction</a></li>
+<li><a href="#_specification">2. Specification</a>
 <ul class="sectlevel2">
-<li><a href="#_background_and_motivation">1.1. Background and Motivation</a></li>
-<li><a href="#_impact_on_the_standard">1.2. Impact On the Standard</a></li>
-<li><a href="#_design_goals">1.3. Design Goals</a></li>
-<li><a href="#_design_decisions">1.4. Design Decisions</a>
-<ul class="sectlevel3">
-<li><a href="#_exceptions">1.4.1. Exceptions</a></li>
-<li><a href="#_vendor_arguments">1.4.2. Vendor Arguments</a></li>
-<li><a href="#_extension_arguments">1.4.3. Extension Arguments</a></li>
-<li><a href="#_option_prefix">1.4.4. <code>+</code> Option Prefix</a></li>
-<li><a href="#_use_cases">1.4.5. Use Cases</a></li>
+<li><a href="#_c_dialect">2.1. C++ dialect</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#_technical_specification">2. Technical Specification</a>
-<ul class="sectlevel2">
-<li><a href="#_header_compile_synopsis">2.1. Header <code>&lt;compile&gt;</code> Synopsis</a></li>
-<li><a href="#_specification">2.2. Specification</a>
-<ul class="sectlevel3">
-<li><a href="#_arguments">2.2.1. Arguments</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#_prior_art">3. Prior Art</a></li>
-<li><a href="#_acknowledgements">4. Acknowledgements</a></li>
+<li><a href="#_revision_history">3. Revision History</a></li>
 </ul>
 </div>
 </div>
@@ -507,7 +486,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 Document number
 </td>
 <td class="hdlist2">
-<p>DxxxR0</p>
+<p>ISO/IEC/JTC1/SC22/WG21/SD-NN (D0xxxR0)</p>
 </td>
 </tr>
 <tr>
@@ -515,7 +494,7 @@ Document number
 Date
 </td>
 <td class="hdlist2">
-<p>2018-06-21</p>
+<p>2018-07-10</p>
 </td>
 </tr>
 <tr>
@@ -531,7 +510,7 @@ Reply-to
 Audience
 </td>
 <td class="hdlist2">
-<p>Study Group 15, Library Evolution</p>
+<p>Study Group 15</p>
 </td>
 </tr>
 </table>
@@ -542,343 +521,36 @@ Audience
 <h2 id="_introduction"><a class="anchor" href="#_introduction"></a>1. Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This proposes the addition of an interface for transforming C++ source into
-usable binary images. As such it aims to provide a common definition of
-existing compiler frontend tool options for generating programs and libraries
-for translation units.</p>
-</div>
-<div class="sect2">
-<h3 id="_background_and_motivation"><a class="anchor" href="#_background_and_motivation"></a>1.1. Background and Motivation</h3>
-<div class="paragraph">
-<p>This proposal is based on the notion that it should be possible for a C++
-user, both beginner and advanced, to easily transform their source to
-immediately executable form in a consistent method across compilers.</p>
-</div>
-<div class="paragraph">
-<p>One key aspect of this proposal is to make it possible for future C++
-educators, and book authors, to provide complete usage examples that work for
-any particular tool they and their audience use. While this proposal does not
-prescribe a particular executable tool, it is trivial to write minimal tool
-that passes arguments directly to these interfaces.</p>
-</div>
-<div class="paragraph">
-<p>It is also the intent for this proposal to be an initial step in the road
-towards standardizing the tooling around C++. With the goal of having a
-global and consistent tooling ecosystem to facilitate the introduction into
-C++ for anyone and to ease the interoperability of future tooling.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_impact_on_the_standard"><a class="anchor" href="#_impact_on_the_standard"></a>1.2. Impact On the Standard</h3>
-<div class="paragraph">
-<p>This proposal is a library extension and specification. As such it does not
-proscribe changes to any standard classes or functions. It adds one function
-and some definitions to a new header file, <code>&lt;compile&gt;</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_design_goals"><a class="anchor" href="#_design_goals"></a>1.3. Design Goals</h3>
-<div class="paragraph">
-<p>The design herein is driven primarily by the following, in approximate
-order of importance:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Mirror the <code>main</code> entry point to make a frontend program trivial.</p>
-</li>
-<li>
-<p>Minimize variability in arguments and options.</p>
-</li>
-<li>
-<p>Use common practice option names for familiarity.</p>
-</li>
-<li>
-<p>Do not attempt to specify all possible options as that&#8217;s not technically
-possible.</p>
-</li>
-<li>
-<p>Specify how, and if, options are compatible with others.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_design_decisions"><a class="anchor" href="#_design_decisions"></a>1.4. Design Decisions</h3>
-<div class="sect3">
-<h4 id="_exceptions"><a class="anchor" href="#_exceptions"></a>1.4.1. Exceptions</h4>
-<div class="paragraph">
-<p>So as to reduce error handling cases for callers of <code>compile</code>, i.e. <code>main</code>,
-there are no exceptions allowed from calls to <code>compile</code>. This has the effect
-of removing the need for exception handling at the caller as any error
-situations are indicated by the simpler return value which can be directly
-mapped to the return value of <code>main</code>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_vendor_arguments"><a class="anchor" href="#_vendor_arguments"></a>1.4.2. Vendor Arguments</h4>
-<div class="paragraph">
-<p>Recognizing that specifying a complete set of argument options is not possible
-we need to provide for a mechanism to pass vendor specific arguments for
-compilation; but at the same time we want to ensure that defined arguments
-are not ignored in favor of vendor only arguments. Hence we specify this
-implementation rule:</p>
-</div>
-<div class="paragraph">
-<p>When a defined argument option exists a vendor specific argument is <strong>not</strong>
-allowed as an acceptable argument option.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">For instance</dt>
-<dd>
-<p>??</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_extension_arguments"><a class="anchor" href="#_extension_arguments"></a>1.4.3. Extension Arguments</h4>
-<div class="paragraph">
-<p>Given the faster rate at which compilers change with respect to the C++
-standard we need to allow for specification of arguments as quickly as
-possible to facilitate support in tooling.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">For instance</dt>
-<dd>
-<p>A vendor release a new version of their compiler to support a new CPU.
-This new CPU is not compatible with an existing CPU and hence packages must
-be recompiled for it. But the next possibility scheduled committee meeting
-that could approve adding that new CPU option is months later.</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_option_prefix"><a class="anchor" href="#_option_prefix"></a>1.4.4. <code>+</code> Option Prefix</h4>
-<div class="paragraph">
-<p>Like choosing names for programming language constructs, choosing a prefix
-for the option arguments is a contentious decision. For this we chose to
-use <code>+</code> as the prefix, and hence <code>++</code> for the long form, for these reasons:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>It&#8217;s not used in current compiler tooling and hence avoids confusion with
-existing options.</p>
-</li>
-<li>
-<p>It doesn&#8217;t conflict with operating specific path specifications.</p>
-</li>
-<li>
-<p>Is a non-alphanumeric ASCII glyph.</p>
-</li>
-<li>
-<p>Not frequently used as the first character of file names.</p>
-</li>
-<li>
-<p>And finally, it harkens to C++ itself.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_use_cases"><a class="anchor" href="#_use_cases"></a>1.4.5. Use Cases</h4>
-<div class="paragraph">
-<p>This facility is designed to facilitate primarily two groups of users:
-teachers (and their students), and tool creators. For teachers this feature
-would improve, by simplifying, the teaching materials presented to students.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">For instance</dt>
-<dd>
-<p>???</p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>For tool creators the uses vary depending on the tools in question. They could
-be a build system, like <code>b2</code> (aka Boost.Build) that has complicated toolset
-definition files that translate portable build descriptions to specific
-tool invocations.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">For instance</dt>
-<dd>
-<p>In <code>b2</code> one would indicate include search paths by adding
-<code>&lt;include&gt;my/include</code> to the specification of the build definition. It will
-then translate that to a compile invocation depending on the tool:
-<code>cl.exe /I "my/include"</code>, <code>cc -Imy/include</code>, <code>bcc32.exe -I"my/include"</code>,
-<code>clang -I"my/include"</code>, <code>gcc -I"my/include"</code>, <code>cl.exe /I"my/include"</code>, and so
-on. This is obviously a very simple example and the options get less uniform
-across compilers the more "esoteric" the options are. And the build system
-needs lots of human programed knowledge to create these mappings. Instead
-with this proposal the mapping would be universal and only non-core options
-and the tool executable would need special treatment.</p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>Publishing libraries, with or without source, also poses a problem for those
-doing the publishing. As part of publishing your library will have specific
-options it needs you program to compile with to make use of the library. This
-can involve rather complex distributions to account for the varied compilers
-end users have. And many time this involves publishing many different files
-for each possible configuration and compiler you support.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">For instance</dt>
-<dd>
-<p>One common method of doing that is to use pkg-config. You might end up with
-this kind of file for GCC:</p>
-<div class="listingblock">
-<div class="content">
-<pre>Name: libpng
-Description: Loads and saves PNG files
-Version: 1.2.8
-Libs: -L${libdir} -lpng12 -lz
-Cflags: -I${includedir}/libpng12</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>And another for MSVC:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Name: libpng
-Description: Loads and saves PNG files
-Version: 1.2.8
-Libs: /LIBPATH:${libdir} png12.lib z.lib
-Cflags: /I${includedir}/libpng12</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>With this proposal it would be possible to only include one such file
-regardless of compiler used:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Name: libpng
-Description: Loads and saves PNG files
-Version: 1.2.8
-Libs: ++library_path=${libdir} +lpng12 +lz
-Cflags: +I${includedir}/libpng12</pre>
-</div>
-</div>
-</dd>
-</dl>
-</div>
-</div>
+<p>This specifies the GCC vendor specific options for <code>std::compile</code>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_technical_specification"><a class="anchor" href="#_technical_specification"></a>2. Technical Specification</h2>
+<h2 id="_specification"><a class="anchor" href="#_specification"></a>2. Specification</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_header_compile_synopsis"><a class="anchor" href="#_header_compile_synopsis"></a>2.1. Header <code>&lt;compile&gt;</code> Synopsis</h3>
-<div class="listingblock">
-<div class="content">
-<pre>namespace std
-{
-  int compile(int, char * *) noexcept;
-}</pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_specification"><a class="anchor" href="#_specification"></a>2.2. Specification</h3>
-<div class="listingblock">
-<div class="content">
-<pre>int compile(int argument_count, char * * arguments) noexcept;</pre>
-</div>
-</div>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-Requires
-</td>
-<td class="hdlist2">
-<p><code>argument_count &gt; 0</code>, where <code>arguments[0]</code> is the name of the
-program executable. And <code>arguments[1..argument_count)</code> are either either
-options or names of source files.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-Effect
-</td>
-<td class="hdlist2">
-<p>Executes the compilation according to the given <code>arguments</code>.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-Returns
-</td>
-<td class="hdlist2">
-<p>zero (<code>0</code>) for success, non-zero (<code>!= 0</code>) for an error.</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_arguments"><a class="anchor" href="#_arguments"></a>2.2.1. Arguments</h4>
-<div class="paragraph">
-<p>The <code>arguments</code> specify the set of options and source translation units to
-compile.</p>
-</div>
-<div class="paragraph">
-<p>Options, and their values, can be "link incompatible". Wherein translation
-units compiled with differing options or values can not be linked together
-into a program.</p>
-</div>
-<div class="sect4">
-<h5 id="_core_options"><a class="anchor" href="#_core_options"></a>Core Options</h5>
-<div class="sect5">
-<h6 id="_help"><a class="anchor" href="#_help"></a>help</h6>
+<h3 id="_c_dialect"><a class="anchor" href="#_c_dialect"></a>2.1. C++ dialect</h3>
 <div class="literalblock">
 <div class="content">
-<pre>+h
-+?
-++help</pre>
+<pre>++v:gcc:cppdialect=<em>cpp_dialect</em></pre>
 </div>
 </div>
 <div class="hdlist">
 <table>
 <tr>
 <td class="hdlist1">
-Effect
+Vendor
 </td>
 <td class="hdlist2">
-<p>Displays all available options and exits.</p>
+<p>gcc</p>
 </td>
 </tr>
-</table>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_output"><a class="anchor" href="#_output"></a>output</h6>
-<div class="literalblock">
-<div class="content">
-<pre>+o <em>file</em>
-++output=<em>file</em></pre>
-</div>
-</div>
-<div class="hdlist">
-<table>
 <tr>
 <td class="hdlist1">
 Argument
 </td>
 <td class="hdlist2">
-<p>An implementation defined path to a <em>file</em>.</p>
+<p>One of: <code>iso</code>, <code>gnu</code>.</p>
 </td>
 </tr>
 <tr>
@@ -886,95 +558,8 @@ Argument
 Effect
 </td>
 <td class="hdlist2">
-<p>Sets the destination file of the compilation.</p>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_include_directory"><a class="anchor" href="#_include_directory"></a>include directory</h6>
-<div class="literalblock">
-<div class="content">
-<pre>+I <em>directory</em>
-++include-dir=<em>directory</em></pre>
-</div>
-</div>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-Argument
-</td>
-<td class="hdlist2">
-<p>An implementation defined path to a <em>directory</em>.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-Effect
-</td>
-<td class="hdlist2">
-<p>Adds the given <em>directory</em> to the end of the search path of the preprocessor.</p>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_debug_information"><a class="anchor" href="#_debug_information"></a>debug information</h6>
-<div class="literalblock">
-<div class="content">
-<pre>+g
-++debug</pre>
-</div>
-</div>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-Effect
-</td>
-<td class="hdlist2">
-<p>Adds source-level debug information to the compiled output.</p>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_standard_conformance"><a class="anchor" href="#_standard_conformance"></a>standard conformance</h6>
-<div class="literalblock">
-<div class="content">
-<pre>+std <em>standard</em>
-++standard=<em>standard</em></pre>
-</div>
-</div>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-Argument
-</td>
-<td class="hdlist2">
-<p>One of: <code>98</code>, <code>03</code>, <code>11</code>, <code>14</code>, <code>17</code>, or <code>2a</code> indicating the year of the <em>standard</em>.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-Effect
-</td>
-<td class="hdlist2">
-<p>Instructs compilation to use the given <em>standard</em> as the version of
+<p>Instructs compilation to use the given <em>cpp_dialect</em> of
 the C++ language standard for the source TU.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-Support
-</td>
-<td class="hdlist2">
-<p>The language levels accepted, within the allowed values, is implementation defined.</p>
 </td>
 </tr>
 <tr>
@@ -982,7 +567,7 @@ Support
 Compatibility
 </td>
 <td class="hdlist2">
-<p>Link incompatible between <em>standard</em> values.</p>
+<p>Link incompatible between <em>cpp_dialect</em> values.</p>
 </td>
 </tr>
 </table>
@@ -990,19 +575,37 @@ Compatibility
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
 <div class="sect1">
-<h2 id="_prior_art"><a class="anchor" href="#_prior_art"></a>3. Prior Art</h2>
+<h2 id="_revision_history"><a class="anchor" href="#_revision_history"></a>3. Revision History</h2>
 <div class="sectionbody">
-
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+Date
+</td>
+<td class="hdlist2">
+<p>2018-MM-DD</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Document
+</td>
+<td class="hdlist2">
+<p>D0xxxR0</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Description
+</td>
+<td class="hdlist2">
+<p>Initial</p>
+</td>
+</tr>
+</table>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_acknowledgements"><a class="anchor" href="#_acknowledgements"></a>4. Acknowledgements</h2>
-<div class="sectionbody">
-
 </div>
 </div>
 </div>
