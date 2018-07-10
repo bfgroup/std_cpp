@@ -29,6 +29,8 @@ include::std.css[]
 ++++
 endif::[]
 
+WARNING: This is a sample document only for the purpose of discussion.
+
 [horizontal]
 Document number:: ISO/IEC/JTC1/SC22/WG21/{revnumber}
 Date:: {revdate}
