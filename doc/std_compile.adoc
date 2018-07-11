@@ -234,5 +234,35 @@ include::../src/opt_core.cpp[leveloffset=+5,tag=std_cpp]
 
 == Prior Art
 
+=== `B2` build system
+
+The `B2` (aka Boost Build) build system uses the concept of features to
+portably abstract the declaration of compiler options to a portable
+specification. For example:
+
+* `optimization=off` would add the compiler specific option to turn off
+  any code optimization.
+* `debug-symbols=on` would add the compiler specific option to add source
+  level debugging information to the output.
+* `address-model=64` would add compiler specific options to generate
+  64-bit addressing only code.
+
+=== `clang-cl`
+
+The Microsoft Visual Studio development environment support using Clang
+as an alternative compiler to their msvc (`cl.exe`) compiler. In order
+to avoid reflecting the Clang specific options up into the IDE
+Visual Studio implements a compiler front end that translates from
+msvc options to Clang options (`clang-cl.exe`).
+
+=== Cmake build system
+
+Like the features of `b2` modern Cmake also implements a series of
+variables that provide an abstraction to common compiler options.
+For example:
+
+* `set_property(TARGET foo PROPERTY CXX_STANDARD 11)` would add the compiler
+  specific option to restrict compilation to use Standard C++11 features.
+
 == Acknowledgements
 

@@ -471,7 +471,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#_prior_art">3. Prior Art</a></li>
+<li><a href="#_prior_art">3. Prior Art</a>
+<ul class="sectlevel2">
+<li><a href="#_b2_build_system">3.1. <code>B2</code> build system</a></li>
+<li><a href="#_clang_cl">3.2. <code>clang-cl</code></a></li>
+<li><a href="#_cmake_build_system">3.3. Cmake build system</a></li>
+</ul>
+</li>
 <li><a href="#_acknowledgements">4. Acknowledgements</a></li>
 </ul>
 </div>
@@ -1099,7 +1105,56 @@ Compatibility
 <div class="sect1">
 <h2 id="_prior_art"><a class="anchor" href="#_prior_art"></a>3. Prior Art</h2>
 <div class="sectionbody">
-
+<div class="sect2">
+<h3 id="_b2_build_system"><a class="anchor" href="#_b2_build_system"></a>3.1. <code>B2</code> build system</h3>
+<div class="paragraph">
+<p>The <code>B2</code> (aka Boost Build) build system uses the concept of features to
+portably abstract the declaration of compiler options to a portable
+specification. For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>optimization=off</code> would add the compiler specific option to turn off
+any code optimization.</p>
+</li>
+<li>
+<p><code>debug-symbols=on</code> would add the compiler specific option to add source
+level debugging information to the output.</p>
+</li>
+<li>
+<p><code>address-model=64</code> would add compiler specific options to generate
+64-bit addressing only code.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clang_cl"><a class="anchor" href="#_clang_cl"></a>3.2. <code>clang-cl</code></h3>
+<div class="paragraph">
+<p>The Microsoft Visual Studio development environment support using Clang
+as an alternative compiler to their msvc (<code>cl.exe</code>) compiler. In order
+to avoid reflecting the Clang specific options up into the IDE
+Visual Studio implements a compiler front end that translates from
+msvc options to Clang options (<code>clang-cl.exe</code>).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cmake_build_system"><a class="anchor" href="#_cmake_build_system"></a>3.3. Cmake build system</h3>
+<div class="paragraph">
+<p>Like the features of <code>b2</code> modern Cmake also implements a series of
+variables that provide an abstraction to common compiler options.
+For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>set_property(TARGET foo PROPERTY CXX_STANDARD 11)</code> would add the compiler
+specific option to restrict compilation to use Standard C++11 features.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
