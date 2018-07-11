@@ -1097,6 +1097,53 @@ Compatibility
 </table>
 </div>
 </div>
+<div class="sect5">
+<h6 id="_address_model"><a class="anchor" href="#_address_model"></a>address_model</h6>
+<div class="literalblock">
+<div class="content">
+<pre>++address_model=<em>bits</em></pre>
+</div>
+</div>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+Argument
+</td>
+<td class="hdlist2">
+<p>A positive number greater than 0 indicating the number of bits
+to base pointer and number generated instructions on.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Effect
+</td>
+<td class="hdlist2">
+<p>Instructs compilation to generate instructions that conform to an
+implementation defined size of pointers and numbers.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Support
+</td>
+<td class="hdlist2">
+<p>The values accepted are implementation defined. And any not
+understood values shall fail compilation and produce an error.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Compatibility
+</td>
+<td class="hdlist2">
+<p>Link incompatible between any two values.</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
 </div>
 </div>
 </div>

@@ -75,6 +75,11 @@ class cli
         cb->process(v, o);
     }
 
+    void process(int v, void * o)
+    {
+        cb->process(v, o);
+    }
+
     auto command() -> command_builder &
     {
         return *cb;

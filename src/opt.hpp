@@ -170,6 +170,7 @@ class opt<T, K, typename std::enable_if<detail::is_vector<T>::value>::type>
 template<typename K> using opt_flag = opt<bool, K>;
 template<typename K> using opt_string = opt<std::string, K>;
 template<typename K> using opt_strings = opt<std::vector<std::string>, K>;
+template<typename K> using opt_int = opt<int, K>;
 
 }
 

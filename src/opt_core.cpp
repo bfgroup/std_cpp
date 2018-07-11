@@ -13,6 +13,8 @@ core::core() {}
 
 core::core(cli & cli)
 {
+/////////////////////////////////////////////////////////////////////////////
+
 /* tag::std_cpp[]
 
 = help
@@ -163,6 +165,32 @@ Compatibility:: Link compatible between all values.
         ["-O"]["--optimize"]
         ("Specify the level and type of optimizations.")
         >> cli;
+
+/* tag::std_cpp[]
+
+= address_model
+
+[subs=+macros]
+....
+pass:q[++address_model=_bits_]
+....
+
+[horizontal]
+Argument:: A positive number greater than 0 indicating the number of bits
+    to base pointer and number generated instructions on.
+Effect:: Instructs compilation to generate instructions that conform to an
+    implementation defined size of pointers and numbers.
+Support:: The values accepted are implementation defined. And any not
+    understood values shall fail compilation and produce an error.
+Compatibility:: Link incompatible between any two values.
+
+*/ // end::std_cpp[]
+    address_model.hint("address_model")
+        ["--address_model"]
+        ("Addressing model, in bits, to generate instructions for.")
+        >> cli;
+
+/////////////////////////////////////////////////////////////////////////////
 }
 
 } }

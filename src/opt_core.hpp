@@ -27,6 +27,7 @@ struct core
     opt_string<struct standard_key> standard;
     opt_string<struct warnings_key> warnings;
     opt_string<struct optimize_key> optimize;
+    opt_int<struct address_model_key> address_model;
 
     core();
     core(cli & cli);

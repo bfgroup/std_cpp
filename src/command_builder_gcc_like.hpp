@@ -29,6 +29,7 @@ class command_builder_gcc_like : public command_builder
         set_processor(core.standard, &command_builder_gcc_like::process_standard);
         set_processor(core.optimize, &command_builder_gcc_like::process_optimize);
         set_processor(core.warnings, &command_builder_gcc_like::process_warnings);
+        set_processor(core.address_model, &command_builder_gcc_like::process_address_model);
     }
 
     void process_inputs(void * v) { *this << value<std::string>(v); }
@@ -51,6 +52,19 @@ class command_builder_gcc_like : public command_builder
         else if (level == "on") *this << "-O2";
         else if (level == "speed") *this << "-O3";
         else if (level == "size") *this << "-Os";
+    }
+    void process_address_model(void * v)
+    {
+        int bits = value<int>(v);
+        switch (bits)
+        {
+            case 16: *this << "-m16"; break;
+            case 32: *this << "-m32"; break;
+            case 64: *this << "-m64"; break;
+            default:
+            // TODO: Indicate an error.
+            break;
+        }
     }
 };
 

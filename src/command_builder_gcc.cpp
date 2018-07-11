@@ -35,6 +35,7 @@ class command_builder_gcc : public command_builder_gcc_like
 
     void post() override
     {
+        command_builder_gcc_like::post();
         std::string std_opt = "-std=";
         if (cpp_dialect == "gnu") std_opt += "gnu++";
         else std_opt += "c++";
