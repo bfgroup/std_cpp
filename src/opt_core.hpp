@@ -22,6 +22,7 @@ struct core
     /////////////////////////////////////////////////////////////////////////////
 
     opt_string<struct output_key> output;
+    opt_string<struct define_key> define;
     opt_strings<struct include_dir_key> include_dir;
     opt_flag<struct debug_info_key> debug_info;
     opt_string<struct standard_key> standard;

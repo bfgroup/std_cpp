@@ -63,21 +63,28 @@ class opt_base : public opt_type
     template <typename F>
     void reset(F const & f, std::string const & hint)
     {
-        this->clara_opt.reset(new clara::Opt(f, hint));
+        typedef typename clara::detail::UnaryLambdaTraits<F>::ArgType f_arg_type;
+        this->clara_opt.reset(
+            new clara::Opt(
+                [f](f_arg_type arg) -> clara::ParserResult { return f(arg); },
+                hint));
         this->clara_opt->optional();
     }
 
     template <typename F>
     void reset(F const & f)
     {
-        this->clara_opt.reset(new clara::Opt(f));
+        typedef typename clara::detail::UnaryLambdaTraits<F>::ArgType f_arg_type;
+        this->clara_opt.reset(
+            new clara::Opt(
+                [f](f_arg_type arg) -> clara::ParserResult { return f(arg); }));
         this->clara_opt->optional();
     }
 
     template <typename K, typename V>
-    void process(V v, K * k = nullptr)
+    cli::result process(V v, K * k = nullptr)
     {
-        cli->process(v,static_cast<Opt*>(this));
+        return cli->process(v,static_cast<Opt*>(this));
     }
 };
 
@@ -90,9 +97,9 @@ class opt : public opt_base<opt<T, K, Enable>>
 
     auto hint(std::string const & hint) -> opt &
     {
-        this->reset([this](T v) -> void {
+        this->reset([this](T v) -> cli::result {
                 *this->value = v;
-                this->template process<K>(v);
+                return this->template process<K>(v);
             },
             hint
         );
@@ -116,9 +123,9 @@ class opt<T, K, typename std::enable_if<std::is_same<bool, T>::value>::type>
 
     auto flag() -> opt &
     {
-        this->reset([this](T v) -> void {
+        this->reset([this](T v) -> cli::result {
                 *this->value = v;
-                this->template process<K>(v);
+                return this->template process<K>(v);
             }
         );
         return *this;
@@ -151,9 +158,9 @@ class opt<T, K, typename std::enable_if<detail::is_vector<T>::value>::type>
 
     auto hint(std::string const & hint) -> opt &
     {
-        this->reset([this](value_type const & v) -> void {
+        this->reset([this](value_type const & v) -> cli::result {
                 this->value->push_back(v);
-                this->template process<K>(v);
+                return this->template process<K>(v);
             },
             hint
         );

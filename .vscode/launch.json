@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/example/clang-darwin-9.0/debug/address-model-64/architecture-x86/cxxstd-11-iso/std_cpp_gcc",
-            "args": ["++address_model", "32", "empty.cpp"],
+            "args": ["++address_model", "8", "empty.cpp"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/example",
             "environment": [{"Name":"CXX", "Value":"gcc-7"}],

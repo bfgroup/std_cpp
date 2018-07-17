@@ -9,6 +9,7 @@ http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #include <type_traits>
+#include <iostream>
 
 #include "clara.hpp"
 
@@ -33,30 +34,50 @@ class cli
     {
         public:
 
-        template <typename T>
-        result(T const & r) : clara_result(r)
+        result(clara::detail::InternalParseResult const & r)
         {
+            is_error = !bool(r);
+            message = r.errorMessage();
         }
 
-        operator bool() const { return bool(clara_result); }
+        result(command_builder::result const & r)
+        {
+            is_error = r.kind == command_builder::result::error;
+            message = r.message;
+        }
+
+        operator bool() const { return !is_error; }
 
         friend auto operator<<( std::ostream & os, result const & r) -> std::ostream &
         {
-            if (!r.clara_result) os << r.clara_result.errorMessage();
+            if (!r) os << r.message;
             return os;
+        }
+
+        operator clara::ParserResult() const
+        {
+            if (is_error) return clara::ParserResult::runtimeError(message);
+            if (!message.empty())
+            {
+                std::cout << message << "\n";
+            }
+            return clara::ParserResult::ok();
         }
 
         private:
 
-        clara::detail::InternalParseResult clara_result;
+        bool is_error = false;
+        std::string message;
     };
 
     auto parse(int argc, char * * argv) -> result
     {
-        cb->pre();
-        auto r = result(parser.parse(clara::Args(argc, argv), ClaraParserCustomize()));
-        cb->post();
-        return r;
+        auto pre_r = result(cb->pre());
+        if (!pre_r) return pre_r;
+        auto parse_r = result(parser.parse(clara::Args(argc, argv), ClaraParserCustomize()));
+        if (!parse_r) return parse_r;
+        auto post_r = result(cb->post());
+        return post_r;
     }
 
     friend auto operator<<(std::ostream &os, cli const &c) -> std::ostream&
@@ -65,19 +86,19 @@ class cli
         return os;
     }
 
-    void process(bool v, void * o)
+    result process(bool v, void * o)
     {
-        cb->process(v, o);
+        return cb->process(v, o);
     }
 
-    void process(std::string const & v, void * o)
+    result process(std::string const & v, void * o)
     {
-        cb->process(v, o);
+        return cb->process(v, o);
     }
 
-    void process(int v, void * o)
+    result process(int v, void * o)
     {
-        cb->process(v, o);
+        return cb->process(v, o);
     }
 
     auto command() -> command_builder &

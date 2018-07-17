@@ -30,16 +30,17 @@ class command_builder_gcc : public command_builder_gcc_like
         set_processor(vendor_gcc.cpp_dialect, &command_builder_gcc::process_cpp_dialect);
     }
 
-    void process_standard(void * v) { standard = value<std::string>(v); }
-    void process_cpp_dialect(void * v) { cpp_dialect = value<std::string>(v); }
+    result process_standard(void * v) { standard = value<std::string>(v); return result::ok_(); }
+    result process_cpp_dialect(void * v) { cpp_dialect = value<std::string>(v);return result::ok_(); }
 
-    void post() override
+    result post() override
     {
         command_builder_gcc_like::post();
         std::string std_opt = "-std=";
         if (cpp_dialect == "gnu") std_opt += "gnu++";
         else std_opt += "c++";
         if (!standard.empty()) *this << std_opt+standard;
+        return result::ok_();
     }
 };
 

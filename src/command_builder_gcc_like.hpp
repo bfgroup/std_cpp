@@ -32,28 +32,30 @@ class command_builder_gcc_like : public command_builder
         set_processor(core.address_model, &command_builder_gcc_like::process_address_model);
     }
 
-    void process_inputs(void * v) { *this << value<std::string>(v); }
-    void process_output(void * v) { *this << "-o" << value<std::string>(v); }
-    void process_include_dir(void * v) { *this << "-I" << value<std::string>(v); }
-    void process_debug_info(void * v) { if (value<bool>(v)) *this << "-g"; }
-    void process_standard(void * v) { *this << "-std=c++"+value<std::string>(v); }
-    void process_warnings(void * v)
+    result process_inputs(void * v) { *this << value<std::string>(v); return result::ok_(); }
+    result process_output(void * v) { *this << "-o" << value<std::string>(v); return result::ok_(); }
+    result process_include_dir(void * v) { *this << "-I" << value<std::string>(v); return result::ok_(); }
+    result process_debug_info(void * v) { if (value<bool>(v)) *this << "-g"; return result::ok_(); }
+    result process_standard(void * v) { *this << "-std=c++"+value<std::string>(v); return result::ok_(); }
+    result process_warnings(void * v)
     {
         std::string warnings = value<std::string>(v);
         if (warnings == "off") *this << "-w";
         else if (warnings == "on") *this << "-Wall";
         else if (warnings == "all") *this << "-Wall" << "-pedantic";
         if (warnings == "error") *this << "-Werror";
+        return result::ok_();
     }
-    void process_optimize(void * v)
+    result process_optimize(void * v)
     {
         std::string level = value<std::string>(v);
         if (level == "off") *this << "-O0";
         else if (level == "on") *this << "-O2";
         else if (level == "speed") *this << "-O3";
         else if (level == "size") *this << "-Os";
+        return result::ok_();
     }
-    void process_address_model(void * v)
+    result process_address_model(void * v)
     {
         int bits = value<int>(v);
         switch (bits)
@@ -62,9 +64,10 @@ class command_builder_gcc_like : public command_builder
             case 32: *this << "-m32"; break;
             case 64: *this << "-m64"; break;
             default:
-            // TODO: Indicate an error.
+            return result::error_("Invalid address model bit size '"+std::to_string(bits)+"'");
             break;
         }
+        return result::ok_();
     }
 };
 

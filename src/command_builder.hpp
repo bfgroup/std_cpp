@@ -24,19 +24,29 @@ class command_builder
 {
     public:
 
+    struct result
+    {
+        enum { ok, error, warning } kind;
+        std::string message;
+        static inline result ok_() { return result({ok, ""}); }
+        static inline result error_(std::string const & m) { return result({error, m}); }
+        static inline result warning_(std::string const & m) { return result({warning, m}); }
+    };
+
     static std::shared_ptr<command_builder> make();
 
-    virtual void pre() {}
-    virtual void post() {}
+    virtual result pre() { return result::ok_(); }
+    virtual result post() { return result::ok_(); }
 
     template <typename V>
-    void process(V v, void * o)
+    result process(V v, void * o)
     {
         opt_type * ot = static_cast<opt_type*>(o);
         if (this->processor.count(opt_index(*ot)) > 0)
         {
-            this->processor[opt_index(*ot)](*this, *ot, &v);
+            return this->processor[opt_index(*ot)](*this, *ot, &v);
         }
+        return result::ok_();
     }
 
     auto operator<<(std::string const & arg) -> command_builder &
@@ -62,7 +72,7 @@ class command_builder
     protected:
 
     std::vector<std::string> arguments;
-    std::unordered_map<std::type_index, std::function<void (command_builder &, opt_type &, void*)>> processor;
+    std::unordered_map<std::type_index, std::function<result (command_builder &, opt_type &, void*)>> processor;
 
     template <typename F>
     void set_processor(opt_type const & o, F const & f)
@@ -71,10 +81,10 @@ class command_builder
     }
 
     template <typename C>
-    void set_processor(opt_type const & o, void (C::*mf)(void*))
+    void set_processor(opt_type const & o, result (C::*mf)(void*))
     {
         this->processor[opt_index(o)]
-            = [this,mf](command_builder&, opt_type &, void* v) { (static_cast<C*>(this)->*mf)(v); };
+            = [this,mf](command_builder&, opt_type &, void* v)->result { return (static_cast<C*>(this)->*mf)(v); };
     }
 
     template <typename V> constexpr V & value(void * v) const { return *static_cast<V*>(v); }

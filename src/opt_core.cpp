@@ -47,11 +47,36 @@ pass:q[++output=_file_]
 [horizontal]
 Argument:: An implementation defined path to a _file_.
 Effect:: Sets the destination file of the compilation.
+Support:: Required
+Compatibility:: NA
 
 */ // end::std_cpp[]
     output.hint("file")
         ["-o"]["--output"]
         ("Write output to <file>.")
+        >> cli;
+
+/* tag::std_cpp[]
+
+= define
+
+[subs=+macros]
+....
+pass:q[+D _definition_]
+pass:q[++define=_definition_]
+....
+
+[horizontal]
+Argument:: A preprocessor _definition_ of the for `_name_=_value_`
+Effect:: Instructs the preprocessing phase to define the given _name_ symbol
+    to the given _value_, or to `1` if _value_ is not given.
+Support:: Required
+Compatibility:: Source dependent
+
+*/ // end::std_cpp[]
+    define.hint("_definition_")
+        ["-D"]["--definition"]
+        ("Predefine given macro _definition_.")
         >> cli;
 
 /* tag::std_cpp[]
@@ -67,6 +92,8 @@ pass:q[++include-dir=_directory_]
 [horizontal]
 Argument:: An implementation defined path to a _directory_.
 Effect:: Adds the given _directory_ to the end of the search path of the preprocessor.
+Support:: Required
+Compatibility:: NA
 
 */ // end::std_cpp[]
     include_dir.hint("directory")
@@ -84,7 +111,10 @@ Effect:: Adds the given _directory_ to the end of the search path of the preproc
 ....
 
 [horizontal]
+Argument:: None
 Effect:: Adds source-level debug information to the compiled output.
+Support:: Required if supported by the environment.
+Compatibility:: NA
 
 */ // end::std_cpp[]
     debug_info.flag()
