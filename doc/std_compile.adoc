@@ -192,6 +192,32 @@ Libs: ++library_path=${libdir} +lpng12 +lz
 Cflags: +I${includedir}/libpng12
 ----
 
+=== About Linking
+
+When considering this extension the question comes up about the definition of
+generating compiled source files and linking them into a program. The key issue
+is that there is the claim that there is no normative text in the standard
+that defines the process of separate compilation and linking.
+
+My research, with regards to reading the the standard text, is that even though
+the standard does tread a fine line to avoid specifics about the interaction
+of external linkage, compiling, and the resulting program.. There is a definite
+understood specification that one "translates" source code units into separate
+"blobs" that are then "linked" into the final runnable program. Specifically
+section 6.5 ([basic.link]) defines this process with:
+
+  A program consists of one or more translation units (Clause 5) linked
+  together. A translation unit consists of a sequence of declarations.
+
+This proposal doesn't claim to define the compilation and linkage any further
+than is currently defined. The options mandated herein do not specify any
+particular process or mechanisms past the existing specification of program
+and linkage. This proposal does not:
+
+1. Proscribe any particular storage mechanism for source code, translated
+  source code, nor a program.
+2. Proscribe any particular format for translated source code nor program.
+
 == Technical Specification
 
 === Header `<compile>` Synopsis
