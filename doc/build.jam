@@ -7,10 +7,10 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 import asciidoctor ;
 
-html std_compile_D0xxxR0.html : std_compile.adoc ;
+html std_compile_DxxxxR0.html : std_compile.adoc ;
 html std_compile_vendor_gcc_SDxx.html : std_compile_vendor_gcc.adoc ;
 
 install html
-    :   std_compile_D0xxxR0.html
+    :   std_compile_DxxxxR0.html
         std_compile_vendor_gcc_SDxx.html
     :   <location>. ;
