@@ -901,6 +901,68 @@ Effect
 <p>Sets the destination file of the compilation.</p>
 </td>
 </tr>
+<tr>
+<td class="hdlist1">
+Support
+</td>
+<td class="hdlist2">
+<p>Required</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Compatibility
+</td>
+<td class="hdlist2">
+<p>NA</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_define"><a class="anchor" href="#_define"></a>define</h6>
+<div class="literalblock">
+<div class="content">
+<pre>+D <em>definition</em>
+++define=<em>definition</em></pre>
+</div>
+</div>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+Argument
+</td>
+<td class="hdlist2">
+<p>A preprocessor <em>definition</em> of the for <code><em>name</em>=<em>value</em></code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Effect
+</td>
+<td class="hdlist2">
+<p>Instructs the preprocessing phase to define the given <em>name</em> symbol
+to the given <em>value</em>, or to <code>1</code> if <em>value</em> is not given.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Support
+</td>
+<td class="hdlist2">
+<p>Required</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Compatibility
+</td>
+<td class="hdlist2">
+<p>Source dependent</p>
+</td>
+</tr>
 </table>
 </div>
 </div>
@@ -930,6 +992,22 @@ Effect
 <p>Adds the given <em>directory</em> to the end of the search path of the preprocessor.</p>
 </td>
 </tr>
+<tr>
+<td class="hdlist1">
+Support
+</td>
+<td class="hdlist2">
+<p>Required</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Compatibility
+</td>
+<td class="hdlist2">
+<p>NA</p>
+</td>
+</tr>
 </table>
 </div>
 </div>
@@ -945,10 +1023,34 @@ Effect
 <table>
 <tr>
 <td class="hdlist1">
+Argument
+</td>
+<td class="hdlist2">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
 Effect
 </td>
 <td class="hdlist2">
 <p>Adds source-level debug information to the compiled output.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Support
+</td>
+<td class="hdlist2">
+<p>Required if supported by the environment.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Compatibility
+</td>
+<td class="hdlist2">
+<p>NA</p>
 </td>
 </tr>
 </table>

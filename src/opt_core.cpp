@@ -75,7 +75,7 @@ Compatibility:: Source dependent
 
 */ // end::std_cpp[]
     define.hint("_definition_")
-        ["-D"]["--definition"]
+        ["-D"]["--define"]
         ("Predefine given macro _definition_.")
         >> cli;
 

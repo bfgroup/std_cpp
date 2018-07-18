@@ -30,6 +30,7 @@ class command_builder_gcc_like : public command_builder
         set_processor(core.optimize, &command_builder_gcc_like::process_optimize);
         set_processor(core.warnings, &command_builder_gcc_like::process_warnings);
         set_processor(core.address_model, &command_builder_gcc_like::process_address_model);
+        set_processor(core.define, &command_builder_gcc_like::process_define);
     }
 
     result process_inputs(void * v) { *this << value<std::string>(v); return result::ok_(); }
@@ -67,6 +68,16 @@ class command_builder_gcc_like : public command_builder
             return result::error_("Invalid address model bit size '"+std::to_string(bits)+"'");
             break;
         }
+        return result::ok_();
+    }
+    result process_define(void * v)
+    {
+        std::string name_value = value<std::string>(v);
+        if (name_value.find_first_of('=') == std::string::npos)
+        {
+            name_value += "=1";
+        }
+        *this << "-D" << name_value;
         return result::ok_();
     }
 };
