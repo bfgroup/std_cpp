@@ -19,3 +19,8 @@ exe std_cpp_gcc
     :   std_cpp.cpp
         ../build//std_cpp/<link>static/<std_cpp_tool>gcc
     ;
+
+exe std_cpp_msvc
+    :   std_cpp.cpp
+        ../build//std_cpp/<link>static/<std_cpp_tool>msvc
+    ;

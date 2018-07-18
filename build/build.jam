@@ -17,5 +17,6 @@ lib std_cpp
         # clara//libs
     :   <std_cpp_tool>clang:<define>BFG_STD_CPP_CLANG=1
         <std_cpp_tool>gcc:<define>BFG_STD_CPP_GCC=1
+        <std_cpp_tool>msvc:<define>BFG_STD_CPP_MSVC=1
         <include>../src/ext/clara/include
     ;
