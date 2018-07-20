@@ -2,7 +2,7 @@
 :copyright: Copyright 2017-2018 Rene Rivera
 :author: Rene Rivera
 :email: grafikrobot@gmail.com
-:revnumber: D0xxxR0
+:revnumber: DxxxxR0
 :revdate: {docdate}
 :revremark: Initial
 :version-label!: 
@@ -20,6 +20,8 @@
 :tip-caption: ☀
 :warning-caption: ⚠
 :CPP: C++
+:PP: ++
+:P: +
 
 ifdef::backend-html5[]
 ++++
@@ -38,9 +40,9 @@ Audience:: Study Group 15, Library Evolution
 == Introduction
 
 This proposes the addition of an interface for transforming {CPP} source into
-usable binary images. As such it aims to provide a common definition of
-existing compiler frontend tool options for generating programs and libraries
-for translation units.
+usable executable programs. As such it aims to provide a common definition of
+existing compiler frontend tool options for transforming source code to
+translation units and linking those into executable programs.
 
 === Background and Motivation
 
@@ -57,7 +59,8 @@ that passes arguments directly to these interfaces.
 It is also the intent for this proposal to be an initial step in the road
 towards standardizing the tooling around {CPP}. With the goal of having a
 global and consistent tooling ecosystem to facilitate the introduction into
-{CPP} for anyone and to ease the interoperability of future tooling.
+{CPP} for anyone and to ease the interoperability of future tooling like
+package and dependency managers.
 
 === Impact On the Standard
 
@@ -74,7 +77,7 @@ order of importance:
 * Minimize variability in arguments and options.
 * Use common practice option names for familiarity.
 * Do not attempt to specify all possible options as that's not technically
-possible.
+  possible.
 * Specify how, and if, options are compatible with others.
 
 === Design Decisions
@@ -95,11 +98,15 @@ compilation; but at the same time we want to ensure that defined arguments
 are not ignored in favor of vendor only arguments. Hence we specify this
 implementation rule:
 
-When a defined argument option exists a vendor specific argument is *not*
-allowed as an acceptable argument option.
+****
+When a defined argument option exists an equivalent vendor specific argument
+is *not* allowed as an acceptable argument option.
+****
 
 For instance::
-??
+We specify the `{PP}address_model` core option. It would not be allowed for
+a vendor to specify an `{PP}v:xyz:m64` (to specify 64 bit address model) option
+as that would overlap with the core option.
 
 ==== Extension Arguments
 
@@ -108,16 +115,21 @@ standard we need to allow for specification of arguments as quickly as
 possible to facilitate support in tooling.
 
 For instance::
-A vendor release a new version of their compiler to support a new CPU.
+A vendor releases a new version of their compiler to support a new CPU.
 This new CPU is not compatible with an existing CPU and hence packages must
-be recompiled for it. But the next possibility scheduled committee meeting
-that could approve adding that new CPU option is months later.
+be recompiled for it. But the next scheduled committee meeting that could
+approve adding that new CPU option is months later.
 
-==== `+` Option Prefix
+Hence we propose the use _Standing Documents_ for specifying the vendor
+specific options and for the highly volatile option values as needed. Such
+that SG15 could meet and approve changes to those _Standard Documents_
+as needed.
+
+==== `{P}` Option Prefix
 
 Like choosing names for programming language constructs, choosing a prefix
 for the option arguments is a contentious decision. For this we chose to
-use `+` as the prefix, and hence `++` for the long form, for these reasons:
+use `{P}` as the prefix, and hence `{PP}` for the long form, for these reasons:
 
 * It's not used in current compiler tooling and hence avoids confusion with
 existing options.
@@ -128,7 +140,7 @@ existing options.
 
 ==== Use Cases
 
-This facility is designed to facilitate primarily two groups of users:
+This facility is designed to facilitate primarily these groups of users:
 teachers (and their students), and tool creators. For teachers this feature
 would improve, by simplifying, the teaching materials presented to students.
 
@@ -192,6 +204,16 @@ Libs: ++library_path=${libdir} +lpng12 +lz
 Cflags: +I${includedir}/libpng12
 ----
 
+The uses are not limited to the above two groups of users though. This
+facility also opens the door for some users that need to process
+generated source into executable form.
+
+For instance::
+One can have a system that uses database schema definitions to generate {CPP}
+source code to implement that schema, and related queries, in an optimal
+form backed by a custom {CPP} database engine. This would let one do that
+operation in a much simpler and direct method.
+
 === About Linking
 
 When considering this extension the question comes up about the definition of
@@ -206,17 +228,19 @@ understood specification that one "translates" source code units into separate
 "blobs" that are then "linked" into the final runnable program. Specifically
 section 6.5 ([basic.link]) defines this process with:
 
-  A program consists of one or more translation units (Clause 5) linked
-  together. A translation unit consists of a sequence of declarations.
+****
+A _program_ consists of one or more _translation units_ (Clause 5) linked
+together. A translation unit consists of a sequence of declarations.
+****
 
 This proposal doesn't claim to define the compilation and linkage any further
 than is currently defined. The options mandated herein do not specify any
 particular process or mechanisms past the existing specification of program
 and linkage. This proposal does not:
 
-1. Proscribe any particular storage mechanism for source code, translated
+1.Proscribe any particular storage mechanism for source code, translated
   source code, nor a program.
-2. Proscribe any particular format for translated source code nor program.
+2.Proscribe any particular format for translated source code nor program.
 
 == Technical Specification
 
@@ -247,11 +271,11 @@ Returns:: zero (`0`) for success, non-zero (`!= 0`) for an error.
 
 ==== Arguments
 
-The `arguments` specify the set of options and source translation units to
-compile.
+The `arguments` specify the set of options, translation units to transform,
+or transformed translation units to link into a program.
 
 Options, and their values, can be "link incompatible". Wherein translation
-units compiled with differing options or values can not be linked together
+units transformed with differing options or values can not be linked together
 into a program.
 
 ===== Core Options
