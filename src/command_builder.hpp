@@ -90,6 +90,11 @@ class command_builder
     template <typename V> constexpr V & value(void * v) const { return *static_cast<V*>(v); }
 
     static std::type_index opt_index(opt_type const & o);
+
+    static std::string quoted(std::string const & s)
+    {
+        return "\""+s+"\"";
+    }
 };
 
 }

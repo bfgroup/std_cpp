@@ -33,15 +33,59 @@ class command_builder_msvc_like : public command_builder
         set_processor(core.define, &command_builder_msvc_like::process_define);
     }
 
-    result process_inputs(void * v) { *this << value<std::string>(v); return result::ok_(); }
-    result process_output(void * v) { *this << "/O" << value<std::string>(v); return result::ok_(); }
-    result process_include_dir(void * v) { *this << "/I" << value<std::string>(v); return result::ok_(); }
-    result process_debug_info(void * v) { return result::warning_("unimplemented"); }
-    result process_standard(void * v) { return result::warning_("unimplemented"); }
-    result process_warnings(void * v) { return result::warning_("unimplemented"); }
-    result process_optimize(void * v) { return result::warning_("unimplemented"); }
-    result process_address_model(void * v) { return result::warning_("unimplemented"); }
-    result process_define(void * v) { return result::warning_("unimplemented"); }
+    result process_inputs(void * v) { *this << quoted(value<std::string>(v)); return result::ok_(); }
+    result process_output(void * v) { *this << "/O"+quoted(value<std::string>(v)); return result::ok_(); }
+    result process_include_dir(void * v) { *this << "/I"+quoted(value<std::string>(v)); return result::ok_(); }
+    result process_debug_info(void * v) { if (value<bool>(v)) *this << "/Z7" << "/DEBUG"; return result::ok_(); }
+    result process_standard(void * v)
+    {
+        std::string std = value<std::string>(v);
+        if (std == "2a")
+            *this << "/std:c++latest";
+        else
+            *this << "/std=c++"+value<std::string>(v);
+        return result::ok_();
+    }
+    result process_warnings(void * v)
+    {
+        std::string warnings = value<std::string>(v);
+        if (warnings == "off") *this << "/W0";
+        else if (warnings == "on") *this << "/W3";
+        else if (warnings == "all") *this << "/W4";
+        if (warnings == "error") *this << "/WX";
+        return result::ok_();
+    }
+    result process_optimize(void * v)
+    {
+        std::string level = value<std::string>(v);
+        if (level == "off") *this << "/Od";
+        else if (level == "speed") *this << "/O2";
+        else if (level == "size") *this << "/O1";
+        return result::ok_();
+    }
+    result process_address_model(void * v)
+    {
+        int bits = value<int>(v);
+        switch (bits)
+        {
+            case 32: break;
+            case 64: *this << "/favor:blend"; break;
+            default:
+            return result::error_("Invalid address model bit size '"+std::to_string(bits)+"'");
+            break;
+        }
+        return result::ok_();
+    }
+    result process_define(void * v)
+    {
+        std::string name_value = value<std::string>(v);
+        if (name_value.find_first_of('=') == std::string::npos)
+        {
+            name_value += "=1";
+        }
+        *this << quoted("-D"+name_value);
+        return result::ok_();
+    }
 };
 
 }
