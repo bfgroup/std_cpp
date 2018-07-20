@@ -29,7 +29,7 @@ Vendor:: gcc
 Argument:: One of: `iso`, `gnu`.
 Effect:: Instructs compilation to use the given _cpp_dialect_ of
     the C++ language standard for the source TU.
-Compatibility:: Link incompatible between _cpp_dialect_ values.
+Compatibility:: Link incompatible.
 
 */ // end::std_cpp_vendor_gcc[]
     cpp_dialect.hint("cpp_dialect")

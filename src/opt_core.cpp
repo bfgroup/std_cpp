@@ -71,7 +71,7 @@ Argument:: A preprocessor _definition_ of the for `_name_=_value_`
 Effect:: Instructs the preprocessing phase to define the given _name_ symbol
     to the given _value_, or to `1` if _value_ is not given.
 Support:: Required
-Compatibility:: Source dependent
+Compatibility:: NA
 
 */ // end::std_cpp[]
     define.hint("_definition_")
@@ -137,7 +137,7 @@ Argument:: One of: `98`, `03`, `11`, `14`, `17`, or `2a` indicating the year of 
 Effect:: Instructs compilation to use the given _standard_ as the version of
     the C++ language standard for the source TU.
 Support:: The language levels accepted, within the allowed values, is implementation defined.
-Compatibility:: Link incompatible between _standard_ values.
+Compatibility:: Link incompatible.
 
 */ // end::std_cpp[]
     standard.hint("standard")
@@ -164,7 +164,7 @@ Effect:: Instructs compilation to: not report warning (`off`), report a default
     should be considered compilation errors (`errors`).
 Support:: Implementations are only required to have an effect for `off` and
     `on` values. Other unimplemented values must be ignored.
-Compatibility:: Link compatible between all values.
+Compatibility:: Link compatible.
 
 */ // end::std_cpp[]
     warnings.hint("warning_option")
@@ -188,7 +188,7 @@ Effect:: Instructs compilation to optimize the generated code using the
     indicated level and type.
 Support:: Implementations are only required to have an effect for `off` and
     `on` values. Other unimplemented values must be ignored.
-Compatibility:: Link compatible between all values.
+Compatibility:: Link compatible.
 
 */ // end::std_cpp[]
     optimize.hint("optimization_level")
@@ -212,7 +212,7 @@ Effect:: Instructs compilation to generate instructions that conform to an
     implementation defined size of pointers and numbers.
 Support:: The values accepted are implementation defined. And any not
     understood values shall fail compilation and produce an error.
-Compatibility:: Link incompatible between any two values.
+Compatibility:: Link incompatible.
 
 */ // end::std_cpp[]
     address_model.hint("address_model")

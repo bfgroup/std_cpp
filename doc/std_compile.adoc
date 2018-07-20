@@ -274,9 +274,26 @@ Returns:: zero (`0`) for success, non-zero (`!= 0`) for an error.
 The `arguments` specify the set of options, translation units to transform,
 or transformed translation units to link into a program.
 
-Options, and their values, can be "link incompatible". Wherein translation
-units transformed with differing options or values can not be linked together
-into a program.
+Options, and their values, can have _compatibility_ of:
+
+_Link incompatible_::
+Wherein translation units transformed with differing options or values *can not*
+be linked together into a program.
+
+_Link compatible_::
+Wherein translation units transformed with differing options or values *can*
+be linked together into a program.
+
+_Implementation defined_::
+Wherein translation units transformed with differing options or values are
+compatible depending on the particular C++ implementation.
+
+_NA_::
+Wherein the compatibility is not directly impacted by the option or values.
+
+Options that are _link incompatible_ with other options also indicate which other
+options affect compatibility. Otherwise a _link incompatible_ option is only
+incompatible between its different values.
 
 ===== Core Options
 

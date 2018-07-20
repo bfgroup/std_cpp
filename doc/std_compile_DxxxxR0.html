@@ -439,7 +439,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author" class="author">Rene Rivera</span><br>
 <span id="email" class="email"><a href="mailto:grafikrobot@gmail.com">grafikrobot@gmail.com</a></span><br>
 <span id="revnumber"> DxxxxR0,</span>
-<span id="revdate">2018-07-18</span>
+<span id="revdate">2018-07-20</span>
 <br><span id="revremark">Initial</span>
 </div>
 <div id="toc" class="toc2">
@@ -528,7 +528,7 @@ Document number
 Date
 </td>
 <td class="hdlist2">
-<p>2018-07-18</p>
+<p>2018-07-20</p>
 </td>
 </tr>
 <tr>
@@ -913,9 +913,35 @@ Returns
 or transformed translation units to link into a program.</p>
 </div>
 <div class="paragraph">
-<p>Options, and their values, can be "link incompatible". Wherein translation
-units transformed with differing options or values can not be linked together
-into a program.</p>
+<p>Options, and their values, can have <em>compatibility</em> of:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>Link incompatible</em></dt>
+<dd>
+<p>Wherein translation units transformed with differing options or values <strong>can not</strong>
+be linked together into a program.</p>
+</dd>
+<dt class="hdlist1"><em>Link compatible</em></dt>
+<dd>
+<p>Wherein translation units transformed with differing options or values <strong>can</strong>
+be linked together into a program.</p>
+</dd>
+<dt class="hdlist1"><em>Implementation defined</em></dt>
+<dd>
+<p>Wherein translation units transformed with differing options or values are
+compatible depending on the particular C++ implementation.</p>
+</dd>
+<dt class="hdlist1"><em>NA</em></dt>
+<dd>
+<p>Wherein the compatibility is not directly impacted by the option or values.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Options that are <em>link incompatible</em> with other options also indicate which other
+options affect compatibility. Otherwise a <em>link incompatible</em> option is only
+incompatible between its different values.</p>
 </div>
 <div class="sect4">
 <h5 id="_core_options"><a class="anchor" href="#_core_options"></a>Core Options</h5>
@@ -1026,7 +1052,7 @@ Support
 Compatibility
 </td>
 <td class="hdlist2">
-<p>Source dependent</p>
+<p>NA</p>
 </td>
 </tr>
 </table>
@@ -1162,7 +1188,7 @@ Support
 Compatibility
 </td>
 <td class="hdlist2">
-<p>Link incompatible between <em>standard</em> values.</p>
+<p>Link incompatible.</p>
 </td>
 </tr>
 </table>
@@ -1212,7 +1238,7 @@ Support
 Compatibility
 </td>
 <td class="hdlist2">
-<p>Link compatible between all values.</p>
+<p>Link compatible.</p>
 </td>
 </tr>
 </table>
@@ -1259,7 +1285,7 @@ Support
 Compatibility
 </td>
 <td class="hdlist2">
-<p>Link compatible between all values.</p>
+<p>Link compatible.</p>
 </td>
 </tr>
 </table>
@@ -1306,7 +1332,7 @@ understood values shall fail compilation and produce an error.</p>
 Compatibility
 </td>
 <td class="hdlist2">
-<p>Link incompatible between any two values.</p>
+<p>Link incompatible.</p>
 </td>
 </tr>
 </table>
