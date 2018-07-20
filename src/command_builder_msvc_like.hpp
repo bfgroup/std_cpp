@@ -34,16 +34,16 @@ class command_builder_msvc_like : public command_builder
     }
 
     result process_inputs(void * v) { *this << quoted(value<std::string>(v)); return result::ok_(); }
-    result process_output(void * v) { *this << "/O"+quoted(value<std::string>(v)); return result::ok_(); }
-    result process_include_dir(void * v) { *this << "/I"+quoted(value<std::string>(v)); return result::ok_(); }
-    result process_debug_info(void * v) { if (value<bool>(v)) *this << "/Z7" << "/DEBUG"; return result::ok_(); }
+    result process_output(void * v) { *this << "-Fo"+quoted(value<std::string>(v)); return result::ok_(); }
+    result process_include_dir(void * v) { *this << "-I"+quoted(value<std::string>(v)); return result::ok_(); }
+    result process_debug_info(void * v) { if (value<bool>(v)) *this << "-Z7" << "-DEBUG"; return result::ok_(); }
     result process_standard(void * v)
     {
         std::string std = value<std::string>(v);
         if (std == "2a")
-            *this << "/std:c++latest";
+            *this << "-std:c++latest";
         else
-            *this << "/std=c++"+value<std::string>(v);
+            *this << "-std=c++"+value<std::string>(v);
         return result::ok_();
     }
     result process_warnings(void * v)
