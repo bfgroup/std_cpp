@@ -439,7 +439,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author" class="author">Rene Rivera</span><br>
 <span id="email" class="email"><a href="mailto:grafikrobot@gmail.com">grafikrobot@gmail.com</a></span><br>
 <span id="revnumber"> DxxxxR0,</span>
-<span id="revdate">2018-07-20</span>
+<span id="revdate">2018-07-23</span>
 <br><span id="revremark">Initial</span>
 </div>
 <div id="toc" class="toc2">
@@ -453,8 +453,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_design_decisions">1.4. Design Decisions</a>
 <ul class="sectlevel3">
 <li><a href="#_exceptions">1.4.1. Exceptions</a></li>
-<li><a href="#_vendor_arguments">1.4.2. Vendor Arguments</a></li>
-<li><a href="#_extension_arguments">1.4.3. Extension Arguments</a></li>
+<li><a href="#_argument_exclusivity">1.4.2. Argument Exclusivity</a></li>
+<li><a href="#_vendor_arguments">1.4.3. Vendor Arguments</a></li>
 <li><a href="#_option_prefix">1.4.4. <code>+</code> Option Prefix</a></li>
 <li><a href="#_use_cases">1.4.5. Use Cases</a></li>
 </ul>
@@ -477,6 +477,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_b2_build_system">3.1. <code>B2</code> build system</a></li>
 <li><a href="#_clang_cl">3.2. <code>clang-cl</code></a></li>
 <li><a href="#_cmake_build_system">3.3. Cmake build system</a></li>
+<li><a href="#_nvrtc">3.4. NVRTC</a></li>
 </ul>
 </li>
 <li><a href="#_acknowledgements">4. Acknowledgements</a></li>
@@ -528,7 +529,7 @@ Document number
 Date
 </td>
 <td class="hdlist2">
-<p>2018-07-20</p>
+<p>2018-07-23</p>
 </td>
 </tr>
 <tr>
@@ -579,7 +580,14 @@ that passes arguments directly to these interfaces.</p>
 towards standardizing the tooling around C++. With the goal of having a
 global and consistent tooling ecosystem to facilitate the introduction into
 C++ for anyone and to ease the interoperability of future tooling like
-package and dependency managers.</p>
+package and dependency managers by having a single common set of options
+to base solutions on.</p>
+</div>
+<div class="paragraph">
+<p>And finally the uses do not end with that. This facility would also support
+runtime compilation, for example for runtime generated source, and other
+compilation models where the particular execution platform is not know ahead
+of time.</p>
 </div>
 </div>
 <div class="sect2">
@@ -630,7 +638,7 @@ mapped to the return value of <code>main</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_vendor_arguments"><a class="anchor" href="#_vendor_arguments"></a>1.4.2. Vendor Arguments</h4>
+<h4 id="_argument_exclusivity"><a class="anchor" href="#_argument_exclusivity"></a>1.4.2. Argument Exclusivity</h4>
 <div class="paragraph">
 <p>Recognizing that specifying a complete set of argument options is not possible
 we need to provide for a mechanism to pass vendor specific arguments for
@@ -658,7 +666,7 @@ as that would overlap with the core option.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_extension_arguments"><a class="anchor" href="#_extension_arguments"></a>1.4.3. Extension Arguments</h4>
+<h4 id="_vendor_arguments"><a class="anchor" href="#_vendor_arguments"></a>1.4.3. Vendor Arguments</h4>
 <div class="paragraph">
 <p>Given the faster rate at which compilers change with respect to the C++
 standard we need to allow for specification of arguments as quickly as
@@ -678,7 +686,7 @@ approve adding that new CPU option is months later.</p>
 <div class="paragraph">
 <p>Hence we propose the use <em>Standing Documents</em> for specifying the vendor
 specific options and for the highly volatile option values as needed. Such
-that SG15 could meet and approve changes to those <em>Standard Documents</em>
+that SG15 could meet and approve changes to those <em>Standing Documents</em>
 as needed.</p>
 </div>
 </div>
@@ -826,9 +834,9 @@ is that there is the claim that there is no normative text in the standard
 that defines the process of separate compilation and linking.</p>
 </div>
 <div class="paragraph">
-<p>My research, with regards to reading the the standard text, is that even though
-the standard does tread a fine line to avoid specifics about the interaction
-of external linkage, compiling, and the resulting program.. There is a definite
+<p>My research, with regards to reading the standard text, is that even though
+the standard does tread carefully to avoid specifics about the interaction
+of external linkage, compiling, and the resulting program; There is a definite
 understood specification that one "translates" source code units into separate
 "blobs" that are then "linked" into the final runnable program. Specifically
 section 6.5 ([basic.link]) defines this process with:</p>
@@ -851,6 +859,11 @@ and linkage. This proposal does not:</p>
 <p>1.Proscribe any particular storage mechanism for source code, translated
   source code, nor a program.
 2.Proscribe any particular format for translated source code nor program.</p>
+</div>
+<div class="paragraph">
+<p>And hence the specifics of what the results of compiling the translation units
+into linkable outputs and linking those outputs into an executable program
+is entirely implementation defined.</p>
 </div>
 </div>
 </div>
@@ -913,7 +926,7 @@ Returns
 or transformed translation units to link into a program.</p>
 </div>
 <div class="paragraph">
-<p>Options, and their values, can have <em>compatibility</em> of:</p>
+<p>Options, and their values, can have a <em>compatibility</em> of:</p>
 </div>
 <div class="dlist">
 <dl>
@@ -1373,7 +1386,7 @@ level debugging information to the output.</p>
 <div class="sect2">
 <h3 id="_clang_cl"><a class="anchor" href="#_clang_cl"></a>3.2. <code>clang-cl</code></h3>
 <div class="paragraph">
-<p>The Microsoft Visual Studio development environment support using Clang
+<p>The Microsoft Visual Studio development environment supports using Clang
 as an alternative compiler to their msvc (<code>cl.exe</code>) compiler. In order
 to avoid reflecting the Clang specific options up into the IDE
 Visual Studio implements a compiler front end that translates from
@@ -1396,12 +1409,43 @@ specific option to restrict compilation to use Standard C++11 features.</p>
 </ul>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_nvrtc"><a class="anchor" href="#_nvrtc"></a>3.4. NVRTC</h3>
+<div class="paragraph">
+<p>There is an existing example of providing an interface to the compiler:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><a href="https://docs.nvidia.com/cuda/nvrtc/index.html">NVRTC is a runtime
+compilation library for CUDA++</a></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>It provides for a way to take CUDA specific C++ source (as data) and compile
+it to produce a CUDA specific binary executable program. Although not as simple
+of an interface as we are proposing in this extension it&#8217;s very similar in
+approach. Providing for the arguments to control the compile as <code>options</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>nvrtcResult nvrtcCompileProgram ( nvrtcProgram prog, int  numOptions, const char** options )</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_acknowledgements"><a class="anchor" href="#_acknowledgements"></a>4. Acknowledgements</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>Thanks to CppCon 2017 for providing the environment for "arguments" about
+build systems, package managers, and dependency managers that created the
+impetus for this idea.</p>
+</div>
 </div>
 </div>
 </div>
