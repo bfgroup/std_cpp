@@ -252,7 +252,24 @@ And hence the specifics of what the results of compiling the translation units
 into linkable outputs and linking those outputs into an executable program
 is entirely implementation defined.
 
+=== Link Compatibility
+
+This proposal defines a _link compatibility_ for options to make it clear what
+compiled translation units are compatible with each other. This information
+facilitates various use cases:
+
+* It makes it possible for build systems to detect and respond to the
+  compatibility. To either notify the user of the problem, or to create
+  variations that are compatible with your request.
+* It makes it possible for package managers that support pre-compiled binary
+  libraries to detect if the available packages are usable with your program.
+  And possibly adjust to find the particular binary variation that will work
+  for your case.
+
 == Technical Specification
+
+NOTE: This is a *_very rough_* draft of a specification. As such it will
+contain errors and not be written in the most precise manner.
 
 === Header `<compile>` Synopsis
 
@@ -282,7 +299,48 @@ Returns:: zero (`0`) for success, non-zero (`!= 0`) for an error.
 ==== Arguments
 
 The `arguments` specify the set of options, translation units to transform,
-or transformed translation units to link into a program.
+or transformed translation units to link into a program. An argument is either
+an option and option value, or a name of a translation unit source. Options
+start with the `{P}` or `{PP}` option prefix.
+
+===== Long & Short Options
+
+Arguments that start with `{PP}` are _long options_. And arguments that start
+with a single `{P}` are _short options_. _Long options_ are expected to be
+succinct but reasonably human readable names of options. And _short options_
+are expected to be well know one or two character alternatives to the
+_long options_.
+
+===== Core Options
+
+_Core options_ follow this syntax:
+
+[subs="normal"]
+----
+{PP}__name__[=__value__]
+{PP}__name__ [__value__]
+{P}__n__ [__value__]
+----
+
+Where the _value_ for the option may be optional, and may have additional
+syntax constraints, as specified for any particular option.
+
+===== Vendor Options
+
+_Vendor options_ are specified in a vendor specific _standing document_ and
+follow the syntax of:
+
+[subs="normal"]
+----
+{PP}__vendor-key__:__name__[=__value__]
+{PP}__vendor-key__:__name__ [__value__]
+{P}__vendor-key__:__n__ [__value__]
+----
+
+Where the _value_ for the option may be optional, and may have additional
+syntax constraints, as specified for any particular option.
+
+===== Compatibility
 
 Options, and their values, can have a _compatibility_ of:
 
@@ -305,7 +363,7 @@ Options that are _link incompatible_ with other options also indicate which othe
 options affect compatibility. Otherwise a _link incompatible_ option is only
 incompatible between its different values.
 
-===== Core Options
+===== Options
 
 include::../src/opt_core.cpp[leveloffset=+5,tag=std_cpp]
 
