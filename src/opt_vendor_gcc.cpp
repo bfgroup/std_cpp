@@ -21,7 +21,7 @@ vendor_gcc::vendor_gcc(cli & cli)
 
 [subs=+macros]
 ....
-pass:q[++v:gcc:cppdialect=_cpp_dialect_]
+pass:q[++gcc:cppdialect=_cpp_dialect_]
 ....
 
 [horizontal]
@@ -33,7 +33,7 @@ Compatibility:: Link incompatible.
 
 */ // end::std_cpp_vendor_gcc[]
     cpp_dialect.hint("cpp_dialect")
-        ["--v:gcc:cppdialect"]
+        ["--gcc:cppdialect"]
         ("Specify that the input sources are for <cpp_dialect>.")
         >> cli;
 }

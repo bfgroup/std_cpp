@@ -2,7 +2,8 @@
 :copyright: Copyright 2017-2018 Rene Rivera
 :author: Rene Rivera
 :email: grafikrobot@gmail.com
-:revnumber: DxxxxR0
+:docnumber: Dxxxx
+:revnumber: {docnumber}R0
 :revdate: {docdate}
 :revremark: Initial
 :version-label!: 
@@ -32,7 +33,7 @@ include::std.css[]
 endif::[]
 
 [horizontal]
-Document number:: {revnumber}
+Document number:: ISO/IEC/JTC1/SC22/WG21/{revnumber}
 Date:: {revdate}
 Reply-to:: {author}, {email}
 Audience:: Study Group 15, Library Evolution
@@ -316,11 +317,11 @@ _long options_.
 _Core options_ follow this syntax:
 
 [subs="normal"]
-----
+....
 {PP}__name__[=__value__]
 {PP}__name__ [__value__]
 {P}__n__ [__value__]
-----
+....
 
 Where the _value_ for the option may be optional, and may have additional
 syntax constraints, as specified for any particular option.
@@ -331,11 +332,11 @@ _Vendor options_ are specified in a vendor specific _standing document_ and
 follow the syntax of:
 
 [subs="normal"]
-----
+....
 {PP}__vendor-key__:__name__[=__value__]
 {PP}__vendor-key__:__name__ [__value__]
 {P}__vendor-key__:__n__ [__value__]
-----
+....
 
 Where the _value_ for the option may be optional, and may have additional
 syntax constraints, as specified for any particular option.

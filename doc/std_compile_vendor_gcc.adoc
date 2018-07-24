@@ -2,7 +2,8 @@
 :copyright: Copyright 2018 Rene Rivera
 :author: Rene Rivera
 :email: grafikrobot@gmail.com
-:revnumber: SD-NN (D0xxxR0)
+:docnumber: SD-NN
+:revnumber: {docnumber}-R0
 :revdate: {docdate}
 :revremark: Initial
 :version-label!: 
@@ -49,5 +50,5 @@ include::../src/opt_vendor_gcc.cpp[leveloffset=+2,tag=std_cpp_vendor_gcc]
 
 [horizontal]
 Date:: 2018-MM-DD
-Document:: D0xxxR0
+Document:: {docnumber}-R0
 Description:: Initial
