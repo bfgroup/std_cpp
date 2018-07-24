@@ -40,10 +40,10 @@ Audience:: Study Group 15, Library Evolution
 
 == Introduction
 
-This proposes the addition of an interface for transforming {CPP} source into
+This proposes to add an interface for transforming {CPP} source into
 usable executable programs. As such it aims to provide a common definition of
-existing compiler frontend tool options for transforming source code to
-translation units and linking those into executable programs.
+compiler frontend tool options for transforming source code to translation units
+and linking those into executable programs.
 
 === Background and Motivation
 
@@ -64,16 +64,15 @@ global and consistent tooling ecosystem to facilitate the introduction into
 package and dependency managers by having a single common set of options
 to base solutions on.
 
-And finally the uses do not end with that. This facility would also support
-runtime compilation, for example for runtime generated source, and other
-compilation models where the particular execution platform is not know ahead
-of time.
+Additionally this facility would also support runtime compilation, for example
+for runtime generated source, and other compilation models where the particular
+execution platform is not know ahead of time.
 
 === Impact On the Standard
 
 This proposal is a library extension and specification. As such it does not
 proscribe changes to any standard classes or functions. It adds one function
-and some definitions to a new header file, `<compile>`.
+in a new header file, `<compile>`.
 
 === Design Goals
 
