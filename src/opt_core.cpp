@@ -19,6 +19,7 @@ core::core(cli & cli)
 
 = help
 
+[subs=normal]
 ....
 +h
 +?
@@ -38,10 +39,10 @@ Effect:: Displays all available options and exits.
 
 = output
 
-[subs=+macros]
+[subs=normal]
 ....
-pass:q[+o _file_]
-pass:q[++output=_file_]
++o __file__
+++output=__file__
 ....
 
 [horizontal]
@@ -60,10 +61,10 @@ Compatibility:: NA
 
 = define
 
-[subs=+macros]
+[subs=normal]
 ....
-pass:q[+D _definition_]
-pass:q[++define=_definition_]
++D __definition__
+++define=__definition__
 ....
 
 [horizontal]
@@ -83,10 +84,10 @@ Compatibility:: NA
 
 = include directory
 
-[subs=+macros]
+[subs=normal]
 ....
-pass:q[+I _directory_]
-pass:q[++include-dir=_directory_]
++I __directory__
+++include-dir=__directory__
 ....
 
 [horizontal]
@@ -105,6 +106,7 @@ Compatibility:: NA
 
 = debug information
 
+[subs=normal]
 ....
 +g
 ++debug
@@ -126,10 +128,10 @@ Compatibility:: NA
 
 = standard conformance
 
-[subs=+macros]
+[subs=normal]
 ....
-pass:q[+std _standard_]
-pass:q[++standard=_standard_]
++std __standard__
+++standard=__standard__
 ....
 
 [horizontal]
@@ -149,10 +151,10 @@ Compatibility:: Link incompatible.
 
 = warnings
 
-[subs=+macros]
+[subs=normal]
 ....
-pass:q[+W _warning_option_]
-pass:q[++warnings=_warning_option_]
++W __warning_option__
+++warnings=__warning_option__
 ....
 
 [horizontal]
@@ -176,10 +178,10 @@ Compatibility:: Link compatible.
 
 = optimize
 
-[subs=+macros]
+[subs=normal]
 ....
-pass:q[+W _optimization_level_]
-pass:q[++warnings=_optimization_level_]
++W __optimization_level__
+++warnings=__optimization_level__
 ....
 
 [horizontal]
@@ -200,9 +202,9 @@ Compatibility:: Link compatible.
 
 = address_model
 
-[subs=+macros]
+[subs=normal]
 ....
-pass:q[++address_model=_bits_]
+++address_model=__bits__
 ....
 
 [horizontal]

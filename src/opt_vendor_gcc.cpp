@@ -19,9 +19,9 @@ vendor_gcc::vendor_gcc(cli & cli)
 
 = C++ dialect
 
-[subs=+macros]
+[subs=normal]
 ....
-pass:q[++gcc:cppdialect=_cpp_dialect_]
+++gcc:cppdialect=__cpp_dialect__
 ....
 
 [horizontal]
