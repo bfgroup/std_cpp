@@ -30,6 +30,10 @@ struct core
     opt_string<struct optimize_key> optimize;
     opt_int<struct address_model_key> address_model;
 
+    /////////////////////////////////////////////////////////////////////////////
+
+    opt_strings<struct library_key> library;
+
     core();
     core(cli & cli);
 };

@@ -222,6 +222,29 @@ Compatibility:: Link incompatible.
         ("Addressing model, in bits, to generate instructions for.")
         >> cli;
 
+
+/* tag::std_cpp[]
+
+= library
+
+[subs=normal]
+....
++l __library__
+++library=__library__
+....
+
+[horizontal]
+Argument:: An implementation defined name of the _library_.
+Effect:: Adds the given _library_ to the program linking as an already compiled
+    single translation unit, or collection thereof.
+Support:: Required
+Compatibility:: NA
+
+*/ // end::std_cpp[]
+    library.hint("library")
+        ["-l"]["--library"]
+        ("Add <library> to the link as a source of translation units.")
+        >> cli;
 /////////////////////////////////////////////////////////////////////////////
 }
 

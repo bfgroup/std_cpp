@@ -31,6 +31,7 @@ class command_builder_msvc_like : public command_builder
         set_processor(core.warnings, &command_builder_msvc_like::process_warnings);
         set_processor(core.address_model, &command_builder_msvc_like::process_address_model);
         set_processor(core.define, &command_builder_msvc_like::process_define);
+        set_processor(core.library, &command_builder_msvc_like::process_library);
     }
 
     result process_inputs(void * v) { *this << quoted(value<std::string>(v)); return result::ok_(); }
@@ -86,6 +87,7 @@ class command_builder_msvc_like : public command_builder
         *this << quoted("-D"+name_value);
         return result::ok_();
     }
+    result process_library(void * v) { *this << value<std::string>(v)+".lib"; return result::ok_(); }
 };
 
 }
