@@ -36,6 +36,27 @@ Compatibility:: Link incompatible.
         ["--gcc:cppdialect"]
         ("Specify that the input sources are for <cpp_dialect>.")
         >> cli;
+
+/* tag::std_cpp_vendor_gcc[]
+
+= External options
+
+[subs=normal]
+....
+++gcc:options=__file__
+....
+
+[horizontal]
+Vendor:: gcc
+Argument:: Path to a platform dependent file.
+Effect:: Reads additional options from the given _file_.
+Compatibility:: NA
+
+*/ // end::std_cpp_vendor_gcc[]
+    options.hint("file")
+        ["--gcc:options"]
+        ("Read additional options from <file>.")
+        >> cli;
 }
 
 }}

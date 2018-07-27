@@ -17,7 +17,8 @@ namespace bfg_std_cpp { namespace options {
 
 struct vendor_gcc
 {
-    opt_string<struct cpp_dialect_key> cpp_dialect;
+    opt_string<struct vendor_gcc_cpp_dialect_key> cpp_dialect;
+    opt_strings<struct vendor_gcc_options_key> options;
 
     vendor_gcc();
     vendor_gcc(cli & cli);
