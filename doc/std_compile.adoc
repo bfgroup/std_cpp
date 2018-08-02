@@ -148,7 +148,7 @@ use `{P}` as the prefix, and hence `{PP}` for the long form, for these reasons:
 
 This facility is designed to facilitate primarily these groups of users:
 teachers (and their students), and tool creators. For teachers this feature
-would improve, by simplifying, the teaching materials presented to students.
+would improve the teaching materials presented to students.
 
 For instance::
 This is the first code example from a popular {CPP} programming book:
@@ -178,9 +178,9 @@ ____
 +
 But how to run and compile examples is not describe in the entirety of the
 book for good reasons. As it would take a whole chapter onto itself just
-to skim at that subject. With this proposal it would at least be possible
-to give a short explanation of what a compiler invocation would look like.
-The above example could be followed by:
+to skim at that subject given the current state of compiler tools. With this
+proposal it would at least be possible to give a short explanation of what a
+compiler invocation would look like. The above example could be followed by:
 +
 ____
 You can compile the example with this command, substituting a compiler
