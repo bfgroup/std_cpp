@@ -151,7 +151,49 @@ teachers (and their students), and tool creators. For teachers this feature
 would improve, by simplifying, the teaching materials presented to students.
 
 For instance::
-???
+This is the first code example from a popular {CPP} programming book:
++
+[quote, Bjarne Stroustrup, The {CPP} Programming Language Third Edition]
+____
+For example:
+[source]
+----
+#include<iostream>
+
+int main()
+{
+  std::cout << "Hello, new world!\n";
+}
+----
+____
++
+Which is shortly followed by this explanation:
++
+____
+The language used in this book is "`pure {CPP}`" as defined in the {CPP} standard
+[{CPP},1998]. Therefore, the example ought to run on every {CPP} implementation.
+The major program fragments in this book were tried using several {CPP}
+implementations.
+____
++
+But how to run and compile examples is not describe in the entirety of the
+book for good reasons. As it would take a whole chapter onto itself just
+to skim at that subject. With this proposal it would at least be possible
+to give a short explanation of what a compiler invocation would look like.
+The above example could be followed by:
++
+____
+You can compile the example with this command, substituting a compiler
+program of your choice:
+----
+> cpp hello.cpp ++output=hello.exe
+----
+And run it by invoking the resulting program:
+----
+> hello.exe
+Hello, new world!
+----
+____
 
 For tool creators the uses vary depending on the tools in question. They could
 be a build system, like `b2` (aka Boost.Build) that has complicated toolset

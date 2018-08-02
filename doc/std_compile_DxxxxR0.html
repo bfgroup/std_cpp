@@ -439,7 +439,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author" class="author">Rene Rivera</span><br>
 <span id="email" class="email"><a href="mailto:grafikrobot@gmail.com">grafikrobot@gmail.com</a></span><br>
 <span id="revnumber"> DxxxxR0,</span>
-<span id="revdate">2018-07-24</span>
+<span id="revdate">2018-08-01</span>
 <br><span id="revremark">Initial</span>
 </div>
 <div id="toc" class="toc2">
@@ -530,7 +530,7 @@ Document number
 Date
 </td>
 <td class="hdlist2">
-<p>2018-07-24</p>
+<p>2018-08-01</p>
 </td>
 </tr>
 <tr>
@@ -729,7 +729,70 @@ would improve, by simplifying, the teaching materials presented to students.</p>
 <dl>
 <dt class="hdlist1">For instance</dt>
 <dd>
-<p>???</p>
+<p>This is the first code example from a popular C++ programming book:</p>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">#include&lt;iostream&gt;
+
+int main()
+{
+  std::cout &lt;&lt; "Hello, new world!\n";
+}</code></pre>
+</div>
+</div>
+</blockquote>
+<div class="attribution">
+&#8212; Bjarne Stroustrup<br>
+<cite>The C++ Programming Language Third Edition</cite>
+</div>
+</div>
+<div class="paragraph">
+<p>Which is shortly followed by this explanation:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>The language used in this book is &#8220;pure C++&#8221; as defined in the C++ standard
+[C++,1998]. Therefore, the example ought to run on every C++ implementation.
+The major program fragments in this book were tried using several C++
+implementations.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>But how to run and compile examples is not describe in the entirety of the
+book for good reasons. As it would take a whole chapter onto itself just
+to skim at that subject. With this proposal it would at least be possible
+to give a short explanation of what a compiler invocation would look like.
+The above example could be followed by:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>You can compile the example with this command, substituting a compiler
+program of your choice:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&gt; cpp hello.cpp ++output=hello.exe</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And run it by invoking the resulting program:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&gt; hello.exe
+Hello, new world!</pre>
+</div>
+</div>
+</blockquote>
+</div>
 </dd>
 </dl>
 </div>
