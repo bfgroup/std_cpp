@@ -144,6 +144,11 @@ use `{P}` as the prefix, and hence `{PP}` for the long form, for these reasons:
 * Not frequently used as the first character of file names.
 * And finally, it harkens to {CPP} itself.
 
+Regardless of this choice, this is ostensibly a straw-man choice. There are
+valid reasons to choose other prefix (say `-`). And this proposal does not
+hinge on what this prefix is. But do note that the sample implementation does
+use `{P}` and `{PP}`.
+
 ==== Use Cases
 
 This facility is designed to facilitate primarily these groups of users:
