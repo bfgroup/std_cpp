@@ -9,8 +9,23 @@ import asciidoctor ;
 
 html std_compile_DxxxxR0.html : std_compile.adoc ;
 html std_compile_vendor_gcc_SDxx.html : std_compile_vendor_gcc.adoc ;
+html package_ecosystem_plan_Dxxxx_R0.html : PEP.adoc : <flags>"-r asciidoctor-diagram" ;
+make pep-a.svg : package_ecosystem_plan_Dxxxx_R0.html : @locate ;
+make pep-present.svg : package_ecosystem_plan_Dxxxx_R0.html : @locate ;
+make pep-pindex.svg : package_ecosystem_plan_Dxxxx_R0.html : @locate ;
+make pep-interfaces.svg : package_ecosystem_plan_Dxxxx_R0.html : @locate ;
+
+rule locate ( target : source : properties * )
+{
+    LOCATE on $(target) = [ on $(source) return $(LOCATE) ] ;
+}
 
 install html
     :   std_compile_DxxxxR0.html
         std_compile_vendor_gcc_SDxx.html
+        package_ecosystem_plan_Dxxxx_R0.html
+        pep-a.svg
+        pep-present.svg
+        pep-pindex.svg
+        pep-interfaces.svg
     :   <location>. ;
