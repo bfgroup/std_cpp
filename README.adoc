@@ -7,3 +7,4 @@ the C++ standard.
 
 * link:https://rawgit.com/bfgroup/std_cpp/master/doc/std_compile_DxxxxR0.html[Draft standards proposal for `std::compile`]
 * link:https://rawgit.com/bfgroup/std_cpp/master/doc/std_compile_vendor_gcc_SDxx.html[Draft Standing Document Example for GCC vendor compiler.]
+* link:https://rawgit.com/bfgroup/std_cpp/master/doc/package_ecosystem_plan_DxxxxR0.html[Draft standards proposal for package ecosystem plan.]
