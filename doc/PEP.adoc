@@ -297,7 +297,7 @@ In an ideal ecosystem all compilers would use a well known single options API
 that the whole ecosystem would use to interoperate between different
 compilers, build systems, PDMs, and other tools.
 
-The link:https://rawgit.com/bfgroup/std_cpp/master/doc/std_compile_DxxxxR0.html[`std::compile`]
+The link:https://rawgit.com/bfgroup/std_cpp/master/doc/std_compile_Dxxxx_R0.html[`std::compile`]
 proposal (DxxxxR0) covers this topic.
 
 === Build System API
