@@ -180,8 +180,8 @@ Compatibility:: Link compatible.
 
 [subs=normal]
 ....
-+W __optimization_level__
-++warnings=__optimization_level__
++O __optimization_level__
+++optimize=__optimization_level__
 ....
 
 [horizontal]
