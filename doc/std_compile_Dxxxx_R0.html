@@ -468,7 +468,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_header_compile_synopsis">2.1. Header <code>&lt;compile&gt;</code> Synopsis</a></li>
 <li><a href="#_specification">2.2. Specification</a>
 <ul class="sectlevel3">
-<li><a href="#_arguments">2.2.1. Arguments</a></li>
+<li><a href="#_arguments">2.2.1. Arguments</a>
+<ul class="sectlevel4">
+<li><a href="#_long_short_options">2.2.1.1. Long &amp; Short Options</a></li>
+<li><a href="#_core_options">2.2.1.2. Core Options</a></li>
+<li><a href="#_vendor_options">2.2.1.3. Vendor Options</a></li>
+<li><a href="#_compatibility">2.2.1.4. Compatibility</a></li>
+<li><a href="#_options">2.2.1.5. Options</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1033,7 +1041,7 @@ an option and option value, or a name of a translation unit source. Options
 start with the <code>+</code> or <code>++</code> option prefix.</p>
 </div>
 <div class="sect4">
-<h5 id="_long_short_options"><a class="anchor" href="#_long_short_options"></a>Long &amp; Short Options</h5>
+<h5 id="_long_short_options"><a class="anchor" href="#_long_short_options"></a>2.2.1.1. Long &amp; Short Options</h5>
 <div class="paragraph">
 <p>Arguments that start with <code>++</code> are <em>long options</em>. And arguments that start
 with a single <code>+</code> are <em>short options</em>. <em>Long options</em> are expected to be
@@ -1043,7 +1051,7 @@ are expected to be well know one or two character alternatives to the
 </div>
 </div>
 <div class="sect4">
-<h5 id="_core_options"><a class="anchor" href="#_core_options"></a>Core Options</h5>
+<h5 id="_core_options"><a class="anchor" href="#_core_options"></a>2.2.1.2. Core Options</h5>
 <div class="paragraph">
 <p><em>Core options</em> follow this syntax:</p>
 </div>
@@ -1060,7 +1068,7 @@ syntax constraints, as specified for any particular option.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_vendor_options"><a class="anchor" href="#_vendor_options"></a>Vendor Options</h5>
+<h5 id="_vendor_options"><a class="anchor" href="#_vendor_options"></a>2.2.1.3. Vendor Options</h5>
 <div class="paragraph">
 <p><em>Vendor options</em> are specified in a vendor specific <em>standing document</em> and
 follow the syntax of:</p>
@@ -1078,7 +1086,7 @@ syntax constraints, as specified for any particular option.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_compatibility"><a class="anchor" href="#_compatibility"></a>Compatibility</h5>
+<h5 id="_compatibility"><a class="anchor" href="#_compatibility"></a>2.2.1.4. Compatibility</h5>
 <div class="paragraph">
 <p>Options, and their values, can have a <em>compatibility</em> of:</p>
 </div>
@@ -1112,9 +1120,9 @@ incompatible between its different values.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_options"><a class="anchor" href="#_options"></a>Options</h5>
+<h5 id="_options"><a class="anchor" href="#_options"></a>2.2.1.5. Options</h5>
 <div class="sect5">
-<h6 id="_help"><a class="anchor" href="#_help"></a>help</h6>
+<h6 id="_help"><a class="anchor" href="#_help"></a>2.2.1.5.1. help</h6>
 <div class="literalblock">
 <div class="content">
 <pre>+h
@@ -1136,7 +1144,7 @@ Effect
 </div>
 </div>
 <div class="sect5">
-<h6 id="_output"><a class="anchor" href="#_output"></a>output</h6>
+<h6 id="_output"><a class="anchor" href="#_output"></a>2.2.1.5.2. output</h6>
 <div class="literalblock">
 <div class="content">
 <pre>+o <em>file</em>
@@ -1181,7 +1189,7 @@ Compatibility
 </div>
 </div>
 <div class="sect5">
-<h6 id="_define"><a class="anchor" href="#_define"></a>define</h6>
+<h6 id="_define"><a class="anchor" href="#_define"></a>2.2.1.5.3. define</h6>
 <div class="literalblock">
 <div class="content">
 <pre>+D <em>definition</em>
@@ -1227,7 +1235,7 @@ Compatibility
 </div>
 </div>
 <div class="sect5">
-<h6 id="_include_directory"><a class="anchor" href="#_include_directory"></a>include directory</h6>
+<h6 id="_include_directory"><a class="anchor" href="#_include_directory"></a>2.2.1.5.4. include directory</h6>
 <div class="literalblock">
 <div class="content">
 <pre>+I <em>directory</em>
@@ -1272,7 +1280,7 @@ Compatibility
 </div>
 </div>
 <div class="sect5">
-<h6 id="_debug_information"><a class="anchor" href="#_debug_information"></a>debug information</h6>
+<h6 id="_debug_information"><a class="anchor" href="#_debug_information"></a>2.2.1.5.5. debug information</h6>
 <div class="literalblock">
 <div class="content">
 <pre>+g
@@ -1317,7 +1325,7 @@ Compatibility
 </div>
 </div>
 <div class="sect5">
-<h6 id="_standard_conformance"><a class="anchor" href="#_standard_conformance"></a>standard conformance</h6>
+<h6 id="_standard_conformance"><a class="anchor" href="#_standard_conformance"></a>2.2.1.5.6. standard conformance</h6>
 <div class="literalblock">
 <div class="content">
 <pre>+std <em>standard</em>
@@ -1363,7 +1371,7 @@ Compatibility
 </div>
 </div>
 <div class="sect5">
-<h6 id="_warnings"><a class="anchor" href="#_warnings"></a>warnings</h6>
+<h6 id="_warnings"><a class="anchor" href="#_warnings"></a>2.2.1.5.7. warnings</h6>
 <div class="literalblock">
 <div class="content">
 <pre>+W <em>warning_option</em>
@@ -1413,7 +1421,7 @@ Compatibility
 </div>
 </div>
 <div class="sect5">
-<h6 id="_optimize"><a class="anchor" href="#_optimize"></a>optimize</h6>
+<h6 id="_optimize"><a class="anchor" href="#_optimize"></a>2.2.1.5.8. optimize</h6>
 <div class="literalblock">
 <div class="content">
 <pre>+W <em>optimization_level</em>
@@ -1460,7 +1468,7 @@ Compatibility
 </div>
 </div>
 <div class="sect5">
-<h6 id="_address_model"><a class="anchor" href="#_address_model"></a>address_model</h6>
+<h6 id="_address_model"><a class="anchor" href="#_address_model"></a>2.2.1.5.9. address_model</h6>
 <div class="literalblock">
 <div class="content">
 <pre>++address_model=<em>bits</em></pre>
@@ -1507,7 +1515,7 @@ Compatibility
 </div>
 </div>
 <div class="sect5">
-<h6 id="_library"><a class="anchor" href="#_library"></a>library</h6>
+<h6 id="_library"><a class="anchor" href="#_library"></a>2.2.1.5.10. library</h6>
 <div class="literalblock">
 <div class="content">
 <pre>+l <em>library</em>

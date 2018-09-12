@@ -11,10 +11,11 @@
 :nofooter:
 :sectanchors:
 :sectnums:
+:sectnumlevels: 5
 :source-highlighter: highlightjs
 :source-language: c++
 :toc: left
-:toclevels: 3
+:toclevels: 4
 :caution-caption: ⚑
 :important-caption: ‼
 :note-caption: ℹ
