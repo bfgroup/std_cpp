@@ -55,6 +55,24 @@ class opt_base : public opt_type
         return std::type_index(typeid(Opt));
     }
 
+    auto cardinality(int n) -> Opt &
+    {
+        (*clara_opt).cardinality(n);
+        return static_cast<Opt&>(*this);
+    }
+
+    auto cardinality(int n, int m) -> Opt &
+    {
+        (*clara_opt).cardinality(n,m);
+        return static_cast<Opt&>(*this);
+    }
+
+    auto many() -> Opt &
+    {
+        (*clara_opt).cardinality(0);
+        return static_cast<Opt&>(*this);
+    }
+
     protected:
 
     std::unique_ptr<clara::Opt> clara_opt;

@@ -34,6 +34,7 @@ class inputs : public opt_type
             },
             "inputs"
         ));
+        clara_arg->cardinality(0);
     }
 
     std::vector<std::string> const & get() const

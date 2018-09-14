@@ -75,7 +75,7 @@ Support:: Required
 Compatibility:: NA
 
 */ // end::std_cpp[]
-    define.hint("_definition_")
+    define.hint("_definition_").many()
         ["-D"]["--define"]
         ("Predefine given macro _definition_.")
         >> cli;
@@ -97,7 +97,7 @@ Support:: Required
 Compatibility:: NA
 
 */ // end::std_cpp[]
-    include_dir.hint("directory")
+    include_dir.hint("directory").many()
         ["-I"]["--include-dir"]
         ("Add <directory> to the main include path of the preprocessor.")
         >> cli;
@@ -241,7 +241,7 @@ Support:: Required
 Compatibility:: NA
 
 */ // end::std_cpp[]
-    library.hint("library")
+    library.hint("library").many()
         ["-l"]["--library"]
         ("Add <library> to the link as a source of translation units.")
         >> cli;
