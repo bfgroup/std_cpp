@@ -5,6 +5,6 @@ usable binary images. As such it also is a vehicle for proving the viability
 and fitness of a C++ Language standard proposal to add such an interface to
 the C++ standard.
 
-* link:https://rawgit.com/bfgroup/std_cpp/master/doc/std_compile_Dxxxx_R0.html[Draft standards proposal for `std::compile`]
+* link:https://rawgit.com/bfgroup/std_cpp/master/doc/package_ecosystem_plan_D1177R0.html[Draft standards proposal for package ecosystem plan.]
+* link:https://rawgit.com/bfgroup/std_cpp/master/doc/std_compile_D1178R0.html[Draft standards proposal for `std::compile`]
 * link:https://rawgit.com/bfgroup/std_cpp/master/doc/std_compile_vendor_gcc_SDxx.html[Draft Standing Document Example for GCC vendor compiler.]
-* link:https://rawgit.com/bfgroup/std_cpp/master/doc/package_ecosystem_plan_Dxxxx_R0.html[Draft standards proposal for package ecosystem plan.]
