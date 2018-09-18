@@ -307,7 +307,7 @@ build requirements.
 
 === PDM API
 
-_Goal_: Define standard interfaces to control and communicate with PDMs to
+_Goal_:: Define standard interfaces to control and communicate with PDMs to
 both consume and produce packages.
 
 ==== Package Dependency
