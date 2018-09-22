@@ -1,6 +1,5 @@
 [requires]
-b2gen/[>0]@bfgroup/testing
 boost_predef/[>=1.66.0]@bincrafters/stable
 
 [generators]
-b2gen
+b2
