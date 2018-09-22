@@ -46,7 +46,7 @@ class opt_base : public opt_type
 
     auto operator>>(cli & c) -> class cli &
     {
-        cli = &c;
+        cli_ref = &c;
         return (c |= *clara_opt);
     }
 
@@ -76,7 +76,7 @@ class opt_base : public opt_type
     protected:
 
     std::unique_ptr<clara::Opt> clara_opt;
-    cli * cli = nullptr;
+    cli * cli_ref = nullptr;
 
     template <typename F>
     void reset(F const & f, std::string const & hint)
@@ -102,7 +102,7 @@ class opt_base : public opt_type
     template <typename K, typename V>
     cli::result process(V v, K * k = nullptr)
     {
-        return cli->process(v,static_cast<Opt*>(this));
+        return cli_ref->process(v,static_cast<Opt*>(this));
     }
 };
 

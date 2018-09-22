@@ -30,7 +30,7 @@ class inputs : public opt_type
         clara_arg.reset(new clara::Arg(
             [this](std::string const & v) {
                 this->value.push_back(v);
-                this->cli->process(v, this);
+                this->cli_ref->process(v, this);
             },
             "inputs"
         ));
@@ -44,7 +44,7 @@ class inputs : public opt_type
 
     auto operator>>(cli & c) -> class cli &
     {
-        cli = &c;
+        cli_ref = &c;
         return (c |= *clara_arg);
     }
 
@@ -57,7 +57,7 @@ class inputs : public opt_type
 
     std::vector<std::string> value;
     std::unique_ptr<clara::Arg> clara_arg;
-    cli * cli = nullptr;
+    cli * cli_ref = nullptr;
 };
 
 }
