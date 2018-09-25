@@ -439,7 +439,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author" class="author">Rene Rivera</span><br>
 <span id="email" class="email"><a href="mailto:grafikrobot@gmail.com">grafikrobot@gmail.com</a></span><br>
 <span id="revnumber"> D1177R0,</span>
-<span id="revdate">2018-09-18</span>
+<span id="revdate">2018-09-24</span>
 <br><span id="revremark">Initial</span>
 </div>
 <div id="toc" class="toc2">
@@ -447,38 +447,39 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#_abstract">1. Abstract</a></li>
 <li><a href="#_introduction">2. Introduction</a></li>
-<li><a href="#_current_landscape">3. Current Landscape</a></li>
-<li><a href="#_the_future">4. The Future</a>
+<li><a href="#_definitions">3. Definitions</a></li>
+<li><a href="#_current_landscape">4. Current Landscape</a></li>
+<li><a href="#_the_future">5. The Future</a>
 <ul class="sectlevel2">
-<li><a href="#_package_index">4.1. Package Index</a></li>
-<li><a href="#_interfaces">4.2. Interfaces</a></li>
+<li><a href="#_package_index">5.1. Package Index</a></li>
+<li><a href="#_interfaces">5.2. Interfaces</a></li>
 </ul>
 </li>
-<li><a href="#_plan">5. Plan</a>
+<li><a href="#_plan">6. Plan</a>
 <ul class="sectlevel2">
-<li><a href="#_compiler_api">5.1. Compiler API</a>
+<li><a href="#_compiler_api">6.1. Compiler API</a>
 <ul class="sectlevel3">
-<li><a href="#_standard_options">5.1.1. Standard Options</a></li>
+<li><a href="#_standard_options">6.1.1. Standard Options</a></li>
 </ul>
 </li>
-<li><a href="#_build_system_api">5.2. Build System API</a></li>
-<li><a href="#_pdm_api">5.3. PDM API</a>
+<li><a href="#_build_system_api">6.2. Build System API</a></li>
+<li><a href="#_pdm_api">6.3. PDM API</a>
 <ul class="sectlevel3">
-<li><a href="#_package_dependency">5.3.1. Package Dependency</a></li>
-<li><a href="#_packages_description">5.3.2. Packages Description</a></li>
-<li><a href="#_universal_package_identifier">5.3.3. Universal Package Identifier</a></li>
+<li><a href="#_package_dependency">6.3.1. Package Dependency</a></li>
+<li><a href="#_packages_description">6.3.2. Packages Description</a></li>
+<li><a href="#_universal_package_identifier">6.3.3. Universal Package Identifier</a></li>
 </ul>
 </li>
-<li><a href="#_package_index_api">5.4. Package Index API</a>
+<li><a href="#_package_index_api">6.4. Package Index API</a>
 <ul class="sectlevel3">
-<li><a href="#_package_query">5.4.1. Package Query</a></li>
-<li><a href="#_package_list">5.4.2. Package List</a></li>
+<li><a href="#_package_query">6.4.1. Package Query</a></li>
+<li><a href="#_package_list">6.4.2. Package List</a></li>
 </ul>
 </li>
-<li><a href="#_package_index_authority">5.5. Package Index Authority</a></li>
+<li><a href="#_package_index_authority">6.5. Package Index Authority</a></li>
 </ul>
 </li>
-<li><a href="#_acknowledgements">6. Acknowledgements</a></li>
+<li><a href="#_acknowledgements">7. Acknowledgements</a></li>
 </ul>
 </div>
 </div>
@@ -527,7 +528,7 @@ Document number
 Date
 </td>
 <td class="hdlist2">
-<p>2018-09-18</p>
+<p>2018-09-24</p>
 </td>
 </tr>
 <tr>
@@ -588,7 +589,53 @@ dependency manager, package manager, nor packages.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_current_landscape"><a class="anchor" href="#_current_landscape"></a>3. Current Landscape</h2>
+<h2 id="_definitions"><a class="anchor" href="#_definitions"></a>3. Definitions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Some of the terms used herein have historically varied meanings. In this paper
+here are what we intend when we refer to the terms.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Library</dt>
+<dd>
+<p>The group of code, compiled or as source, that you use directly. For
+example: libz, Boost MP11, and QtCore.</p>
+</dd>
+<dt class="hdlist1">Package</dt>
+<dd>
+<p>An object that defines, and possibly implements, everything a user needs
+to use a library in your project. It can be a combination of some or all of:
+source for a library, pre-built binaries for a library, instructions for
+building the library, instructions for downloading binaries, enumeration of
+dependencies of the library.</p>
+</dd>
+<dt class="hdlist1">Dependency Manager</dt>
+<dd>
+<p>Controls how the use of libraries in your project correlates to
+corresponding packages that provide those libraries to you project and how to
+arrange those packages libraries to make them usable by your project.</p>
+</dd>
+<dt class="hdlist1">Package Manager</dt>
+<dd>
+<p>Takes references to packages your project wants and delivers them such that
+the dependency manager can instruct your project to use those packages. This
+can include downloading from a non-local resource and building for the use
+case of your project.</p>
+</dd>
+<dt class="hdlist1">Package and Dependency Manager</dt>
+<dd>
+<p>It is common, because of the close dependence between them, to combine both
+the dependency manager and the package manager. In this paper this is the
+form which we consider as it simplifies the discussion and is the form
+generally found in the wild.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_current_landscape"><a class="anchor" href="#_current_landscape"></a>4. Current Landscape</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>At this time we have three key components to our package ecosystem:</p>
@@ -624,10 +671,10 @@ including source files.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_the_future"><a class="anchor" href="#_the_future"></a>4. The Future</h2>
+<h2 id="_the_future"><a class="anchor" href="#_the_future"></a>5. The Future</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_package_index"><a class="anchor" href="#_package_index"></a>4.1. Package Index</h3>
+<h3 id="_package_index"><a class="anchor" href="#_package_index"></a>5.1. Package Index</h3>
 <div class="paragraph">
 <p>One key problem with the current situation is that users consume packages
 from a restricted universe. When you decide to use PDM <em>A</em> you also decide
@@ -656,7 +703,7 @@ hopefully with minimal effort.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interfaces"><a class="anchor" href="#_interfaces"></a>4.2. Interfaces</h3>
+<h3 id="_interfaces"><a class="anchor" href="#_interfaces"></a>5.2. Interfaces</h3>
 <div class="paragraph">
 <p>There is one glaring problem with the above future structure: Users are now
 not only dealing with how to interact with multiple compilers and build
@@ -775,7 +822,7 @@ standard and interchangeable manner:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_plan"><a class="anchor" href="#_plan"></a>5. Plan</h2>
+<h2 id="_plan"><a class="anchor" href="#_plan"></a>6. Plan</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Note that this is a simplified view of the breadth of what such interfaces would
@@ -784,7 +831,7 @@ Proposals for the individual components would be sufficiently detailed to handle
 the varied use cases of the tools ecosystem as a whole.</p>
 </div>
 <div class="sect2">
-<h3 id="_compiler_api"><a class="anchor" href="#_compiler_api"></a>5.1. Compiler API</h3>
+<h3 id="_compiler_api"><a class="anchor" href="#_compiler_api"></a>6.1. Compiler API</h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>Goal</em></dt>
@@ -799,7 +846,7 @@ to produce data required for build systems, PDMs, source editors, and so on.</p>
 to expand over time to address the various needs of the tools that need it.</p>
 </div>
 <div class="sect3">
-<h4 id="_standard_options"><a class="anchor" href="#_standard_options"></a>5.1.1. Standard Options</h4>
+<h4 id="_standard_options"><a class="anchor" href="#_standard_options"></a>6.1.1. Standard Options</h4>
 <div class="paragraph">
 <p>Currently build tools, and users, need to deal with a differing set of APIs
 to communicate with compilers. This makes it difficult to define consistent
@@ -818,7 +865,7 @@ proposal (D1177R0) covers this topic.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_build_system_api"><a class="anchor" href="#_build_system_api"></a>5.2. Build System API</h3>
+<h3 id="_build_system_api"><a class="anchor" href="#_build_system_api"></a>6.2. Build System API</h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>Goal</em></dt>
@@ -830,7 +877,7 @@ build requirements.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_pdm_api"><a class="anchor" href="#_pdm_api"></a>5.3. PDM API</h3>
+<h3 id="_pdm_api"><a class="anchor" href="#_pdm_api"></a>6.3. PDM API</h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>Goal</em></dt>
@@ -841,7 +888,7 @@ both consume and produce packages.</p>
 </dl>
 </div>
 <div class="sect3">
-<h4 id="_package_dependency"><a class="anchor" href="#_package_dependency"></a>5.3.1. Package Dependency</h4>
+<h4 id="_package_dependency"><a class="anchor" href="#_package_dependency"></a>6.3.1. Package Dependency</h4>
 <div class="paragraph">
 <p>Currently when using a PDM one uses a package reference particular to that
 PDM to indicate your dependency on a package. This makes using different
@@ -856,7 +903,7 @@ entire collection of packages to users.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_packages_description"><a class="anchor" href="#_packages_description"></a>5.3.2. Packages Description</h4>
+<h4 id="_packages_description"><a class="anchor" href="#_packages_description"></a>6.3.2. Packages Description</h4>
 <div class="paragraph">
 <p>Like with the package dependency, we currently use different ways of describing
 the packages we need for any particular build of our software depending on the
@@ -876,7 +923,7 @@ it could even allow use of multiple PDMs simultaneously if such a need arrises.<
 </div>
 </div>
 <div class="sect3">
-<h4 id="_universal_package_identifier"><a class="anchor" href="#_universal_package_identifier"></a>5.3.3. Universal Package Identifier</h4>
+<h4 id="_universal_package_identifier"><a class="anchor" href="#_universal_package_identifier"></a>6.3.3. Universal Package Identifier</h4>
 <div class="paragraph">
 <p>To be able to support interchangeability between different PDMs we can&#8217;t be
 tied to their individual package references. We need a single universal package
@@ -885,7 +932,7 @@ identifier (UPID) to use in our projects that can refer to the components.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_package_index_api"><a class="anchor" href="#_package_index_api"></a>5.4. Package Index API</h3>
+<h3 id="_package_index_api"><a class="anchor" href="#_package_index_api"></a>6.4. Package Index API</h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>Goal</em></dt>
@@ -896,7 +943,7 @@ PDMs, and users.</p>
 </dl>
 </div>
 <div class="sect3">
-<h4 id="_package_query"><a class="anchor" href="#_package_query"></a>5.4.1. Package Query</h4>
+<h4 id="_package_query"><a class="anchor" href="#_package_query"></a>6.4.1. Package Query</h4>
 <div class="paragraph">
 <p>Having a package index is no good without a consistent way of asking for
 packages. A standard package query that tools can use to interrogate
@@ -905,7 +952,7 @@ index.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_package_list"><a class="anchor" href="#_package_list"></a>5.4.2. Package List</h4>
+<h4 id="_package_list"><a class="anchor" href="#_package_list"></a>6.4.2. Package List</h4>
 <div class="paragraph">
 <p>At minimum a package index needs to respond to queries with the set of
 packages available. The package list defines a standard response to that
@@ -914,7 +961,7 @@ query.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_package_index_authority"><a class="anchor" href="#_package_index_authority"></a>5.5. Package Index Authority</h3>
+<h3 id="_package_index_authority"><a class="anchor" href="#_package_index_authority"></a>6.5. Package Index Authority</h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>Goal</em></dt>
@@ -938,7 +985,7 @@ designation of who is the universal package index authority.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_acknowledgements"><a class="anchor" href="#_acknowledgements"></a>6. Acknowledgements</h2>
+<h2 id="_acknowledgements"><a class="anchor" href="#_acknowledgements"></a>7. Acknowledgements</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Thanks to CppCon 2017 for providing the environment for "arguments" about
