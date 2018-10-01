@@ -115,23 +115,6 @@ We specify the `{PP}address_model` core option. It would not be allowed for
 a vendor to specify an `{PP}v:xyz:m64` (to specify 64 bit address model) option
 as that would overlap with the core option.
 
-==== Vendor Arguments
-
-Given the faster rate at which compilers change with respect to the {CPP}
-standard we need to allow for specification of arguments as quickly as
-possible to facilitate support in tooling.
-
-For instance::
-A vendor releases a new version of their compiler to support a new CPU.
-This new CPU is not compatible with an existing CPU and hence packages must
-be recompiled for it. But the next scheduled committee meeting that could
-approve adding that new CPU option is months later.
-
-Hence we propose the use _Standing Documents_ for specifying the vendor
-specific options and for the highly volatile option values as needed. Such
-that SG15 could meet and approve changes to those _Standing Documents_
-as needed.
-
 ==== `{P}` Option Prefix
 
 Like choosing names for programming language constructs, choosing a prefix
@@ -314,10 +297,52 @@ facilitates various use cases:
   And possibly adjust to find the particular binary variation that will work
   for your case.
 
+== Argument Specifications
+
+=== Core Arguments
+
+Core arguments encompass those that are globally available in all compilers.
+Their specification needs to be done through a mechanism that requires compiler
+vendors to implement them to be able to attain a minimal usable API. At this
+time the available method for achieving this is to include the specification
+of core arguments in the _International Standard_. Which is what we propose
+herein with the `std::compile` function.
+
+Requirements for core arguments::
++
+* Implementable by many compilers.
+* Already in wide use.
+* Experiential knowledge of behavior as a _vendor argument_.
+* Have a meaningful, but brief, long form name.
+
+=== Experimental Arguments
+
+=== Vendor Arguments
+
+Given the faster rate at which compilers change with respect to the {CPP}
+standard we need to allow for specification of arguments as quickly as
+possible to facilitate support in tooling.
+
+For instance::
+A vendor releases a new version of their compiler to support a new CPU.
+This new CPU is not compatible with an existing CPU and hence packages must
+be recompiled for it. But the next scheduled committee meeting that could
+approve adding that new CPU option is months later.
+
+Hence we propose the use _Standing Documents_ for specifying the vendor
+specific options and for the highly volatile option values as needed. Such
+that SG15 could meet and approve changes to those _Standing Documents_
+as needed in a timely matter.
+
 == Technical Specification
 
 NOTE: This is a *_very rough_* draft of a specification. As such it will
 contain errors and not be written in the most precise manner.
+
+WARNING: This is also a currently limited and incomplete specification.
+Future revisions will grow the set of core and vendor options. The current
+options where chosen as a minimal working set to create working programs with
+minimal compilation complexity.
 
 === Header `<compile>` Synopsis
 
@@ -325,6 +350,7 @@ contain errors and not be written in the most precise manner.
 namespace std
 {
   int compile(int, char * *) noexcept;
+  int compile(vector<string>) noexcept;
 }
 ----
 
@@ -341,6 +367,24 @@ program executable. And `arguments[1..argument_count)` are either either
 options or names of source files.
 
 Effect:: Executes the compilation according to the given `arguments`.
+Implementations should indicate an error if the functionality is not
+available.
+
+Returns:: zero (`0`) for success, non-zero (`!= 0`) for an error.
+
+----
+int compile(vector<string> arguments) noexcept;
+----
+
+[horizontal]
+
+Requires:: `!arguments.empty()`, where `arguments[0]` is the name of the
+program executable. And `arguments[1..N)` are either either
+options or names of source files.
+
+Effect:: Executes the compilation according to the given `arguments`.
+Implementations should indicate an error if the functionality is not
+available.
 
 Returns:: zero (`0`) for success, non-zero (`!= 0`) for an error.
 
@@ -372,6 +416,10 @@ _Core options_ follow this syntax:
 
 Where the _value_ for the option may be optional, and may have additional
 syntax constraints, as specified for any particular option.
+
+===== Experimental Options
+
+_Experimental options_ follow the same syntax as _core options_.
 
 ===== Vendor Options
 
