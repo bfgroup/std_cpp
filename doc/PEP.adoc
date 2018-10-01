@@ -65,6 +65,19 @@ manner.
 This paper *does not* propose to create a single standard build system,
 dependency manager, package manager, nor packages.
 
+== Definitions
+
+Library:: The group of code, compiled or as source, that you use directly. For
+example: libz, Boost MP11, and QtCore.
+
+Package::
+
+Package Manager::
+
+Dependency Manager::
+
+Package and Dependency Manager::
+
 == Current Landscape
 
 At this time we have three key components to our package ecosystem:
