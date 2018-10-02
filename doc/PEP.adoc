@@ -84,7 +84,7 @@ dependencies of the library.
 Dependency Manager::
 Controls how the use of libraries in your project correlates to
 corresponding packages that provide those libraries to you project and how to
-arrange those packages libraries to make them usable by your project.
+arrange those package libraries to make them usable by your project.
 
 Package Manager::
 Takes references to packages your project wants and delivers them such that
@@ -331,7 +331,7 @@ that the whole ecosystem would use to interoperate between different
 compilers, build systems, PDMs, and other tools.
 
 The link:https://rawgit.com/bfgroup/std_cpp/master/doc/std_compile_D1178R0.html[`std::compile`]
-proposal (D1177R0) covers this topic.
+proposal (D1178R0) covers this topic.
 
 === Build System API
 
@@ -415,3 +415,6 @@ designation of who is the universal package index authority.
 Thanks to CppCon 2017 for providing the environment for "arguments" about
 build systems, package managers, and dependency managers that created the
 impetus for this idea.
+
+Thanks to Breno Rodrigues Guimarães, Steve Downey, and others in the CppLang
+Slack community who provided feedback to the draft version of this document.
