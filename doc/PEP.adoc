@@ -36,7 +36,7 @@ endif::[]
 Document number:: ISO/IEC/JTC1/SC22/WG21/{revnumber}
 Date:: {revdate}
 Reply-to:: {author}, {email}
-Audience:: Study Group 15
+Audience:: Tooling (SG15)
 
 == Abstract
 
@@ -67,16 +67,36 @@ dependency manager, package manager, nor packages.
 
 == Definitions
 
-Library:: The group of code, compiled or as source, that you use directly. For
+Some of the terms used herein have historically varied meanings. In this paper
+here are what we intend when we refer to the terms.
+
+Library::
+The group of code, compiled or as source, that you use directly. For
 example: libz, Boost MP11, and QtCore.
 
 Package::
-
-Package Manager::
+An object that defines, and possibly implements, everything a user needs
+to use a library in your project. It can be a combination of some or all of:
+source for a library, pre-built binaries for a library, instructions for
+building the library, instructions for downloading binaries, enumeration of
+dependencies of the library.
 
 Dependency Manager::
+Controls how the use of libraries in your project correlates to
+corresponding packages that provide those libraries to you project and how to
+arrange those packages libraries to make them usable by your project.
+
+Package Manager::
+Takes references to packages your project wants and delivers them such that
+the dependency manager can instruct your project to use those packages. This
+can include downloading from a non-local resource and building for the use
+case of your project.
 
 Package and Dependency Manager::
+It is common, because of the close dependence between them, to combine both
+the dependency manager and the package manager. In this paper this is the
+form which we consider as it simplifies the discussion and is the form
+generally found in the wild.
 
 == Current Landscape
 

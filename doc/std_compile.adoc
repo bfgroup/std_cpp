@@ -37,7 +37,7 @@ endif::[]
 Document number:: ISO/IEC/JTC1/SC22/WG21/{revnumber}
 Date:: {revdate}
 Reply-to:: {author}, {email}
-Audience:: Study Group 15, Library Evolution
+Audience:: Tooling (SG15), Library Evolution
 
 == Introduction
 
