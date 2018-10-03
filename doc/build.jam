@@ -7,13 +7,13 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 import asciidoctor ;
 
-html std_compile_D1178R0.html : std_compile.adoc ;
+html std_compile_P1178R0.html : std_compile.adoc ;
 html std_compile_vendor_gcc_SDxx.html : std_compile_vendor_gcc.adoc ;
-html package_ecosystem_plan_D1177R0.html : PEP.adoc : <flags>"-r asciidoctor-diagram" ;
-make pep-a.svg : package_ecosystem_plan_D1177R0.html : @locate ;
-make pep-present.svg : package_ecosystem_plan_D1177R0.html : @locate ;
-make pep-pindex.svg : package_ecosystem_plan_D1177R0.html : @locate ;
-make pep-interfaces.svg : package_ecosystem_plan_D1177R0.html : @locate ;
+html package_ecosystem_plan_P1177R0.html : PEP.adoc : <flags>"-r asciidoctor-diagram" ;
+make pep-a.svg : package_ecosystem_plan_P1177R0.html : @locate ;
+make pep-present.svg : package_ecosystem_plan_P1177R0.html : @locate ;
+make pep-pindex.svg : package_ecosystem_plan_P1177R0.html : @locate ;
+make pep-interfaces.svg : package_ecosystem_plan_P1177R0.html : @locate ;
 
 rule locate ( target : source : properties * )
 {
@@ -21,9 +21,9 @@ rule locate ( target : source : properties * )
 }
 
 install html
-    :   std_compile_D1178R0.html
+    :   std_compile_P1178R0.html
         std_compile_vendor_gcc_SDxx.html
-        package_ecosystem_plan_D1177R0.html
+        package_ecosystem_plan_P1177R0.html
         pep-a.svg
         pep-present.svg
         pep-pindex.svg

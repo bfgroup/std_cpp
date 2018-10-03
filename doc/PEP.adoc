@@ -2,7 +2,7 @@
 :copyright: Copyright 2018 Rene Rivera
 :author: Rene Rivera
 :email: grafikrobot@gmail.com
-:docnumber: D1177
+:docnumber: P1177
 :revnumber: {docnumber}R0
 :revdate: {docdate}
 :revremark: Initial
@@ -65,7 +65,7 @@ manner.
 This paper *does not* propose to create a single standard build system,
 dependency manager, package manager, nor packages.
 
-== Definitions
+== Terminology
 
 Some of the terms used herein have historically varied meanings. In this paper
 here are what we intend when we refer to the terms.
@@ -330,8 +330,7 @@ In an ideal ecosystem all compilers would use a well known single options API
 that the whole ecosystem would use to interoperate between different
 compilers, build systems, PDMs, and other tools.
 
-The link:https://rawgit.com/bfgroup/std_cpp/master/doc/std_compile_D1178R0.html[`std::compile`]
-proposal (D1178R0) covers this topic.
+The `std::compile` proposal (P1178) covers this topic.
 
 === Build System API
 
