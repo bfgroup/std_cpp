@@ -32,6 +32,7 @@ class command_builder_gcc_like : public command_builder
         set_processor(core.address_model, &command_builder_gcc_like::process_address_model);
         set_processor(core.define, &command_builder_gcc_like::process_define);
         set_processor(core.library, &command_builder_gcc_like::process_library);
+        set_processor(core.library_dir, & command_builder_gcc_like::process_library_dir);
     }
 
     result process_inputs(void * v) { *this << value<std::string>(v); return result::ok_(); }
@@ -82,6 +83,7 @@ class command_builder_gcc_like : public command_builder
         return result::ok_();
     }
     result process_library(void * v) { *this << "-l" << value<std::string>(v); return result::ok_(); }
+    result process_library_dir(void * v) { *this << "-L" << value<std::string>(v); return result::ok_(); }
 };
 
 }
