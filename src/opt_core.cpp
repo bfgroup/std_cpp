@@ -68,7 +68,7 @@ Compatibility:: NA
 ....
 
 [horizontal]
-Argument:: A preprocessor _definition_ of the for `_name_=_value_`
+Argument:: A preprocessor _definition_ of the form `_name_=_value_`
 Effect:: Instructs the preprocessing phase to define the given _name_ symbol
     to the given _value_, or to `1` if _value_ is not given.
 Support:: Required
@@ -160,7 +160,7 @@ Compatibility:: Link incompatible.
 [horizontal]
 Argument:: One of: `off`, `on`, `all`, `error` indicating the level of
     warnings to report and whether to treat warnings as errors.
-Effect:: Instructs compilation to: not report warning (`off`), report a default
+Effect:: Instructs compilation to: not report warnings (`off`), report a default
     set of warnings that is implementation defined (`on`), to report all
     possible warnings (`all`), and if instead of reporting warnings they
     should be considered compilation errors (`errors`).

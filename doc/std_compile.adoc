@@ -43,8 +43,8 @@ Audience:: Tooling (SG15), Library Evolution
 
 This proposes to add an interface for transforming {CPP} source into
 usable executable programs. As such it aims to provide a common definition of
-compiler frontend tool options for transforming source code to translation units
-and linking those into executable programs.
+compiler frontend tool arguments and options for transforming source code to
+translation units and linking those into executable programs.
 
 === Background and Motivation
 
@@ -52,11 +52,13 @@ This proposal is based on the notion that it should be possible for a {CPP}
 user, both beginner and advanced, to easily transform their source to
 immediately executable form in a consistent method across compilers.
 
-One key aspect of this proposal is to make it possible for future {CPP}
+One aspect of this proposal is to make it possible for future {CPP}
 educators, and book authors, to provide complete usage examples that work for
 any particular tool they and their audience use. While this proposal does not
 prescribe a particular executable tool, it is trivial to write minimal tool
-that passes arguments directly to these interfaces.
+that passes arguments directly to these interfaces. It is hoped that vendors
+would provide ready made compiler front ends for their tools accepting the
+standard arguments.
 
 It is also the intent for this proposal to be an initial step in the road
 towards standardizing the tooling around {CPP}. With the goal of having a
@@ -65,15 +67,15 @@ global and consistent tooling ecosystem to facilitate the introduction into
 package and dependency managers by having a single common set of options
 to base solutions on.
 
-Additionally this facility would also support runtime compilation, for example
+Additionally this facility could also support runtime compilation, for example
 for runtime generated source, and other compilation models where the particular
-execution platform is not know ahead of time.
+execution platform is not known ahead of time.
 
 === Impact On the Standard
 
 This proposal is a library extension and specification. As such it does not
-proscribe changes to any standard classes or functions. It adds one function
-in a new header file, `<compile>`.
+prescribe changes to any standard classes or functions. It adds one function,
+and overloads, in a new header file, `<compile>`.
 
 === Design Goals
 
@@ -85,7 +87,8 @@ order of importance:
 * Use common practice option names for familiarity.
 * Do not attempt to specify all possible options as that's not technically
   possible.
-* Specify how, and if, options are compatible with others.
+* Specify how, and if, options are compatible with others to facilitate
+  tooling checks for binary compatibility.
 
 === Design Decisions
 
@@ -106,8 +109,8 @@ are not ignored in favor of vendor only arguments. Hence we specify this
 implementation rule:
 
 ****
-When a defined argument option exists an equivalent vendor specific argument
-is *not* allowed as an acceptable argument option.
+When a defined core argument option exists an equivalent vendor specific
+argument is *not* allowed as an acceptable argument option.
 ****
 
 For instance::
@@ -121,8 +124,8 @@ Like choosing names for programming language constructs, choosing a prefix
 for the option arguments is a contentious decision. For this we chose to
 use `{P}` as the prefix, and hence `{PP}` for the long form, for these reasons:
 
-* It's not used in current compiler tooling and hence avoids confusion with
-  existing options.
+* It's not used widely by current compiler tooling and hence avoids confusion
+  with existing options.
 * It doesn't conflict with operating system specific path specifications.
 * Is a non-alphanumeric ASCII glyph.
 * Not frequently used as the first character of file names.
@@ -132,6 +135,10 @@ Regardless of this choice, this is ostensibly a straw-man choice. There are
 valid reasons to choose other prefix (say `-`). And this proposal does not
 hinge on what this prefix is. But do note that the sample implementation does
 use `{P}` and `{PP}`.
+
+NOTE: There is at least one class of compilers that historically use the `{P}`
+prefix. For example the link:https://www.csee.umbc.edu/portal/help/VHDL/verilog/command_line_plus_options.html[Verilog-XL]
+uses the `{P}` option prefix exclusive.
 
 ==== Use Cases
 
@@ -165,7 +172,7 @@ The major program fragments in this book were tried using several {CPP}
 implementations.
 ____
 +
-But how to run and compile examples is not describe in the entirety of the
+But how to run and compile examples is not described in the entirety of the
 book for good reasons. As it would take a whole chapter onto itself just
 to skim at that subject given the current state of compiler tools. With this
 proposal it would at least be possible to give a short explanation of what a
@@ -193,7 +200,7 @@ For instance::
 In `b2` one would indicate include search paths by adding
 `<include>my/include` to the specification of the build definition. It will
 then translate that to a compile invocation depending on the tool:
-`cl.exe /I "my/include"`, `cc -Imy/include`, `bcc32.exe -I"my/include"`,
+`cc -Imy/include`, `bcc32.exe -I"my/include"`,
 `clang -I"my/include"`, `gcc -I"my/include"`, `cl.exe /I"my/include"`, and so
 on. This is obviously a very simple example and the options get less uniform
 across compilers the more "esoteric" the options are. And the build system
@@ -202,8 +209,8 @@ with this proposal the mapping would be universal and only non-core options
 and the tool executable would need special treatment.
 
 Publishing libraries, with or without source, also poses a problem for those
-doing the publishing. As part of publishing your library will have specific
-options it needs your program to compile with to make use of the library. This
+doing the publishing. As part of publishing, your library will have specific
+options it needs a program to compile with to make use of the library. This
 can involve rather complex distributions to account for the varied compilers
 end users have. And many times this involves publishing many different files
 for each possible configuration and compiler you support.
@@ -275,9 +282,9 @@ than is currently defined. The options mandated herein do not specify any
 particular process or mechanisms past the existing specification of program
 and linkage. This proposal does not:
 
-1.Proscribe any particular storage mechanism for source code, translated
-  source code, nor a program.
-2.Proscribe any particular format for translated source code nor program.
+1. Prescribe any particular storage mechanism for source code, translated
+   source code, nor a program.
+2. Prescribe any particular format for translated source code nor program.
 
 And hence the specifics of what the results of compiling the translation units
 into linkable outputs and linking those outputs into an executable program
@@ -312,10 +319,26 @@ Requirements for core arguments::
 +
 * Implementable by many compilers.
 * Already in wide use.
-* Experiential knowledge of behavior as a _vendor argument_.
-* Have a meaningful, but brief, long form name.
+* Experiential knowledge of behavior as an _experimental argument_ or
+  _vendor argument_.
+* Have a meaningful, but terse, long form name.
 
 === Experimental Arguments
+
+Experimental arguments allow for a period of review before adding core
+arguments. We recognize that it's important to acquire experience with
+arguments before adding them to the International Standard. We propose to have
+a standing document defining arguments that are intended to become core
+arguments but that otherwise do not have sufficient real-world implementation
+experience. Benefits include:
+
+* Allowing time for tool implementations to support the change.
+* Acquire experience on compiler, and other tools, support.
+
+Recognizing that experimental arguments will most likely come from vendor
+arguments, and that there needs to be a period of for tools to adjust, vendor
+arguments would be allowed to overlap with experimental arguments, unlike
+core arguments.
 
 === Vendor Arguments
 
@@ -334,15 +357,25 @@ specific options and for the highly volatile option values as needed. Such
 that SG15 could meet and approve changes to those _Standing Documents_
 as needed in a timely matter.
 
+== Future Work
+
+This is currently a limited and incomplete technical specification.
+Future revisions will grow the set of core and vendor options. The current
+options where chosen as a minimal working set to create working programs with
+minimal compilation complexity.
+
+There are various existing tools and APIs that either perform argument mapping
+from one compiler to another, or are direct compiler frontend drivers.
+There will be a more thorough listing of such tools and APIs in future
+revisions.
+
+We will also add background as to which C++ tools benefit from standard argument
+options, and how, in future revisions.
+
 == Technical Specification
 
 NOTE: This is a *_very rough_* draft of a specification. As such it will
 contain errors and not be written in the most precise manner.
-
-WARNING: This is also a currently limited and incomplete specification.
-Future revisions will grow the set of core and vendor options. The current
-options where chosen as a minimal working set to create working programs with
-minimal compilation complexity.
 
 === Header `<compile>` Synopsis
 
@@ -363,8 +396,8 @@ int compile(int argument_count, char * * arguments) noexcept;
 [horizontal]
 
 Requires:: `argument_count > 0`, where `arguments[0]` is the name of the
-program executable. And `arguments[1..argument_count)` are either either
-options or names of source files.
+program executable. And `arguments[1..argument_count)` are either options or
+names of source files.
 
 Effect:: Executes the compilation according to the given `arguments`.
 Implementations should indicate an error if the functionality is not
@@ -379,8 +412,8 @@ int compile(vector<string> arguments) noexcept;
 [horizontal]
 
 Requires:: `!arguments.empty()`, where `arguments[0]` is the name of the
-program executable. And `arguments[1..N)` are either either
-options or names of source files.
+program executable. And `arguments[1..N)` are either options or names of
+source files.
 
 Effect:: Executes the compilation according to the given `arguments`.
 Implementations should indicate an error if the functionality is not
@@ -400,7 +433,7 @@ start with the `{P}` or `{PP}` option prefix.
 Arguments that start with `{PP}` are _long options_. And arguments that start
 with a single `{P}` are _short options_. _Long options_ are expected to be
 succinct but reasonably human readable names of options. And _short options_
-are expected to be well know one or two character alternatives to the
+are expected to be well known one or two character alternatives to the
 _long options_.
 
 ===== Core Options
@@ -419,12 +452,13 @@ syntax constraints, as specified for any particular option.
 
 ===== Experimental Options
 
-_Experimental options_ follow the same syntax as _core options_.
+_Experimental options_ follow the same syntax as _core options_ and are
+specified in a _standing document_.
 
 ===== Vendor Options
 
 _Vendor options_ are specified in a vendor specific _standing document_ and
-follow the syntax of:
+follow this syntax:
 
 [subs="normal"]
 ....
@@ -434,7 +468,8 @@ follow the syntax of:
 ....
 
 Where the _value_ for the option may be optional, and may have additional
-syntax constraints, as specified for any particular option.
+syntax constraints, as specified for any particular option. And where
+_vendor-key_ is a unique, short, name for the vendor specific compiler.
 
 ===== Compatibility
 
@@ -457,13 +492,58 @@ Wherein the compatibility is not directly impacted by the option or values.
 
 Options that are _link incompatible_ with other options also indicate which other
 options affect compatibility. Otherwise a _link incompatible_ option is only
-incompatible between its different values.
+incompatible between its own different values.
 
 ===== Options
 
 include::../src/opt_core.cpp[leveloffset=+5,tag=std_cpp]
 
 == Prior Art
+
+=== `clang-cl`
+
+The Microsoft Visual Studio development environment supports using Clang
+as an alternative compiler to their msvc (`cl.exe`) compiler. In order
+to avoid reflecting the Clang specific options up into the IDE
+`clang-cl` implements a compiler front end that translates from
+msvc options to Clang options.
+
+****
+link:http://clang.llvm.org/docs/UsersManual.html#clang-cl[clang-cl] is an
+alternative command-line interface to Clang, designed for compatibility with
+the Visual C{PP} compiler, `cl.exe`.
+****
+
+=== `gxlc{PP}`
+
+The IBM XL C/C{PP} compiler implements a translation driver program that
+provides a GCC compatible frontend. The express goal of the utility is to
+"help you reuse make files created for applications previously developed with
+GNU C/C{PP}".
+
+****
+XL C and XL C/C{PP} provides the
+link:https://www-01.ibm.com/support/docview[gxlc and gxlc{PP}]
+utilities to map many GCC compiler options to their XL C and XL C/C{PP} counterparts.
+****
+
+=== NVRTC
+
+There is an existing example of providing a direct interface to the compiler:
+
+****
+link:https://docs.nvidia.com/cuda/nvrtc/index.html[NVRTC] is a runtime
+compilation library for CUDA{PP}
+****
+
+It provides for a way to take CUDA specific {CPP} source (as data) and compile
+it to produce a CUDA specific binary executable program. Although not as simple
+of an interface as we are proposing in this extension it's very similar in
+approach. Providing for the arguments to control the compile as `options`:
+
+----
+nvrtcResult nvrtcCompileProgram ( nvrtcProgram prog, int  numOptions, const char** options )
+----
 
 === `B2` build system
 
@@ -478,14 +558,6 @@ specification. For example:
 * `address-model=64` would add compiler specific options to generate
   64-bit addressing only code.
 
-=== `clang-cl`
-
-The Microsoft Visual Studio development environment supports using Clang
-as an alternative compiler to their msvc (`cl.exe`) compiler. In order
-to avoid reflecting the Clang specific options up into the IDE
-Visual Studio implements a compiler front end that translates from
-msvc options to Clang options (`clang-cl.exe`).
-
 === Cmake build system
 
 Like the features of `b2` modern Cmake also implements a series of
@@ -495,26 +567,18 @@ For example:
 * `set_property(TARGET foo PROPERTY CXX_STANDARD 11)` would add the compiler
   specific option to restrict compilation to use Standard C++11 features.
 
-=== NVRTC
-
-There is an existing example of providing an interface to the compiler:
-
-****
-link:https://docs.nvidia.com/cuda/nvrtc/index.html[NVRTC is a runtime
-compilation library for CUDA{PP}]
-****
-
-It provides for a way to take CUDA specific {CPP} source (as data) and compile
-it to produce a CUDA specific binary executable program. Although not as simple
-of an interface as we are proposing in this extension it's very similar in
-approach. Providing for the arguments to control the compile as `options`:
-
-====
-nvrtcResult nvrtcCompileProgram ( nvrtcProgram prog, int  numOptions, const char** options )
-====
-
 == Acknowledgements
 
 Thanks to CppCon 2017 for providing the environment for "arguments" about
 build systems, package managers, and dependency managers that created the
 impetus for this idea.
+
+Thanks to Jonathan Müller, Ben Craig, Corentin Jabot, Dan Kalowsky, Steve Downey,
+Breno Rodrigues Guimarães, Robert Maynard, and others in the CppLang
+Slack community who provided feedback to the draft version of this document.
+
+Thanks to JF Bastien, Peter Sommerlad and others in the SG15 reflector
+for providing valuable insights from the easrly draft of this document.
+
+Special thanks to Peter Dimov and Vinnie Falco for reading and pointing out
+some obvious English spelling and grammar mistakes.

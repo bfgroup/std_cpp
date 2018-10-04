@@ -439,7 +439,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author" class="author">Rene Rivera</span><br>
 <span id="email" class="email"><a href="mailto:grafikrobot@gmail.com">grafikrobot@gmail.com</a></span><br>
 <span id="revnumber"> P1178R0,</span>
-<span id="revdate">2018-10-02</span>
+<span id="revdate">2018-10-03</span>
 <br><span id="revremark">Initial</span>
 </div>
 <div id="toc" class="toc2">
@@ -469,34 +469,36 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_vendor_arguments">2.3. Vendor Arguments</a></li>
 </ul>
 </li>
-<li><a href="#_technical_specification">3. Technical Specification</a>
+<li><a href="#_future_work">3. Future Work</a></li>
+<li><a href="#_technical_specification">4. Technical Specification</a>
 <ul class="sectlevel2">
-<li><a href="#_header_compile_synopsis">3.1. Header <code>&lt;compile&gt;</code> Synopsis</a></li>
-<li><a href="#_specification">3.2. Specification</a>
+<li><a href="#_header_compile_synopsis">4.1. Header <code>&lt;compile&gt;</code> Synopsis</a></li>
+<li><a href="#_specification">4.2. Specification</a>
 <ul class="sectlevel3">
-<li><a href="#_arguments">3.2.1. Arguments</a>
+<li><a href="#_arguments">4.2.1. Arguments</a>
 <ul class="sectlevel4">
-<li><a href="#_long_short_options">3.2.1.1. Long &amp; Short Options</a></li>
-<li><a href="#_core_options">3.2.1.2. Core Options</a></li>
-<li><a href="#_experimental_options">3.2.1.3. Experimental Options</a></li>
-<li><a href="#_vendor_options">3.2.1.4. Vendor Options</a></li>
-<li><a href="#_compatibility">3.2.1.5. Compatibility</a></li>
-<li><a href="#_options">3.2.1.6. Options</a></li>
+<li><a href="#_long_short_options">4.2.1.1. Long &amp; Short Options</a></li>
+<li><a href="#_core_options">4.2.1.2. Core Options</a></li>
+<li><a href="#_experimental_options">4.2.1.3. Experimental Options</a></li>
+<li><a href="#_vendor_options">4.2.1.4. Vendor Options</a></li>
+<li><a href="#_compatibility">4.2.1.5. Compatibility</a></li>
+<li><a href="#_options">4.2.1.6. Options</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#_prior_art">4. Prior Art</a>
+<li><a href="#_prior_art">5. Prior Art</a>
 <ul class="sectlevel2">
-<li><a href="#_b2_build_system">4.1. <code>B2</code> build system</a></li>
-<li><a href="#_clang_cl">4.2. <code>clang-cl</code></a></li>
-<li><a href="#_cmake_build_system">4.3. Cmake build system</a></li>
-<li><a href="#_nvrtc">4.4. NVRTC</a></li>
+<li><a href="#_clang_cl">5.1. <code>clang-cl</code></a></li>
+<li><a href="#_gxlc">5.2. <code>gxlc++</code></a></li>
+<li><a href="#_nvrtc">5.3. NVRTC</a></li>
+<li><a href="#_b2_build_system">5.4. <code>B2</code> build system</a></li>
+<li><a href="#_cmake_build_system">5.5. Cmake build system</a></li>
 </ul>
 </li>
-<li><a href="#_acknowledgements">5. Acknowledgements</a></li>
+<li><a href="#_acknowledgements">6. Acknowledgements</a></li>
 </ul>
 </div>
 </div>
@@ -545,7 +547,7 @@ Document number
 Date
 </td>
 <td class="hdlist2">
-<p>2018-10-02</p>
+<p>2018-10-03</p>
 </td>
 </tr>
 <tr>
@@ -574,8 +576,8 @@ Audience
 <div class="paragraph">
 <p>This proposes to add an interface for transforming C++ source into
 usable executable programs. As such it aims to provide a common definition of
-compiler frontend tool options for transforming source code to translation units
-and linking those into executable programs.</p>
+compiler frontend tool arguments and options for transforming source code to
+translation units and linking those into executable programs.</p>
 </div>
 <div class="sect2">
 <h3 id="_background_and_motivation"><a class="anchor" href="#_background_and_motivation"></a>1.1. Background and Motivation</h3>
@@ -585,11 +587,13 @@ user, both beginner and advanced, to easily transform their source to
 immediately executable form in a consistent method across compilers.</p>
 </div>
 <div class="paragraph">
-<p>One key aspect of this proposal is to make it possible for future C++
+<p>One aspect of this proposal is to make it possible for future C++
 educators, and book authors, to provide complete usage examples that work for
 any particular tool they and their audience use. While this proposal does not
 prescribe a particular executable tool, it is trivial to write minimal tool
-that passes arguments directly to these interfaces.</p>
+that passes arguments directly to these interfaces. It is hoped that vendors
+would provide ready made compiler front ends for their tools accepting the
+standard arguments.</p>
 </div>
 <div class="paragraph">
 <p>It is also the intent for this proposal to be an initial step in the road
@@ -600,17 +604,17 @@ package and dependency managers by having a single common set of options
 to base solutions on.</p>
 </div>
 <div class="paragraph">
-<p>Additionally this facility would also support runtime compilation, for example
+<p>Additionally this facility could also support runtime compilation, for example
 for runtime generated source, and other compilation models where the particular
-execution platform is not know ahead of time.</p>
+execution platform is not known ahead of time.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_impact_on_the_standard"><a class="anchor" href="#_impact_on_the_standard"></a>1.2. Impact On the Standard</h3>
 <div class="paragraph">
 <p>This proposal is a library extension and specification. As such it does not
-proscribe changes to any standard classes or functions. It adds one function
-in a new header file, <code>&lt;compile&gt;</code>.</p>
+prescribe changes to any standard classes or functions. It adds one function,
+and overloads, in a new header file, <code>&lt;compile&gt;</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -635,7 +639,8 @@ order of importance:</p>
 possible.</p>
 </li>
 <li>
-<p>Specify how, and if, options are compatible with others.</p>
+<p>Specify how, and if, options are compatible with others to facilitate
+tooling checks for binary compatibility.</p>
 </li>
 </ul>
 </div>
@@ -664,8 +669,8 @@ implementation rule:</p>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<p>When a defined argument option exists an equivalent vendor specific argument
-is <strong>not</strong> allowed as an acceptable argument option.</p>
+<p>When a defined core argument option exists an equivalent vendor specific
+argument is <strong>not</strong> allowed as an acceptable argument option.</p>
 </div>
 </div>
 </div>
@@ -690,8 +695,8 @@ use <code>+</code> as the prefix, and hence <code>++</code> for the long form, f
 <div class="ulist">
 <ul>
 <li>
-<p>It&#8217;s not used in current compiler tooling and hence avoids confusion with
-existing options.</p>
+<p>It&#8217;s not used widely by current compiler tooling and hence avoids confusion
+with existing options.</p>
 </li>
 <li>
 <p>It doesn&#8217;t conflict with operating system specific path specifications.</p>
@@ -712,6 +717,20 @@ existing options.</p>
 valid reasons to choose other prefix (say <code>-</code>). And this proposal does not
 hinge on what this prefix is. But do note that the sample implementation does
 use <code>+</code> and <code>++</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">ℹ</div>
+</td>
+<td class="content">
+There is at least one class of compilers that historically use the <code>+</code>
+prefix. For example the <a href="https://www.csee.umbc.edu/portal/help/VHDL/verilog/command_line_plus_options.html">Verilog-XL</a>
+uses the <code>+</code> option prefix exclusive.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect3">
@@ -761,7 +780,7 @@ implementations.</p>
 </blockquote>
 </div>
 <div class="paragraph">
-<p>But how to run and compile examples is not describe in the entirety of the
+<p>But how to run and compile examples is not described in the entirety of the
 book for good reasons. As it would take a whole chapter onto itself just
 to skim at that subject given the current state of compiler tools. With this
 proposal it would at least be possible to give a short explanation of what a
@@ -805,7 +824,7 @@ tool invocations.</p>
 <p>In <code>b2</code> one would indicate include search paths by adding
 <code>&lt;include&gt;my/include</code> to the specification of the build definition. It will
 then translate that to a compile invocation depending on the tool:
-<code>cl.exe /I "my/include"</code>, <code>cc -Imy/include</code>, <code>bcc32.exe -I"my/include"</code>,
+<code>cc -Imy/include</code>, <code>bcc32.exe -I"my/include"</code>,
 <code>clang -I"my/include"</code>, <code>gcc -I"my/include"</code>, <code>cl.exe /I"my/include"</code>, and so
 on. This is obviously a very simple example and the options get less uniform
 across compilers the more "esoteric" the options are. And the build system
@@ -817,8 +836,8 @@ and the tool executable would need special treatment.</p>
 </div>
 <div class="paragraph">
 <p>Publishing libraries, with or without source, also poses a problem for those
-doing the publishing. As part of publishing your library will have specific
-options it needs your program to compile with to make use of the library. This
+doing the publishing. As part of publishing, your library will have specific
+options it needs a program to compile with to make use of the library. This
 can involve rather complex distributions to account for the varied compilers
 end users have. And many times this involves publishing many different files
 for each possible configuration and compiler you support.</p>
@@ -914,10 +933,16 @@ than is currently defined. The options mandated herein do not specify any
 particular process or mechanisms past the existing specification of program
 and linkage. This proposal does not:</p>
 </div>
-<div class="paragraph">
-<p>1.Proscribe any particular storage mechanism for source code, translated
-  source code, nor a program.
-2.Proscribe any particular format for translated source code nor program.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Prescribe any particular storage mechanism for source code, translated
+source code, nor a program.</p>
+</li>
+<li>
+<p>Prescribe any particular format for translated source code nor program.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>And hence the specifics of what the results of compiling the translation units
@@ -976,10 +1001,11 @@ herein with the <code>std::compile</code> function.</p>
 <p>Already in wide use.</p>
 </li>
 <li>
-<p>Experiential knowledge of behavior as a <em>vendor argument</em>.</p>
+<p>Experiential knowledge of behavior as an <em>experimental argument</em> or
+<em>vendor argument</em>.</p>
 </li>
 <li>
-<p>Have a meaningful, but brief, long form name.</p>
+<p>Have a meaningful, but terse, long form name.</p>
 </li>
 </ul>
 </div>
@@ -989,7 +1015,30 @@ herein with the <code>std::compile</code> function.</p>
 </div>
 <div class="sect2">
 <h3 id="_experimental_arguments"><a class="anchor" href="#_experimental_arguments"></a>2.2. Experimental Arguments</h3>
-
+<div class="paragraph">
+<p>Experimental arguments allow for a period of review before adding core
+arguments. We recognize that it&#8217;s important to acquire experience with
+arguments before adding them to the International Standard. We propose to have
+a standing document defining arguments that are intended to become core
+arguments but that otherwise do not have sufficient real-world implementation
+experience. Benefits include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Allowing time for tool implementations to support the change.</p>
+</li>
+<li>
+<p>Acquire experience on compiler, and other tools, support.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Recognizing that experimental arguments will most likely come from vendor
+arguments, and that there needs to be a period of for tools to adjust, vendor
+arguments would be allowed to overlap with experimental arguments, unlike
+core arguments.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_vendor_arguments"><a class="anchor" href="#_vendor_arguments"></a>2.3. Vendor Arguments</h3>
@@ -1019,7 +1068,28 @@ as needed in a timely matter.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_technical_specification"><a class="anchor" href="#_technical_specification"></a>3. Technical Specification</h2>
+<h2 id="_future_work"><a class="anchor" href="#_future_work"></a>3. Future Work</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is currently a limited and incomplete technical specification.
+Future revisions will grow the set of core and vendor options. The current
+options where chosen as a minimal working set to create working programs with
+minimal compilation complexity.</p>
+</div>
+<div class="paragraph">
+<p>There are various existing tools and APIs that either perform argument mapping
+from one compiler to another, or are direct compiler frontend drivers.
+There will be a more thorough listing of such tools and APIs in future
+revisions.</p>
+</div>
+<div class="paragraph">
+<p>We will also add background as to which C++ tools benefit from standard argument
+options, and how, in future revisions.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_technical_specification"><a class="anchor" href="#_technical_specification"></a>4. Technical Specification</h2>
 <div class="sectionbody">
 <div class="admonitionblock note">
 <table>
@@ -1034,23 +1104,8 @@ contain errors and not be written in the most precise manner.
 </tr>
 </table>
 </div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<div class="title">⚠</div>
-</td>
-<td class="content">
-This is also a currently limited and incomplete specification.
-Future revisions will grow the set of core and vendor options. The current
-options where chosen as a minimal working set to create working programs with
-minimal compilation complexity.
-</td>
-</tr>
-</table>
-</div>
 <div class="sect2">
-<h3 id="_header_compile_synopsis"><a class="anchor" href="#_header_compile_synopsis"></a>3.1. Header <code>&lt;compile&gt;</code> Synopsis</h3>
+<h3 id="_header_compile_synopsis"><a class="anchor" href="#_header_compile_synopsis"></a>4.1. Header <code>&lt;compile&gt;</code> Synopsis</h3>
 <div class="listingblock">
 <div class="content">
 <pre>namespace std
@@ -1062,7 +1117,7 @@ minimal compilation complexity.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_specification"><a class="anchor" href="#_specification"></a>3.2. Specification</h3>
+<h3 id="_specification"><a class="anchor" href="#_specification"></a>4.2. Specification</h3>
 <div class="listingblock">
 <div class="content">
 <pre>int compile(int argument_count, char * * arguments) noexcept;</pre>
@@ -1076,8 +1131,8 @@ Requires
 </td>
 <td class="hdlist2">
 <p><code>argument_count &gt; 0</code>, where <code>arguments[0]</code> is the name of the
-program executable. And <code>arguments[1..argument_count)</code> are either either
-options or names of source files.</p>
+program executable. And <code>arguments[1..argument_count)</code> are either options or
+names of source files.</p>
 </td>
 </tr>
 <tr>
@@ -1113,8 +1168,8 @@ Requires
 </td>
 <td class="hdlist2">
 <p><code>!arguments.empty()</code>, where <code>arguments[0]</code> is the name of the
-program executable. And <code>arguments[1..N)</code> are either either
-options or names of source files.</p>
+program executable. And <code>arguments[1..N)</code> are either options or names of
+source files.</p>
 </td>
 </tr>
 <tr>
@@ -1138,7 +1193,7 @@ Returns
 </table>
 </div>
 <div class="sect3">
-<h4 id="_arguments"><a class="anchor" href="#_arguments"></a>3.2.1. Arguments</h4>
+<h4 id="_arguments"><a class="anchor" href="#_arguments"></a>4.2.1. Arguments</h4>
 <div class="paragraph">
 <p>The <code>arguments</code> specify the set of options, translation units to transform,
 or transformed translation units to link into a program. An argument is either
@@ -1146,17 +1201,17 @@ an option and option value, or a name of a translation unit source. Options
 start with the <code>+</code> or <code>++</code> option prefix.</p>
 </div>
 <div class="sect4">
-<h5 id="_long_short_options"><a class="anchor" href="#_long_short_options"></a>3.2.1.1. Long &amp; Short Options</h5>
+<h5 id="_long_short_options"><a class="anchor" href="#_long_short_options"></a>4.2.1.1. Long &amp; Short Options</h5>
 <div class="paragraph">
 <p>Arguments that start with <code>++</code> are <em>long options</em>. And arguments that start
 with a single <code>+</code> are <em>short options</em>. <em>Long options</em> are expected to be
 succinct but reasonably human readable names of options. And <em>short options</em>
-are expected to be well know one or two character alternatives to the
+are expected to be well known one or two character alternatives to the
 <em>long options</em>.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_core_options"><a class="anchor" href="#_core_options"></a>3.2.1.2. Core Options</h5>
+<h5 id="_core_options"><a class="anchor" href="#_core_options"></a>4.2.1.2. Core Options</h5>
 <div class="paragraph">
 <p><em>Core options</em> follow this syntax:</p>
 </div>
@@ -1173,16 +1228,17 @@ syntax constraints, as specified for any particular option.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_experimental_options"><a class="anchor" href="#_experimental_options"></a>3.2.1.3. Experimental Options</h5>
+<h5 id="_experimental_options"><a class="anchor" href="#_experimental_options"></a>4.2.1.3. Experimental Options</h5>
 <div class="paragraph">
-<p><em>Experimental options</em> follow the same syntax as <em>core options</em>.</p>
+<p><em>Experimental options</em> follow the same syntax as <em>core options</em> and are
+specified in a <em>standing document</em>.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_vendor_options"><a class="anchor" href="#_vendor_options"></a>3.2.1.4. Vendor Options</h5>
+<h5 id="_vendor_options"><a class="anchor" href="#_vendor_options"></a>4.2.1.4. Vendor Options</h5>
 <div class="paragraph">
 <p><em>Vendor options</em> are specified in a vendor specific <em>standing document</em> and
-follow the syntax of:</p>
+follow this syntax:</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -1193,11 +1249,12 @@ follow the syntax of:</p>
 </div>
 <div class="paragraph">
 <p>Where the <em>value</em> for the option may be optional, and may have additional
-syntax constraints, as specified for any particular option.</p>
+syntax constraints, as specified for any particular option. And where
+<em>vendor-key</em> is a unique, short, name for the vendor specific compiler.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_compatibility"><a class="anchor" href="#_compatibility"></a>3.2.1.5. Compatibility</h5>
+<h5 id="_compatibility"><a class="anchor" href="#_compatibility"></a>4.2.1.5. Compatibility</h5>
 <div class="paragraph">
 <p>Options, and their values, can have a <em>compatibility</em> of:</p>
 </div>
@@ -1227,13 +1284,13 @@ compatible depending on the particular C++ implementation.</p>
 <div class="paragraph">
 <p>Options that are <em>link incompatible</em> with other options also indicate which other
 options affect compatibility. Otherwise a <em>link incompatible</em> option is only
-incompatible between its different values.</p>
+incompatible between its own different values.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_options"><a class="anchor" href="#_options"></a>3.2.1.6. Options</h5>
+<h5 id="_options"><a class="anchor" href="#_options"></a>4.2.1.6. Options</h5>
 <div class="sect5">
-<h6 id="_help"><a class="anchor" href="#_help"></a>3.2.1.6.1. help</h6>
+<h6 id="_help"><a class="anchor" href="#_help"></a>4.2.1.6.1. help</h6>
 <div class="literalblock">
 <div class="content">
 <pre>+h
@@ -1255,7 +1312,7 @@ Effect
 </div>
 </div>
 <div class="sect5">
-<h6 id="_output"><a class="anchor" href="#_output"></a>3.2.1.6.2. output</h6>
+<h6 id="_output"><a class="anchor" href="#_output"></a>4.2.1.6.2. output</h6>
 <div class="literalblock">
 <div class="content">
 <pre>+o <em>file</em>
@@ -1300,7 +1357,7 @@ Compatibility
 </div>
 </div>
 <div class="sect5">
-<h6 id="_define"><a class="anchor" href="#_define"></a>3.2.1.6.3. define</h6>
+<h6 id="_define"><a class="anchor" href="#_define"></a>4.2.1.6.3. define</h6>
 <div class="literalblock">
 <div class="content">
 <pre>+D <em>definition</em>
@@ -1314,7 +1371,7 @@ Compatibility
 Argument
 </td>
 <td class="hdlist2">
-<p>A preprocessor <em>definition</em> of the for <code><em>name</em>=<em>value</em></code></p>
+<p>A preprocessor <em>definition</em> of the form <code><em>name</em>=<em>value</em></code></p>
 </td>
 </tr>
 <tr>
@@ -1346,7 +1403,7 @@ Compatibility
 </div>
 </div>
 <div class="sect5">
-<h6 id="_include_directory"><a class="anchor" href="#_include_directory"></a>3.2.1.6.4. include directory</h6>
+<h6 id="_include_directory"><a class="anchor" href="#_include_directory"></a>4.2.1.6.4. include directory</h6>
 <div class="literalblock">
 <div class="content">
 <pre>+I <em>directory</em>
@@ -1391,7 +1448,7 @@ Compatibility
 </div>
 </div>
 <div class="sect5">
-<h6 id="_debug_information"><a class="anchor" href="#_debug_information"></a>3.2.1.6.5. debug information</h6>
+<h6 id="_debug_information"><a class="anchor" href="#_debug_information"></a>4.2.1.6.5. debug information</h6>
 <div class="literalblock">
 <div class="content">
 <pre>+g
@@ -1436,7 +1493,7 @@ Compatibility
 </div>
 </div>
 <div class="sect5">
-<h6 id="_standard_conformance"><a class="anchor" href="#_standard_conformance"></a>3.2.1.6.6. standard conformance</h6>
+<h6 id="_standard_conformance"><a class="anchor" href="#_standard_conformance"></a>4.2.1.6.6. standard conformance</h6>
 <div class="literalblock">
 <div class="content">
 <pre>+std <em>standard</em>
@@ -1482,7 +1539,7 @@ Compatibility
 </div>
 </div>
 <div class="sect5">
-<h6 id="_warnings"><a class="anchor" href="#_warnings"></a>3.2.1.6.7. warnings</h6>
+<h6 id="_warnings"><a class="anchor" href="#_warnings"></a>4.2.1.6.7. warnings</h6>
 <div class="literalblock">
 <div class="content">
 <pre>+W <em>warning_option</em>
@@ -1505,7 +1562,7 @@ warnings to report and whether to treat warnings as errors.</p>
 Effect
 </td>
 <td class="hdlist2">
-<p>Instructs compilation to: not report warning (<code>off</code>), report a default
+<p>Instructs compilation to: not report warnings (<code>off</code>), report a default
 set of warnings that is implementation defined (<code>on</code>), to report all
 possible warnings (<code>all</code>), and if instead of reporting warnings they
 should be considered compilation errors (<code>errors</code>).</p>
@@ -1532,7 +1589,7 @@ Compatibility
 </div>
 </div>
 <div class="sect5">
-<h6 id="_optimize"><a class="anchor" href="#_optimize"></a>3.2.1.6.8. optimize</h6>
+<h6 id="_optimize"><a class="anchor" href="#_optimize"></a>4.2.1.6.8. optimize</h6>
 <div class="literalblock">
 <div class="content">
 <pre>+O <em>optimization_level</em>
@@ -1579,7 +1636,7 @@ Compatibility
 </div>
 </div>
 <div class="sect5">
-<h6 id="_address_model"><a class="anchor" href="#_address_model"></a>3.2.1.6.9. address_model</h6>
+<h6 id="_address_model"><a class="anchor" href="#_address_model"></a>4.2.1.6.9. address_model</h6>
 <div class="literalblock">
 <div class="content">
 <pre>++address_model=<em>bits</em></pre>
@@ -1626,7 +1683,7 @@ Compatibility
 </div>
 </div>
 <div class="sect5">
-<h6 id="_library"><a class="anchor" href="#_library"></a>3.2.1.6.10. library</h6>
+<h6 id="_library"><a class="anchor" href="#_library"></a>4.2.1.6.10. library</h6>
 <div class="literalblock">
 <div class="content">
 <pre>+l <em>library</em>
@@ -1677,10 +1734,72 @@ Compatibility
 </div>
 </div>
 <div class="sect1">
-<h2 id="_prior_art"><a class="anchor" href="#_prior_art"></a>4. Prior Art</h2>
+<h2 id="_prior_art"><a class="anchor" href="#_prior_art"></a>5. Prior Art</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_b2_build_system"><a class="anchor" href="#_b2_build_system"></a>4.1. <code>B2</code> build system</h3>
+<h3 id="_clang_cl"><a class="anchor" href="#_clang_cl"></a>5.1. <code>clang-cl</code></h3>
+<div class="paragraph">
+<p>The Microsoft Visual Studio development environment supports using Clang
+as an alternative compiler to their msvc (<code>cl.exe</code>) compiler. In order
+to avoid reflecting the Clang specific options up into the IDE
+<code>clang-cl</code> implements a compiler front end that translates from
+msvc options to Clang options.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><a href="http://clang.llvm.org/docs/UsersManual.html#clang-cl">clang-cl</a> is an
+alternative command-line interface to Clang, designed for compatibility with
+the Visual C++ compiler, <code>cl.exe</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gxlc"><a class="anchor" href="#_gxlc"></a>5.2. <code>gxlc++</code></h3>
+<div class="paragraph">
+<p>The IBM XL C/C++ compiler implements a translation driver program that
+provides a GCC compatible frontend. The express goal of the utility is to
+"help you reuse make files created for applications previously developed with
+GNU C/C++".</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>XL C and XL C/C++ provides the
+<a href="https://www-01.ibm.com/support/docview">gxlc and gxlc++</a>
+utilities to map many GCC compiler options to their XL C and XL C/C++ counterparts.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_nvrtc"><a class="anchor" href="#_nvrtc"></a>5.3. NVRTC</h3>
+<div class="paragraph">
+<p>There is an existing example of providing a direct interface to the compiler:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><a href="https://docs.nvidia.com/cuda/nvrtc/index.html">NVRTC</a> is a runtime
+compilation library for CUDA++</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>It provides for a way to take CUDA specific C++ source (as data) and compile
+it to produce a CUDA specific binary executable program. Although not as simple
+of an interface as we are proposing in this extension it&#8217;s very similar in
+approach. Providing for the arguments to control the compile as <code>options</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>nvrtcResult nvrtcCompileProgram ( nvrtcProgram prog, int  numOptions, const char** options )</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_b2_build_system"><a class="anchor" href="#_b2_build_system"></a>5.4. <code>B2</code> build system</h3>
 <div class="paragraph">
 <p>The <code>B2</code> (aka Boost Build) build system uses the concept of features to
 portably abstract the declaration of compiler options to a portable
@@ -1704,17 +1823,7 @@ level debugging information to the output.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_clang_cl"><a class="anchor" href="#_clang_cl"></a>4.2. <code>clang-cl</code></h3>
-<div class="paragraph">
-<p>The Microsoft Visual Studio development environment supports using Clang
-as an alternative compiler to their msvc (<code>cl.exe</code>) compiler. In order
-to avoid reflecting the Clang specific options up into the IDE
-Visual Studio implements a compiler front end that translates from
-msvc options to Clang options (<code>clang-cl.exe</code>).</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_cmake_build_system"><a class="anchor" href="#_cmake_build_system"></a>4.3. Cmake build system</h3>
+<h3 id="_cmake_build_system"><a class="anchor" href="#_cmake_build_system"></a>5.5. Cmake build system</h3>
 <div class="paragraph">
 <p>Like the features of <code>b2</code> modern Cmake also implements a series of
 variables that provide an abstraction to common compiler options.
@@ -1729,42 +1838,28 @@ specific option to restrict compilation to use Standard C++11 features.</p>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_nvrtc"><a class="anchor" href="#_nvrtc"></a>4.4. NVRTC</h3>
-<div class="paragraph">
-<p>There is an existing example of providing an interface to the compiler:</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph">
-<p><a href="https://docs.nvidia.com/cuda/nvrtc/index.html">NVRTC is a runtime
-compilation library for CUDA++</a></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>It provides for a way to take CUDA specific C++ source (as data) and compile
-it to produce a CUDA specific binary executable program. Although not as simple
-of an interface as we are proposing in this extension it&#8217;s very similar in
-approach. Providing for the arguments to control the compile as <code>options</code>:</p>
-</div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>nvrtcResult nvrtcCompileProgram ( nvrtcProgram prog, int  numOptions, const char** options )</p>
-</div>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_acknowledgements"><a class="anchor" href="#_acknowledgements"></a>5. Acknowledgements</h2>
+<h2 id="_acknowledgements"><a class="anchor" href="#_acknowledgements"></a>6. Acknowledgements</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Thanks to CppCon 2017 for providing the environment for "arguments" about
 build systems, package managers, and dependency managers that created the
 impetus for this idea.</p>
+</div>
+<div class="paragraph">
+<p>Thanks to Jonathan Müller, Ben Craig, Corentin Jabot, Dan Kalowsky, Steve Downey,
+Breno Rodrigues Guimarães, Robert Maynard, and others in the CppLang
+Slack community who provided feedback to the draft version of this document.</p>
+</div>
+<div class="paragraph">
+<p>Thanks to JF Bastien, Peter Sommerlad and others in the SG15 reflector
+for providing valuable insights from the easrly draft of this document.</p>
+</div>
+<div class="paragraph">
+<p>Special thanks to Peter Dimov and Vinnie Falco for reading and pointing out
+some obvious English spelling and grammar mistakes.</p>
 </div>
 </div>
 </div>
