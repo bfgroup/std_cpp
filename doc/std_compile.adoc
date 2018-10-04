@@ -369,7 +369,7 @@ from one compiler to another, or are direct compiler frontend drivers.
 There will be a more thorough listing of such tools and APIs in future
 revisions.
 
-We will also add background as to which C++ tools benefit from standard argument
+We will also add background as to which C{PP} tools benefit from standard argument
 options, and how, in future revisions.
 
 == Technical Specification
@@ -485,7 +485,7 @@ be linked together into a program.
 
 _Implementation defined_::
 Wherein translation units transformed with differing options or values are
-compatible depending on the particular C++ implementation.
+compatible depending on the particular C{PP} implementation.
 
 _NA_::
 Wherein the compatibility is not directly impacted by the option or values.
@@ -565,7 +565,7 @@ variables that provide an abstraction to common compiler options.
 For example:
 
 * `set_property(TARGET foo PROPERTY CXX_STANDARD 11)` would add the compiler
-  specific option to restrict compilation to use Standard C++11 features.
+  specific option to restrict compilation to use Standard C{PP}11 features.
 
 == Acknowledgements
 
