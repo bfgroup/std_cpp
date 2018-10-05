@@ -57,6 +57,28 @@ Compatibility:: NA
         ["--gcc:options"]
         ("Read additional options from <file>.")
         >> cli;
+
+/* tag::std_cpp_vendor_gcc[]
+
+= Library directory
+
+[subs=normal]
+....
+++gcc:library-dir=__directory__
+....
+
+[horizontal]
+Vendor:: gcc
+Argument:: An implementation defined path to a _directory_.
+Effect:: Adds the given _directory_ to the end of the search path for finding
+    libraries specified with `++library` option.
+Compatibility:: NA
+
+*/ // end::std_cpp_vendor_gcc[]
+    library_dir.hint("directory").many()
+        ["--gcc:library-dir"]
+        ("Add <directory> to the main library search path.")
+        >> cli;
 }
 
 }}

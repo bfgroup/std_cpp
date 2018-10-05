@@ -29,11 +29,13 @@ class command_builder_gcc : public command_builder_gcc_like
         options::vendor_gcc vendor_gcc;
         set_processor(vendor_gcc.cpp_dialect, &command_builder_gcc::process_cpp_dialect);
         set_processor(vendor_gcc.options, &command_builder_gcc::process_options);
+        set_processor(vendor_gcc.library_dir, & command_builder_gcc::process_library_dir);
     }
 
     result process_standard(void * v) { standard = value<std::string>(v); return result::ok_(); }
     result process_cpp_dialect(void * v) { cpp_dialect = value<std::string>(v);return result::ok_(); }
     result process_options(void * v) { *this << "@"+value<std::string>(v); return result::ok_(); }
+    result process_library_dir(void * v) { *this << "-L" << value<std::string>(v); return result::ok_(); }
 
     result post() override
     {
