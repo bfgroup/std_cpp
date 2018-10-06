@@ -35,6 +35,8 @@ Effect:: Displays all available options and exits.
         ("Show usage.")
         >> cli;
 
+/////////////////////////////////////////////////////////////////////////////
+
 /* tag::std_cpp[]
 
 = output
@@ -222,6 +224,7 @@ Compatibility:: Link incompatible.
         ("Addressing model, in bits, to generate instructions for.")
         >> cli;
 
+/////////////////////////////////////////////////////////////////////////////
 
 /* tag::std_cpp[]
 
@@ -245,6 +248,30 @@ Compatibility:: NA
         ["-l"]["--library"]
         ("Add <library> to the link as a source of translation units.")
         >> cli;
+
+/* tag::std_cpp[]
+
+= library directory
+
+[subs=normal]
+....
++L __directory__
+++library-dir=__directory__
+....
+
+[horizontal]
+Vendor:: gcc
+Argument:: An implementation defined path to a _directory_.
+Effect:: Adds the given _directory_ to the end of the search path for finding
+    libraries specified with `++library` option.
+Compatibility:: NA
+
+*/ // end::std_cpp[]
+    library_dir.hint("directory").many()
+        ["-L"]["--library-dir"]
+        ("Add <directory> to the main library search path.")
+        >> cli;
+
 /////////////////////////////////////////////////////////////////////////////
 }
 

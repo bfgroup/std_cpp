@@ -32,6 +32,7 @@ class command_builder_msvc_like : public command_builder
         set_processor(core.address_model, &command_builder_msvc_like::process_address_model);
         set_processor(core.define, &command_builder_msvc_like::process_define);
         set_processor(core.library, &command_builder_msvc_like::process_library);
+        set_processor(core.library_dir, &command_builder_msvc_like::process_library_dir);
     }
 
     result process_inputs(void * v) { *this << quoted(value<std::string>(v)); return result::ok_(); }
@@ -88,6 +89,28 @@ class command_builder_msvc_like : public command_builder
         return result::ok_();
     }
     result process_library(void * v) { *this << value<std::string>(v)+".lib"; return result::ok_(); }
+    result process_library_dir(void * v) { this->link("/LIBPATH:"+value<std::string>(v)); return result::ok_(); }
+
+    result post() override
+    {
+        command_builder::post();
+        if (!link_arguments.empty())
+        {
+            *this << "/LINK" ;
+            for (auto opt : link_arguments) *this << opt;
+        }
+        return result::ok_();
+    }
+
+    protected:
+
+    std::vector<std::string> link_arguments;
+
+    auto link(std::string const & arg) -> command_builder &
+    {
+        link_arguments.emplace_back(arg);
+        return *this;
+    }
 };
 
 }

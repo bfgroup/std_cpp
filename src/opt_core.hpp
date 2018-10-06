@@ -33,6 +33,7 @@ struct core
     /////////////////////////////////////////////////////////////////////////////
 
     opt_strings<struct library_key> library;
+    opt_strings<struct library_dir_key> library_dir;
 
     core();
     core(cli & cli);

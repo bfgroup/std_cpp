@@ -19,7 +19,6 @@ struct vendor_gcc
 {
     opt_string<struct vendor_gcc_cpp_dialect_key> cpp_dialect;
     opt_strings<struct vendor_gcc_options_key> options;
-    opt_strings<struct vendor_gcc_library_dir_key> library_dir;
 
     vendor_gcc();
     vendor_gcc(cli & cli);
