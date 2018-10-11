@@ -35,9 +35,9 @@ class command_builder_msvc_like : public command_builder
         set_processor(core.library_dir, &command_builder_msvc_like::process_library_dir);
     }
 
-    result process_inputs(void * v) { *this << quoted(value<std::string>(v)); return result::ok_(); }
-    result process_output(void * v) { *this << "-Fo"+quoted(value<std::string>(v)); return result::ok_(); }
-    result process_include_dir(void * v) { *this << "-I"+quoted(value<std::string>(v)); return result::ok_(); }
+    result process_inputs(void * v) { *this << value<std::string>(v); return result::ok_(); }
+    result process_output(void * v) { *this << "-Fo"+value<std::string>(v); return result::ok_(); }
+    result process_include_dir(void * v) { *this << "-I"+value<std::string>(v); return result::ok_(); }
     result process_debug_info(void * v) { if (value<bool>(v)) *this << "-Z7" << "-DEBUG"; return result::ok_(); }
     result process_standard(void * v)
     {
@@ -85,7 +85,7 @@ class command_builder_msvc_like : public command_builder
         {
             name_value += "=1";
         }
-        *this << quoted("-D"+name_value);
+        *this << "-D"+name_value;
         return result::ok_();
     }
     result process_library(void * v) { *this << value<std::string>(v)+".lib"; return result::ok_(); }

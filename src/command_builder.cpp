@@ -10,6 +10,10 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 namespace bfg_std_cpp {
 
+command_builder::~command_builder()
+{
+}
+
 std::type_index command_builder::opt_index(opt_type const & o)
 {
     return o.index();

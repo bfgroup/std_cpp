@@ -33,7 +33,11 @@ class command_builder
         static inline result warning_(std::string const & m) { return result({warning, m}); }
     };
 
+    using arguments_vector = std::vector<std::string>;
+
     static std::shared_ptr<command_builder> make();
+
+    virtual ~command_builder();
 
     virtual result pre() { return result::ok_(); }
     virtual result post() { return result::ok_(); }
@@ -49,7 +53,13 @@ class command_builder
         return result::ok_();
     }
 
-    auto operator<<(std::string const & arg) -> command_builder &
+    auto operator<<(std::string arg) -> command_builder &
+    {
+        arguments.emplace_back([arg](arguments_vector& args)->void{ args.push_back(arg); });
+        return *this;
+    }
+
+    auto operator<<(std::function<void (arguments_vector&)> arg) -> command_builder &
     {
         arguments.emplace_back(arg);
         return *this;
@@ -57,21 +67,26 @@ class command_builder
 
     friend auto operator<<(std::ostream &os, command_builder const &c) -> std::ostream&
     {
-        for (auto const & arg: c.arguments)
+        for (auto & argument: c.get_command())
         {
-            os << std::string("\"") << arg << std::string("\" ");
+            os << std::string("\"") << argument << std::string("\" ");
         }
         return os;
     }
 
-    std::vector<std::string> const & get_command() const
+    std::vector<std::string> get_command() const
     {
-        return arguments;
+        std::vector<std::string> result;
+        for (auto & argument : arguments)
+        {
+            argument(result);
+        }
+        return result;
     }
 
     protected:
 
-    std::vector<std::string> arguments;
+    std::vector<std::function<void (arguments_vector &)>> arguments;
     std::unordered_map<std::type_index, std::function<result (command_builder &, opt_type &, void*)>> processor;
 
     template <typename F>
@@ -91,10 +106,12 @@ class command_builder
 
     static std::type_index opt_index(opt_type const & o);
 
+    #if 0
     static std::string quoted(std::string const & s)
     {
         return "\""+s+"\"";
     }
+    #endif
 };
 
 }

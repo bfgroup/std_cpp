@@ -17,8 +17,9 @@ class command_builder_gcc : public command_builder_gcc_like
 {
     public:
 
+    bool standard_option_added = false;
     std::string standard;
-    std::string cpp_dialect;
+    std::string cpp_dialect = "c++";
 
     command_builder_gcc()
     {
@@ -31,19 +32,26 @@ class command_builder_gcc : public command_builder_gcc_like
         set_processor(vendor_gcc.options, &command_builder_gcc::process_options);
     }
 
-    result process_standard(void * v) { standard = value<std::string>(v); return result::ok_(); }
-    result process_cpp_dialect(void * v) { cpp_dialect = value<std::string>(v);return result::ok_(); }
-    result process_options(void * v) { *this << "@"+value<std::string>(v); return result::ok_(); }
-
-    result post() override
+    result process_standard(void * v)
     {
-        std::string std_opt = "-std=";
-        if (cpp_dialect == "gnu") std_opt += "gnu++";
-        else std_opt += "c++";
-        if (!standard.empty()) *this << std_opt+standard;
-        command_builder_gcc_like::post();
+        standard = value<std::string>(v);
+        if (!standard_option_added)
+        {
+            standard_option_added = true;
+            *this << [this](std::vector<std::string>& arguments) -> void {
+                if (!this->standard.empty())
+                {
+                    std::string std_opt = "-std=";
+                    if (this->cpp_dialect == "gnu") std_opt += "gnu++";
+                    else std_opt += "c++";
+                    arguments.emplace_back(std_opt+this->standard);
+                }
+            };
+        }
         return result::ok_();
     }
+    result process_cpp_dialect(void * v) { cpp_dialect = value<std::string>(v);return result::ok_(); }
+    result process_options(void * v) { *this << "@"+value<std::string>(v); return result::ok_(); }
 };
 
 std::shared_ptr<command_builder> command_builder::make()
