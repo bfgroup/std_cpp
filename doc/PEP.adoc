@@ -3,10 +3,10 @@
 :author: Rene Rivera
 :email: grafikrobot@gmail.com
 :docnumber: P1177
-:revnumber: {docnumber}R0
+:revnumber: {docnumber}R1
 :revdate: {docdate}
-:revremark: Initial
-:version-label!: 
+:revremark: 1
+:version-label!:
 :reproducible:
 :nofooter:
 :sectanchors:

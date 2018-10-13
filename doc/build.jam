@@ -7,13 +7,17 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 import asciidoctor ;
 
-html std_compile_P1178R0.html : std_compile.adoc ;
-html std_compile_vendor_gcc_SDxx.html : std_compile_vendor_gcc.adoc ;
-html package_ecosystem_plan_P1177R0.html : PEP.adoc : <flags>"-r asciidoctor-diagram" ;
-make pep-a.svg : package_ecosystem_plan_P1177R0.html : @locate ;
-make pep-present.svg : package_ecosystem_plan_P1177R0.html : @locate ;
-make pep-pindex.svg : package_ecosystem_plan_P1177R0.html : @locate ;
-make pep-interfaces.svg : package_ecosystem_plan_P1177R0.html : @locate ;
+local std_cpp.html = std_compile_P1178R1.html ;
+local std_cpp_gcc.html = std_compile_vendor_gcc_SDxx.html ;
+local PEP.html = package_ecosystem_plan_P1177R1.html ;
+
+html $(std_cpp.html) : std_compile.adoc ;
+html $(std_cpp_gcc.html) : std_compile_vendor_gcc.adoc ;
+html $(PEP.html) : PEP.adoc : <flags>"-r asciidoctor-diagram" ;
+make pep-a.svg : $(PEP.html) : @locate ;
+make pep-present.svg : $(PEP.html) : @locate ;
+make pep-pindex.svg : $(PEP.html) : @locate ;
+make pep-interfaces.svg : $(PEP.html) : @locate ;
 
 rule locate ( target : source : properties * )
 {
@@ -21,9 +25,9 @@ rule locate ( target : source : properties * )
 }
 
 install html
-    :   std_compile_P1178R0.html
-        std_compile_vendor_gcc_SDxx.html
-        package_ecosystem_plan_P1177R0.html
+    :   $(std_cpp.html)
+        $(std_cpp_gcc.html)
+        $(PEP.html)
         pep-a.svg
         pep-present.svg
         pep-pindex.svg
