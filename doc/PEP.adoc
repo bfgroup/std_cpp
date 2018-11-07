@@ -2,7 +2,7 @@
 :copyright: Copyright 2018 Rene Rivera
 :author: Rene Rivera
 :email: grafikrobot@gmail.com
-:docnumber: P1177
+:docnumber: D1177
 :revnumber: {docnumber}R1
 :revdate: {docdate}
 :revremark: 1
@@ -11,10 +11,11 @@
 :nofooter:
 :sectanchors:
 :sectnums:
+:sectnumlevels: 5
 :source-highlighter: highlightjs
 :source-language: c++
 :toc: left
-:toclevels: 3
+:toclevels: 5
 :caution-caption: ⚑
 :important-caption: ‼
 :note-caption: ℹ
@@ -42,6 +43,12 @@ Audience:: Tooling (SG15)
 
 A plan for a cohesive ecosystem of package production and consumption among
 all {CPP} tools.
+
+== Changes
+
+=== R1 (WIP, San Diego 2018)
+
+Added "Current Work" section for apropos proposals: P1178, P1184, P1204, P1254, P1302, P1313, `libman`, and PFL.
 
 == Introduction
 
@@ -330,8 +337,6 @@ In an ideal ecosystem all compilers would use a well known single options API
 that the whole ecosystem would use to interoperate between different
 compilers, build systems, PDMs, and other tools.
 
-The `std::compile` proposal (P1178) covers this topic.
-
 === Build System API
 
 _Goal_:: Define minimal standard interface to build and define software
@@ -408,6 +413,90 @@ multiple parties interested in providing the index service we need to
 define who will be the authoritative source of this data. Hence we need to
 define a process that includes selection criteria, review, and official
 designation of who is the universal package index authority.
+
+=== Current Work
+
+==== Notes on C++ Package Management
+
+[horizontal]
+Domain:: <<Interfaces>>
+Authors:: Steve Downey <sdowney2@bloomberg.net>
+Status:: Publish as P1254
+Abstract::
+Text interfaces should be defined to be used by package management, package
+build, and build systems to allow more effective C++ package management for
+users by allowing package management tools to drive the build of source
+packages without unhelpful help from the package's build system.
+
+==== Implicit Module Partition Lookup
+
+[horizontal]
+Domain:: <<Compiler API>>, <<Build System API>>
+Authors:: Isabella Muerte <https://twitter.com/slurpsmadrips>, Richard Smith <richard@metafoo.co.uk>
+Status:: Published as P1302
+Abstract::
+While we cannot enforce a project or directory layout for module interface units, we can encourage a general convention that developers, build systems, and compiler vendors can rely on for "quick paths" when developing software in C++.
+
+==== A Module Mapper
+
+[horizontal]
+Domain:: <<Compiler API>>
+Authors:: Nathan Sidwell <nathan@acm.org>
+Status:: Published as P1184
+Abstract::
+This paper describes an interface implemented as a serial protocol by which compilation tools may interrogate an entity encoding the mapping between module names (dotted identifier sequences or legacy header unit names), their interface source file and their Binary Module Interface. This interface allows a compiler to be agnostic about the mapping.
+
+==== `std::compile`
+
+[horizontal]
+Domain:: <<Compiler API>>, <<Standard Options>>
+Authors:: Rene Rivera <grafikrobot@gmail.com>
+Status:: Publish as P1178
+Abstract::
+This proposes to add an interface for transforming {CPP} source into
+usable executable programs. As such it aims to provide a common definition of
+compiler frontend tool arguments and options for transforming source code to
+translation units and linking those into executable programs.
+
+==== Let's Talk About Package Specification
+
+[horizontal]
+Domain:: <<PDM API>>, <<Packages Description>>
+Authors:: Matthew Woehlke <mwoehlke.floss@gmail.com>
+Status:: Publish as P1313
+Abstract::
+This paper explores the concept of a package specification — an important
+aspect of interaction between distinct software components — and recommends a
+possible direction for improvements in this area.
+
+==== `libman` A Dependency Manager ➔ Build System Bridge
+
+[horizontal]
+Domain:: <<PDM API>>, <<Packages Description>>
+Authors:: Colby Pike <vectorofbool@gmail.com>
+Status:: Pre-publication here link:https://api.csswg.org/bikeshed/?force=1&url=https://raw.githubusercontent.com/vector-of-bool/libman/develop/data/spec.bs[https://api.csswg.org/bikeshed/?force=1&url=https://raw.githubusercontent.com/vector-of-bool/libman/develop/data/spec.bs]
+Abstract::
+An exploration on a solution to giving build systems a way to consume packages
+presented to it by a dependency manager. This system is called `libman`, short
+for _Library Manifest_.
+
+==== Canonical Project Structure
+
+[horizontal]
+Domain:: <<Build System API>>, <<PDM API>>
+Authors:: Boris Kolpackov <boris@codesynthesis.com>
+Status:: Published as P1204
+Abstract::
+Source code layout and content guidelines for new C++ projects that would facilitate their packaging.
+
+==== The Pitchfork Layout (PFL)
+
+[horizontal]
+Domain:: <<Build System API>>, <<PDM API>>
+Authors:: Colby Pike <vectorofbool@gmail.com>
+Status:: Pre-publication here link:https://vector-of-bool.github.io/psl.html[https://vector-of-bool.github.io/psl.html]
+Abstract::
+PFL is a convention for laying out source, build, and resource files in a filesystem to aide in uniformity, tooling, understandability, and compartmentalization.
 
 == Acknowledgements
 

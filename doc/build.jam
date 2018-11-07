@@ -7,9 +7,13 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 import asciidoctor ;
 
-local std_cpp.html = std_compile_P1178R1.html ;
-local std_cpp_gcc.html = std_compile_vendor_gcc_SDxx.html ;
-local PEP.html = package_ecosystem_plan_P1177R1.html ;
+local PEP_v = D1177R1 ;
+local std_cpp_v = D1178R1 ;
+local std_cpp_gcc_v = SDxx ;
+
+local PEP.html = package_ecosystem_plan_$(PEP_v).html ;
+local std_cpp.html = std_compile_$(std_cpp_v).html ;
+local std_cpp_gcc.html = std_compile_vendor_gcc_$(std_cpp_gcc_v).html ;
 
 html $(std_cpp.html) : std_compile.adoc ;
 html $(std_cpp_gcc.html) : std_compile_vendor_gcc.adoc ;
@@ -25,9 +29,9 @@ rule locate ( target : source : properties * )
 }
 
 install html
-    :   $(std_cpp.html)
+    :   $(PEP.html)
+        $(std_cpp.html)
         $(std_cpp_gcc.html)
-        $(PEP.html)
         pep-a.svg
         pep-present.svg
         pep-pindex.svg

@@ -438,48 +438,65 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">Rene Rivera</span><br>
 <span id="email" class="email"><a href="mailto:grafikrobot@gmail.com">grafikrobot@gmail.com</a></span><br>
-<span id="revnumber"> P1177R1,</span>
-<span id="revdate">2018-10-12</span>
+<span id="revnumber"> D1177R1,</span>
+<span id="revdate">2018-11-06</span>
 <br><span id="revremark">1</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_abstract">1. Abstract</a></li>
-<li><a href="#_introduction">2. Introduction</a></li>
-<li><a href="#_terminology">3. Terminology</a></li>
-<li><a href="#_current_landscape">4. Current Landscape</a></li>
-<li><a href="#_the_future">5. The Future</a>
+<li><a href="#_changes">2. Changes</a>
 <ul class="sectlevel2">
-<li><a href="#_package_index">5.1. Package Index</a></li>
-<li><a href="#_interfaces">5.2. Interfaces</a></li>
+<li><a href="#_r1_wip_san_diego_2018">2.1. R1 (WIP, San Diego 2018)</a></li>
 </ul>
 </li>
-<li><a href="#_plan">6. Plan</a>
+<li><a href="#_introduction">3. Introduction</a></li>
+<li><a href="#_terminology">4. Terminology</a></li>
+<li><a href="#_current_landscape">5. Current Landscape</a></li>
+<li><a href="#_the_future">6. The Future</a>
 <ul class="sectlevel2">
-<li><a href="#_compiler_api">6.1. Compiler API</a>
+<li><a href="#_package_index">6.1. Package Index</a></li>
+<li><a href="#_interfaces">6.2. Interfaces</a></li>
+</ul>
+</li>
+<li><a href="#_plan">7. Plan</a>
+<ul class="sectlevel2">
+<li><a href="#_compiler_api">7.1. Compiler API</a>
 <ul class="sectlevel3">
-<li><a href="#_standard_options">6.1.1. Standard Options</a></li>
+<li><a href="#_standard_options">7.1.1. Standard Options</a></li>
 </ul>
 </li>
-<li><a href="#_build_system_api">6.2. Build System API</a></li>
-<li><a href="#_pdm_api">6.3. PDM API</a>
+<li><a href="#_build_system_api">7.2. Build System API</a></li>
+<li><a href="#_pdm_api">7.3. PDM API</a>
 <ul class="sectlevel3">
-<li><a href="#_package_dependency">6.3.1. Package Dependency</a></li>
-<li><a href="#_packages_description">6.3.2. Packages Description</a></li>
-<li><a href="#_universal_package_identifier">6.3.3. Universal Package Identifier</a></li>
+<li><a href="#_package_dependency">7.3.1. Package Dependency</a></li>
+<li><a href="#_packages_description">7.3.2. Packages Description</a></li>
+<li><a href="#_universal_package_identifier">7.3.3. Universal Package Identifier</a></li>
 </ul>
 </li>
-<li><a href="#_package_index_api">6.4. Package Index API</a>
+<li><a href="#_package_index_api">7.4. Package Index API</a>
 <ul class="sectlevel3">
-<li><a href="#_package_query">6.4.1. Package Query</a></li>
-<li><a href="#_package_list">6.4.2. Package List</a></li>
+<li><a href="#_package_query">7.4.1. Package Query</a></li>
+<li><a href="#_package_list">7.4.2. Package List</a></li>
 </ul>
 </li>
-<li><a href="#_package_index_authority">6.5. Package Index Authority</a></li>
+<li><a href="#_package_index_authority">7.5. Package Index Authority</a></li>
+<li><a href="#_current_work">7.6. Current Work</a>
+<ul class="sectlevel3">
+<li><a href="#_notes_on_c_package_management">7.6.1. Notes on C++ Package Management</a></li>
+<li><a href="#_implicit_module_partition_lookup">7.6.2. Implicit Module Partition Lookup</a></li>
+<li><a href="#_a_module_mapper">7.6.3. A Module Mapper</a></li>
+<li><a href="#_stdcompile">7.6.4. <code>std::compile</code></a></li>
+<li><a href="#_lets_talk_about_package_specification">7.6.5. Let&#8217;s Talk About Package Specification</a></li>
+<li><a href="#_libman_a_dependency_manager_build_system_bridge">7.6.6. <code>libman</code> A Dependency Manager ➔ Build System Bridge</a></li>
+<li><a href="#_canonical_project_structure">7.6.7. Canonical Project Structure</a></li>
+<li><a href="#_the_pitchfork_layout_pfl">7.6.8. The Pitchfork Layout (PFL)</a></li>
 </ul>
 </li>
-<li><a href="#_acknowledgements">7. Acknowledgements</a></li>
+</ul>
+</li>
+<li><a href="#_acknowledgements">8. Acknowledgements</a></li>
 </ul>
 </div>
 </div>
@@ -541,7 +558,7 @@ h6 {
 Document number
 </td>
 <td class="hdlist2">
-<p>ISO/IEC/JTC1/SC22/WG21/P1177R1</p>
+<p>ISO/IEC/JTC1/SC22/WG21/D1177R1</p>
 </td>
 </tr>
 <tr>
@@ -549,7 +566,7 @@ Document number
 Date
 </td>
 <td class="hdlist2">
-<p>2018-10-12</p>
+<p>2018-11-06</p>
 </td>
 </tr>
 <tr>
@@ -582,7 +599,18 @@ all C++ tools.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_introduction"><a class="anchor" href="#_introduction"></a>2. Introduction</h2>
+<h2 id="_changes"><a class="anchor" href="#_changes"></a>2. Changes</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_r1_wip_san_diego_2018"><a class="anchor" href="#_r1_wip_san_diego_2018"></a>2.1. R1 (WIP, San Diego 2018)</h3>
+<div class="paragraph">
+<p>Added "Current Work" section for apropos proposals: P1178, P1184, P1204, P1254, P1302, P1313, <code>libman</code>, and PFL.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction"><a class="anchor" href="#_introduction"></a>3. Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>We&#8217;ve reached a point in C++ where our success has trapped us in a conundrum.
@@ -610,7 +638,7 @@ dependency manager, package manager, nor packages.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_terminology"><a class="anchor" href="#_terminology"></a>3. Terminology</h2>
+<h2 id="_terminology"><a class="anchor" href="#_terminology"></a>4. Terminology</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Some of the terms used herein have historically varied meanings. In this paper
@@ -656,7 +684,7 @@ generally found in the wild.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_current_landscape"><a class="anchor" href="#_current_landscape"></a>4. Current Landscape</h2>
+<h2 id="_current_landscape"><a class="anchor" href="#_current_landscape"></a>5. Current Landscape</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>At this time we have three key components to our package ecosystem:</p>
@@ -692,10 +720,10 @@ including source files.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_the_future"><a class="anchor" href="#_the_future"></a>5. The Future</h2>
+<h2 id="_the_future"><a class="anchor" href="#_the_future"></a>6. The Future</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_package_index"><a class="anchor" href="#_package_index"></a>5.1. Package Index</h3>
+<h3 id="_package_index"><a class="anchor" href="#_package_index"></a>6.1. Package Index</h3>
 <div class="paragraph">
 <p>One key problem with the current situation is that users consume packages
 from a restricted universe. When you decide to use PDM <em>A</em> you also decide
@@ -724,7 +752,7 @@ hopefully with minimal effort.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interfaces"><a class="anchor" href="#_interfaces"></a>5.2. Interfaces</h3>
+<h3 id="_interfaces"><a class="anchor" href="#_interfaces"></a>6.2. Interfaces</h3>
 <div class="paragraph">
 <p>There is one glaring problem with the above future structure: Users are now
 not only dealing with how to interact with multiple compilers and build
@@ -843,7 +871,7 @@ standard and interchangeable manner:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_plan"><a class="anchor" href="#_plan"></a>6. Plan</h2>
+<h2 id="_plan"><a class="anchor" href="#_plan"></a>7. Plan</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Note that this is a simplified view of the breadth of what such interfaces would
@@ -852,7 +880,7 @@ Proposals for the individual components would be sufficiently detailed to handle
 the varied use cases of the tools ecosystem as a whole.</p>
 </div>
 <div class="sect2">
-<h3 id="_compiler_api"><a class="anchor" href="#_compiler_api"></a>6.1. Compiler API</h3>
+<h3 id="_compiler_api"><a class="anchor" href="#_compiler_api"></a>7.1. Compiler API</h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>Goal</em></dt>
@@ -867,7 +895,7 @@ to produce data required for build systems, PDMs, source editors, and so on.</p>
 to expand over time to address the various needs of the tools that need it.</p>
 </div>
 <div class="sect3">
-<h4 id="_standard_options"><a class="anchor" href="#_standard_options"></a>6.1.1. Standard Options</h4>
+<h4 id="_standard_options"><a class="anchor" href="#_standard_options"></a>7.1.1. Standard Options</h4>
 <div class="paragraph">
 <p>Currently build tools, and users, need to deal with a differing set of APIs
 to communicate with compilers. This makes it difficult to define consistent
@@ -879,13 +907,10 @@ that needs reproducible builds.</p>
 that the whole ecosystem would use to interoperate between different
 compilers, build systems, PDMs, and other tools.</p>
 </div>
-<div class="paragraph">
-<p>The <code>std::compile</code> proposal (P1178) covers this topic.</p>
-</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_build_system_api"><a class="anchor" href="#_build_system_api"></a>6.2. Build System API</h3>
+<h3 id="_build_system_api"><a class="anchor" href="#_build_system_api"></a>7.2. Build System API</h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>Goal</em></dt>
@@ -897,7 +922,7 @@ build requirements.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_pdm_api"><a class="anchor" href="#_pdm_api"></a>6.3. PDM API</h3>
+<h3 id="_pdm_api"><a class="anchor" href="#_pdm_api"></a>7.3. PDM API</h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>Goal</em></dt>
@@ -908,7 +933,7 @@ both consume and produce packages.</p>
 </dl>
 </div>
 <div class="sect3">
-<h4 id="_package_dependency"><a class="anchor" href="#_package_dependency"></a>6.3.1. Package Dependency</h4>
+<h4 id="_package_dependency"><a class="anchor" href="#_package_dependency"></a>7.3.1. Package Dependency</h4>
 <div class="paragraph">
 <p>Currently when using a PDM one uses a package reference particular to that
 PDM to indicate your dependency on a package. This makes using different
@@ -923,7 +948,7 @@ entire collection of packages to users.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_packages_description"><a class="anchor" href="#_packages_description"></a>6.3.2. Packages Description</h4>
+<h4 id="_packages_description"><a class="anchor" href="#_packages_description"></a>7.3.2. Packages Description</h4>
 <div class="paragraph">
 <p>Like with the package dependency, we currently use different ways of describing
 the packages we need for any particular build of our software depending on the
@@ -943,7 +968,7 @@ it could even allow use of multiple PDMs simultaneously if such a need arrises.<
 </div>
 </div>
 <div class="sect3">
-<h4 id="_universal_package_identifier"><a class="anchor" href="#_universal_package_identifier"></a>6.3.3. Universal Package Identifier</h4>
+<h4 id="_universal_package_identifier"><a class="anchor" href="#_universal_package_identifier"></a>7.3.3. Universal Package Identifier</h4>
 <div class="paragraph">
 <p>To be able to support interchangeability between different PDMs we can&#8217;t be
 tied to their individual package references. We need a single universal package
@@ -952,7 +977,7 @@ identifier (UPID) to use in our projects that can refer to the components.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_package_index_api"><a class="anchor" href="#_package_index_api"></a>6.4. Package Index API</h3>
+<h3 id="_package_index_api"><a class="anchor" href="#_package_index_api"></a>7.4. Package Index API</h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>Goal</em></dt>
@@ -963,7 +988,7 @@ PDMs, and users.</p>
 </dl>
 </div>
 <div class="sect3">
-<h4 id="_package_query"><a class="anchor" href="#_package_query"></a>6.4.1. Package Query</h4>
+<h4 id="_package_query"><a class="anchor" href="#_package_query"></a>7.4.1. Package Query</h4>
 <div class="paragraph">
 <p>Having a package index is no good without a consistent way of asking for
 packages. A standard package query that tools can use to interrogate
@@ -972,7 +997,7 @@ index.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_package_list"><a class="anchor" href="#_package_list"></a>6.4.2. Package List</h4>
+<h4 id="_package_list"><a class="anchor" href="#_package_list"></a>7.4.2. Package List</h4>
 <div class="paragraph">
 <p>At minimum a package index needs to respond to queries with the set of
 packages available. The package list defines a standard response to that
@@ -981,7 +1006,7 @@ query.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_package_index_authority"><a class="anchor" href="#_package_index_authority"></a>6.5. Package Index Authority</h3>
+<h3 id="_package_index_authority"><a class="anchor" href="#_package_index_authority"></a>7.5. Package Index Authority</h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>Goal</em></dt>
@@ -1002,10 +1027,335 @@ define a process that includes selection criteria, review, and official
 designation of who is the universal package index authority.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_current_work"><a class="anchor" href="#_current_work"></a>7.6. Current Work</h3>
+<div class="sect3">
+<h4 id="_notes_on_c_package_management"><a class="anchor" href="#_notes_on_c_package_management"></a>7.6.1. Notes on C++ Package Management</h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+Domain
+</td>
+<td class="hdlist2">
+<p><a href="#_interfaces">Interfaces</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Authors
+</td>
+<td class="hdlist2">
+<p>Steve Downey &lt;<a href="mailto:sdowney2@bloomberg.net">sdowney2@bloomberg.net</a>&gt;</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Status
+</td>
+<td class="hdlist2">
+<p>Publish as P1254</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Abstract
+</td>
+<td class="hdlist2">
+<p>Text interfaces should be defined to be used by package management, package
+build, and build systems to allow more effective C++ package management for
+users by allowing package management tools to drive the build of source
+packages without unhelpful help from the package&#8217;s build system.</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_implicit_module_partition_lookup"><a class="anchor" href="#_implicit_module_partition_lookup"></a>7.6.2. Implicit Module Partition Lookup</h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+Domain
+</td>
+<td class="hdlist2">
+<p><a href="#_compiler_api">Compiler API</a>, <a href="#_build_system_api">Build System API</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Authors
+</td>
+<td class="hdlist2">
+<p>Isabella Muerte <a href="https://twitter.com/slurpsmadrips" class="bare">https://twitter.com/slurpsmadrips</a>, Richard Smith &lt;<a href="mailto:richard@metafoo.co.uk">richard@metafoo.co.uk</a>&gt;</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Status
+</td>
+<td class="hdlist2">
+<p>Published as P1302</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Abstract
+</td>
+<td class="hdlist2">
+<p>While we cannot enforce a project or directory layout for module interface units, we can encourage a general convention that developers, build systems, and compiler vendors can rely on for "quick paths" when developing software in C++.</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_a_module_mapper"><a class="anchor" href="#_a_module_mapper"></a>7.6.3. A Module Mapper</h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+Domain
+</td>
+<td class="hdlist2">
+<p><a href="#_compiler_api">Compiler API</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Authors
+</td>
+<td class="hdlist2">
+<p>Nathan Sidwell &lt;<a href="mailto:nathan@acm.org">nathan@acm.org</a>&gt;</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Status
+</td>
+<td class="hdlist2">
+<p>Published as P1184</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Abstract
+</td>
+<td class="hdlist2">
+<p>This paper describes an interface implemented as a serial protocol by which compilation tools may interrogate an entity encoding the mapping between module names (dotted identifier sequences or legacy header unit names), their interface source file and their Binary Module Interface. This interface allows a compiler to be agnostic about the mapping.</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_stdcompile"><a class="anchor" href="#_stdcompile"></a>7.6.4. <code>std::compile</code></h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+Domain
+</td>
+<td class="hdlist2">
+<p><a href="#_compiler_api">Compiler API</a>, <a href="#_standard_options">Standard Options</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Authors
+</td>
+<td class="hdlist2">
+<p>Rene Rivera &lt;<a href="mailto:grafikrobot@gmail.com">grafikrobot@gmail.com</a>&gt;</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Status
+</td>
+<td class="hdlist2">
+<p>Publish as P1178</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Abstract
+</td>
+<td class="hdlist2">
+<p>This proposes to add an interface for transforming C++ source into
+usable executable programs. As such it aims to provide a common definition of
+compiler frontend tool arguments and options for transforming source code to
+translation units and linking those into executable programs.</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_lets_talk_about_package_specification"><a class="anchor" href="#_lets_talk_about_package_specification"></a>7.6.5. Let&#8217;s Talk About Package Specification</h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+Domain
+</td>
+<td class="hdlist2">
+<p><a href="#_pdm_api">PDM API</a>, <a href="#_packages_description">Packages Description</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Authors
+</td>
+<td class="hdlist2">
+<p>Matthew Woehlke &lt;<a href="mailto:mwoehlke.floss@gmail.com">mwoehlke.floss@gmail.com</a>&gt;</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Status
+</td>
+<td class="hdlist2">
+<p>Publish as P1313</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Abstract
+</td>
+<td class="hdlist2">
+<p>This paper explores the concept of a package specification — an important
+aspect of interaction between distinct software components — and recommends a
+possible direction for improvements in this area.</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_libman_a_dependency_manager_build_system_bridge"><a class="anchor" href="#_libman_a_dependency_manager_build_system_bridge"></a>7.6.6. <code>libman</code> A Dependency Manager ➔ Build System Bridge</h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+Domain
+</td>
+<td class="hdlist2">
+<p><a href="#_pdm_api">PDM API</a>, <a href="#_packages_description">Packages Description</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Authors
+</td>
+<td class="hdlist2">
+<p>Colby Pike &lt;<a href="mailto:vectorofbool@gmail.com">vectorofbool@gmail.com</a>&gt;</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Status
+</td>
+<td class="hdlist2">
+<p>Pre-publication here <a href="https://api.csswg.org/bikeshed/?force=1&amp;url=https://raw.githubusercontent.com/vector-of-bool/libman/develop/data/spec.bs">https://api.csswg.org/bikeshed/?force=1&amp;url=https://raw.githubusercontent.com/vector-of-bool/libman/develop/data/spec.bs</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Abstract
+</td>
+<td class="hdlist2">
+<p>An exploration on a solution to giving build systems a way to consume packages
+presented to it by a dependency manager. This system is called <code>libman</code>, short
+for <em>Library Manifest</em>.</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_canonical_project_structure"><a class="anchor" href="#_canonical_project_structure"></a>7.6.7. Canonical Project Structure</h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+Domain
+</td>
+<td class="hdlist2">
+<p><a href="#_build_system_api">Build System API</a>, <a href="#_pdm_api">PDM API</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Authors
+</td>
+<td class="hdlist2">
+<p>Boris Kolpackov &lt;<a href="mailto:boris@codesynthesis.com">boris@codesynthesis.com</a>&gt;</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Status
+</td>
+<td class="hdlist2">
+<p>Published as P1204</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Abstract
+</td>
+<td class="hdlist2">
+<p>Source code layout and content guidelines for new C++ projects that would facilitate their packaging.</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_the_pitchfork_layout_pfl"><a class="anchor" href="#_the_pitchfork_layout_pfl"></a>7.6.8. The Pitchfork Layout (PFL)</h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+Domain
+</td>
+<td class="hdlist2">
+<p><a href="#_build_system_api">Build System API</a>, <a href="#_pdm_api">PDM API</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Authors
+</td>
+<td class="hdlist2">
+<p>Colby Pike &lt;<a href="mailto:vectorofbool@gmail.com">vectorofbool@gmail.com</a>&gt;</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Status
+</td>
+<td class="hdlist2">
+<p>Pre-publication here <a href="https://vector-of-bool.github.io/psl.html">https://vector-of-bool.github.io/psl.html</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Abstract
+</td>
+<td class="hdlist2">
+<p>PFL is a convention for laying out source, build, and resource files in a filesystem to aide in uniformity, tooling, understandability, and compartmentalization.</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_acknowledgements"><a class="anchor" href="#_acknowledgements"></a>7. Acknowledgements</h2>
+<h2 id="_acknowledgements"><a class="anchor" href="#_acknowledgements"></a>8. Acknowledgements</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Thanks to CppCon 2017 for providing the environment for "arguments" about
