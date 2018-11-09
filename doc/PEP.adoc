@@ -494,7 +494,7 @@ Source code layout and content guidelines for new C++ projects that would facili
 [horizontal]
 Domain:: <<Build System API>>, <<PDM API>>
 Authors:: Colby Pike <vectorofbool@gmail.com>
-Status:: Pre-publication here link:https://vector-of-bool.github.io/psl.html[https://vector-of-bool.github.io/psl.html]
+Status:: Pre-publication here link:https://api.csswg.org/bikeshed/?force=1&url=https://raw.githubusercontent.com/vector-of-bool/pitchfork/develop/data/spec.bs[https://api.csswg.org/bikeshed/?force=1&url=https://raw.githubusercontent.com/vector-of-bool/pitchfork/develop/data/spec.bs]
 Abstract::
 PFL is a convention for laying out source, build, and resource files in a filesystem to aide in uniformity, tooling, understandability, and compartmentalization.
 
