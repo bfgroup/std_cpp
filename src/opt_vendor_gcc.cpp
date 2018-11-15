@@ -21,7 +21,7 @@ vendor_gcc::vendor_gcc(cli & cli)
 
 [subs=normal]
 ....
-++gcc:cppdialect=__cpp_dialect__
+{lopt}gcc:cppdialect=__cpp_dialect__
 ....
 
 [horizontal]
@@ -43,7 +43,7 @@ Compatibility:: Link incompatible.
 
 [subs=normal]
 ....
-++gcc:options=__file__
+{lopt}gcc:options=__file__
 ....
 
 [horizontal]

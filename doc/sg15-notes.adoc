@@ -1,0 +1,106 @@
+= Tooling Notes
+
+== libman
+
+* Any restrictions on package names?
+* Are multi-library or sub-packages supported aside from ad hoc package naming? A: This seems to be addressed by the open namespaces.
+
+A field might appear multiple times in the file. The semantics thereof depend on the semantics of the field.::
+	Context dependent semantics is not ideal for people or computers. Makes it hard for people to compose such files without continuously consulting documentation.
+
+Minor note.. usage requirements originated in b2, and CMake adopted them "recently".
+
+== The Pitchfork Layout (PFL)
+
+== P1302R0: Implicit Module Partition Lookup
+
+== p1184r0: A Module Mapper
+
+== P1313R0: Let's Talk About Package Specification
+
+The goal of the paper and basis are reasonable. But I don't agree that CPS is the way to go. It covers a larger scope than what seems needed to solve the package usage spec issue. I prefer the `libman` definition of package spec.
+
+== P1254R0: Notes on C++ Package Management
+
+Abstract::
+* If I understand correctly the premise is that package managers should build source only that is determined by the PDM? Which presumes source only packages. Hence this is an aspect I disagree on. Binary only, or binary cached, packages is a requirement in my field, and others. I.e. I consider this a *non-starter*.
+
+Assumptions::
+* Disagree with giving up on compiler options (obviously).
+
+Package build system requirements::
+* Disagree that the "source packages" is the only viable distribution mechanism.
+* Conan gives a clear example that binary package distribution can work.
+* The growth of easy to use dedicated build services shows that build resources can be made available.
+* Yes, companies are likely to build internally, but everyone else benefits from not building. As they build with common variations (aka toolset flags), have less local resources to build, and appreciate not spending time on building. But companies also benefit from distributing binaries internally.
+
+== P1204R0: Canonical Project Structure
+
+Introduction::
+* How do you differentiate between exported (public) vs. internal (private) headers?
+* It would seem that if you are requiring the use of "lib" prefix to indicate library projects shouldn't you use a corresponding prefix for executable projects? For example an "exec" prefix.
+
+Source Directory::
+* The drawbacks for not having a public/private split read like deficiencies in tooling created from not having a recognized standard layout. And hence tooling would improve to remove the deficiencies once we have a standard layout even if there is a public/private split.
+* The same source conglomeration attributed to modules also applies to regular headers. And the same split header and source can be applied to modules. Hence it seems this issue is irrelevant for layout.
+
+Source Naming::
+* Other than the suffix names, the rest seems entirely arbitrary. I.e. without any reasoned justification.
+* Are the "mpp", "ipp", and "tpp" extension existing practice in being recognized by tools (compilers and editors) and C++ source?
+
+Source Content::
+* Why are we talking about naming of macros for a "Project Structure"?
+
+Tests::
+* The distinction between unit and functional tests as far as layout is concerned also seems arbitrary. It would make just as much sense to make al tests follow the functional tests layout.
+
+= From Diego Reodriguez-Losada
+
+Diego Rodriguez-Losada [6:04 AM][10-31-2018]
+Hi Rene. Had a look to the agenda for SG15, this would be my opinion, summarized:
+> P1177 - Presented by Rene Rivera
+
+Yes, this is a very good initial analysis for context.
+
+
+> Are we concerned with distribution of libraries for installation? (Vs. distribution of packages for development, which be much more concerned with hermeticity / reproducibility).
+
+Distribution for development, not installation (system-level package managers).
+
+> P1204. Do we approve of the specific project structure in P1204? Or a similar approach?
+
+Don't approve.
+IMHO, too much opinionated (e.g. hello.test.cpp in the main source directory)
+Pitchfork, by Colby Pike (vector-of-bool) seems less focused on a specific build-system (build2) but gets ideas from popular build systems like CMake: https://github.com/vector-of-bool/pitchfork/blob/develop/data/spec.bs
+He will be likely submitting for next meetings, I'll definitely wait.
+
+> P1313: Let's Talk About Package Specification http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1313r0.html
+
+Dont approve
+IMO, this proposed specification is not correct, it does too much. The problem has to be decoupled.
+Again, Colby Pike (vector-of-bool) is preparing a better proposal "libman" for next meeting, which is totally focused on a smaller but high value problem: consumption of libraries. This should be the way to go.
+
+> P1254: Notes about package management. Steve Downey.
+
+Don't approve.
+This paper is wrong in one of their premises:
+"This also implies a source package model, as experience has demonstrated that for C++ binary packages only work with the packages they were built against."
+
+This is simply not true, and has been already largely demonstrated in practice (Conan) and as many other devs reusing binaries.
+We are not aiming at a Universal binary package compatibility model. But being able to create and reuse binaries for specific configurations is an extremely important thing for many enterprise.
+This cannot be ruled out as a valid use case.
+
+== Questions
+
+P1177::
+* Do we agree with the package ecosystem structure as a starting point?
+
+P1178::
+* For option short and long names, should we use existing practice?
+* For option short and long names, should we abandon existing practice and prefer more intuitive names?
+* Should we add a constexpr overload that compiles in-place?
+* Should we add an extern "C" function that is callable externally?
+* Is the International Standard a viable method to standardize core compiler options?
+* Is a technical specification a viable method to standardize core compiler options?
+* Is a standing document a viable method to standardize core compiler options?
+* Are standing documents a viable method to standardize non-core compiler options?

@@ -438,9 +438,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">Rene Rivera</span><br>
 <span id="email" class="email"><a href="mailto:grafikrobot@gmail.com">grafikrobot@gmail.com</a></span><br>
-<span id="revnumber"> P1178R1,</span>
+<span id="revnumber"> SD-AA-R0,</span>
 <span id="revdate">2018-11-09</span>
-<br><span id="revremark">1</span>
+<br><span id="revremark">0</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -448,18 +448,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_introduction">1. Introduction</a>
 <ul class="sectlevel2">
 <li><a href="#_background_and_motivation">1.1. Background and Motivation</a></li>
-<li><a href="#_impact_on_the_standard">1.2. Impact On the Standard</a></li>
-<li><a href="#_design_goals">1.3. Design Goals</a></li>
-<li><a href="#_design_decisions">1.4. Design Decisions</a>
+<li><a href="#_design_goals">1.2. Design Goals</a></li>
+<li><a href="#_design_decisions">1.3. Design Decisions</a>
 <ul class="sectlevel3">
-<li><a href="#_exceptions">1.4.1. Exceptions</a></li>
-<li><a href="#_argument_exclusivity">1.4.2. Argument Exclusivity</a></li>
-<li><a href="#_option_prefix">1.4.3. <code>+</code> Option Prefix</a></li>
-<li><a href="#_use_cases">1.4.4. Use Cases</a></li>
+<li><a href="#_argument_exclusivity">1.3.1. Argument Exclusivity</a></li>
+<li><a href="#_option_prefix">1.3.2. <code>-</code> Option Prefix</a></li>
+<li><a href="#_use_cases">1.3.3. Use Cases</a></li>
 </ul>
 </li>
-<li><a href="#_about_linking">1.5. About Linking</a></li>
-<li><a href="#_link_compatibility">1.6. Link Compatibility</a></li>
+<li><a href="#_about_linking">1.4. About Linking</a></li>
+<li><a href="#_link_compatibility">1.5. Link Compatibility</a></li>
 </ul>
 </li>
 <li><a href="#_argument_specifications">2. Argument Specifications</a>
@@ -560,7 +558,7 @@ h6 {
 Document number
 </td>
 <td class="hdlist2">
-<p>ISO/IEC/JTC1/SC22/WG21/P1178R1</p>
+<p>ISO/IEC/JTC1/SC22/WG21/SD-AA-R0</p>
 </td>
 </tr>
 <tr>
@@ -584,7 +582,7 @@ Reply-to
 Audience
 </td>
 <td class="hdlist2">
-<p>Tooling (SG15), Library Evolution</p>
+<p>Tooling (SG15)</p>
 </td>
 </tr>
 </table>
@@ -631,15 +629,7 @@ execution platform is not known ahead of time.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_impact_on_the_standard"><a class="anchor" href="#_impact_on_the_standard"></a>1.2. Impact On the Standard</h3>
-<div class="paragraph">
-<p>This proposal is a library extension and specification. As such it does not
-prescribe changes to any standard classes or functions. It adds one function,
-and overloads, in a new header file, <code>&lt;compile&gt;</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_design_goals"><a class="anchor" href="#_design_goals"></a>1.3. Design Goals</h3>
+<h3 id="_design_goals"><a class="anchor" href="#_design_goals"></a>1.2. Design Goals</h3>
 <div class="paragraph">
 <p>The design herein is driven primarily by the following, in approximate
 order of importance:</p>
@@ -667,19 +657,9 @@ tooling checks for binary compatibility.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_design_decisions"><a class="anchor" href="#_design_decisions"></a>1.4. Design Decisions</h3>
+<h3 id="_design_decisions"><a class="anchor" href="#_design_decisions"></a>1.3. Design Decisions</h3>
 <div class="sect3">
-<h4 id="_exceptions"><a class="anchor" href="#_exceptions"></a>1.4.1. Exceptions</h4>
-<div class="paragraph">
-<p>So as to reduce error handling cases for callers of <code>compile</code>, i.e. <code>main</code>,
-there are no exceptions allowed from calls to <code>compile</code>. This has the effect
-of removing the need for exception handling at the caller as any error
-situations are indicated by the simpler return value which can be directly
-mapped to the return value of <code>main</code>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_argument_exclusivity"><a class="anchor" href="#_argument_exclusivity"></a>1.4.2. Argument Exclusivity</h4>
+<h4 id="_argument_exclusivity"><a class="anchor" href="#_argument_exclusivity"></a>1.3.1. Argument Exclusivity</h4>
 <div class="paragraph">
 <p>Recognizing that specifying a complete set of argument options is not possible
 we need to provide for a mechanism to pass vendor specific arguments for
@@ -699,19 +679,19 @@ argument is <strong>not</strong> allowed as an acceptable argument option.</p>
 <dl>
 <dt class="hdlist1">For instance</dt>
 <dd>
-<p>We specify the <code>++address_model</code> core option. It would not be allowed for
-a vendor to specify an <code>++v:xyz:m64</code> (to specify 64 bit address model) option
+<p>We specify the <code>--address_model</code> core option. It would not be allowed for
+a vendor to specify an <code>--v:xyz:m64</code> (to specify 64 bit address model) option
 as that would overlap with the core option.</p>
 </dd>
 </dl>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_option_prefix"><a class="anchor" href="#_option_prefix"></a>1.4.3. <code>+</code> Option Prefix</h4>
+<h4 id="_option_prefix"><a class="anchor" href="#_option_prefix"></a>1.3.2. <code>-</code> Option Prefix</h4>
 <div class="paragraph">
 <p>Like choosing names for programming language constructs, choosing a prefix
 for the option arguments is a contentious decision. For this we chose to
-use <code>+</code> as the prefix, and hence <code>++</code> for the long form, for these reasons:</p>
+use <code>-</code> as the prefix, and hence <code>--</code> for the long form, for these reasons:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -737,7 +717,7 @@ with existing options.</p>
 <p>Regardless of this choice, this is ostensibly a straw-man choice. There are
 valid reasons to choose other prefix (say <code>-</code>). And this proposal does not
 hinge on what this prefix is. But do note that the sample implementation does
-use <code>+</code> and <code>++</code>.</p>
+use <code>-</code> and <code>--</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -746,16 +726,16 @@ use <code>+</code> and <code>++</code>.</p>
 <div class="title">ℹ</div>
 </td>
 <td class="content">
-There is at least one class of compilers that historically use the <code>+</code>
+There is at least one class of compilers that historically use the <code>-</code>
 prefix. For example the <a href="https://www.csee.umbc.edu/portal/help/VHDL/verilog/command_line_plus_options.html">Verilog-XL</a>
-uses the <code>+</code> option prefix exclusive.
+uses the <code>-</code> option prefix exclusive.
 </td>
 </tr>
 </table>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_use_cases"><a class="anchor" href="#_use_cases"></a>1.4.4. Use Cases</h4>
+<h4 id="_use_cases"><a class="anchor" href="#_use_cases"></a>1.3.3. Use Cases</h4>
 <div class="paragraph">
 <p>This facility is designed to facilitate primarily these groups of users:
 teachers (and their students), and tool creators. For teachers this feature
@@ -925,7 +905,7 @@ operation in a much simpler and direct method.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_about_linking"><a class="anchor" href="#_about_linking"></a>1.5. About Linking</h3>
+<h3 id="_about_linking"><a class="anchor" href="#_about_linking"></a>1.4. About Linking</h3>
 <div class="paragraph">
 <p>When considering this extension the question comes up about the definition of
 generating compiled source files and linking them into a program. The key issue
@@ -972,7 +952,7 @@ is entirely implementation defined.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_link_compatibility"><a class="anchor" href="#_link_compatibility"></a>1.6. Link Compatibility</h3>
+<h3 id="_link_compatibility"><a class="anchor" href="#_link_compatibility"></a>1.5. Link Compatibility</h3>
 <div class="paragraph">
 <p>This proposal defines a <em>link compatibility</em> for options to make it clear what
 compiled translation units are compatible with each other. This information
@@ -1219,13 +1199,13 @@ Returns
 <p>The <code>arguments</code> specify the set of options, translation units to transform,
 or transformed translation units to link into a program. An argument is either
 an option and option value, or a name of a translation unit source. Options
-start with the <code>+</code> or <code>++</code> option prefix.</p>
+start with the <code>-</code> or <code>--</code> option prefix.</p>
 </div>
 <div class="sect4">
 <h5 id="_long_short_options"><a class="anchor" href="#_long_short_options"></a>4.2.1.1. Long &amp; Short Options</h5>
 <div class="paragraph">
-<p>Arguments that start with <code>++</code> are <em>long options</em>. And arguments that start
-with a single <code>+</code> are <em>short options</em>. <em>Long options</em> are expected to be
+<p>Arguments that start with <code>--</code> are <em>long options</em>. And arguments that start
+with a single <code>-</code> are <em>short options</em>. <em>Long options</em> are expected to be
 succinct but reasonably human readable names of options. And <em>short options</em>
 are expected to be well known one or two character alternatives to the
 <em>long options</em>.</p>
@@ -1238,9 +1218,9 @@ are expected to be well known one or two character alternatives to the
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>++<em>name</em>[=<em>value</em>]
-++<em>name</em> [<em>value</em>]
-+<em>n</em> [<em>value</em>]</pre>
+<pre>--<em>name</em>[=<em>value</em>]
+--<em>name</em> [<em>value</em>]
+-<em>n</em> [<em>value</em>]</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1263,9 +1243,9 @@ follow this syntax:</p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>++<em>vendor-key</em>:<em>name</em>[=<em>value</em>]
-++<em>vendor-key</em>:<em>name</em> [<em>value</em>]
-+<em>vendor-key</em>:<em>n</em> [<em>value</em>]</pre>
+<pre>--<em>vendor-key</em>:<em>name</em>[=<em>value</em>]
+--<em>vendor-key</em>:<em>name</em> [<em>value</em>]
+-<em>vendor-key</em>:<em>n</em> [<em>value</em>]</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1314,9 +1294,9 @@ incompatible between its own different values.</p>
 <h6 id="_help"><a class="anchor" href="#_help"></a>4.2.1.6.1. help</h6>
 <div class="literalblock">
 <div class="content">
-<pre>+h
-+?
-+help</pre>
+<pre>-h
+-?
+--help</pre>
 </div>
 </div>
 <div class="hdlist">
@@ -1336,8 +1316,8 @@ Effect
 <h6 id="_output"><a class="anchor" href="#_output"></a>4.2.1.6.2. output</h6>
 <div class="literalblock">
 <div class="content">
-<pre>+o <em>file</em>
-+output=<em>file</em></pre>
+<pre>-o <em>file</em>
+--output=<em>file</em></pre>
 </div>
 </div>
 <div class="hdlist">
@@ -1381,8 +1361,8 @@ Compatibility
 <h6 id="_define"><a class="anchor" href="#_define"></a>4.2.1.6.3. define</h6>
 <div class="literalblock">
 <div class="content">
-<pre>+D <em>definition</em>
-+define=<em>definition</em></pre>
+<pre>-D <em>definition</em>
+--define=<em>definition</em></pre>
 </div>
 </div>
 <div class="hdlist">
@@ -1427,8 +1407,8 @@ Compatibility
 <h6 id="_include_directory"><a class="anchor" href="#_include_directory"></a>4.2.1.6.4. include directory</h6>
 <div class="literalblock">
 <div class="content">
-<pre>+I <em>directory</em>
-+include-dir=<em>directory</em></pre>
+<pre>-I <em>directory</em>
+--include-dir=<em>directory</em></pre>
 </div>
 </div>
 <div class="hdlist">
@@ -1472,8 +1452,8 @@ Compatibility
 <h6 id="_debug_information"><a class="anchor" href="#_debug_information"></a>4.2.1.6.5. debug information</h6>
 <div class="literalblock">
 <div class="content">
-<pre>+g
-+debug</pre>
+<pre>-g
+--debug</pre>
 </div>
 </div>
 <div class="hdlist">
@@ -1517,8 +1497,8 @@ Compatibility
 <h6 id="_standard_conformance"><a class="anchor" href="#_standard_conformance"></a>4.2.1.6.6. standard conformance</h6>
 <div class="literalblock">
 <div class="content">
-<pre>+std <em>standard</em>
-+standard=<em>standard</em></pre>
+<pre>-std <em>standard</em>
+--standard=<em>standard</em></pre>
 </div>
 </div>
 <div class="hdlist">
@@ -1563,8 +1543,8 @@ Compatibility
 <h6 id="_warnings"><a class="anchor" href="#_warnings"></a>4.2.1.6.7. warnings</h6>
 <div class="literalblock">
 <div class="content">
-<pre>+W <em>warning_option</em>
-+warnings=<em>warning_option</em></pre>
+<pre>-W <em>warning_option</em>
+--warnings=<em>warning_option</em></pre>
 </div>
 </div>
 <div class="hdlist">
@@ -1613,8 +1593,8 @@ Compatibility
 <h6 id="_optimize"><a class="anchor" href="#_optimize"></a>4.2.1.6.8. optimize</h6>
 <div class="literalblock">
 <div class="content">
-<pre>+O <em>optimization_level</em>
-+optimize=<em>optimization_level</em></pre>
+<pre>-O <em>optimization_level</em>
+--optimize=<em>optimization_level</em></pre>
 </div>
 </div>
 <div class="hdlist">
@@ -1660,7 +1640,7 @@ Compatibility
 <h6 id="_address_model"><a class="anchor" href="#_address_model"></a>4.2.1.6.9. address_model</h6>
 <div class="literalblock">
 <div class="content">
-<pre>+address_model=<em>bits</em></pre>
+<pre>--address_model=<em>bits</em></pre>
 </div>
 </div>
 <div class="hdlist">
@@ -1707,8 +1687,8 @@ Compatibility
 <h6 id="_library"><a class="anchor" href="#_library"></a>4.2.1.6.10. library</h6>
 <div class="literalblock">
 <div class="content">
-<pre>+l <em>library</em>
-+library=<em>library</em></pre>
+<pre>-l <em>library</em>
+--library=<em>library</em></pre>
 </div>
 </div>
 <div class="hdlist">
@@ -1753,8 +1733,8 @@ Compatibility
 <h6 id="_library_directory"><a class="anchor" href="#_library_directory"></a>4.2.1.6.11. library directory</h6>
 <div class="literalblock">
 <div class="content">
-<pre>+L <em>directory</em>
-+library-dir=<em>directory</em></pre>
+<pre>-L <em>directory</em>
+--library-dir=<em>directory</em></pre>
 </div>
 </div>
 <div class="hdlist">

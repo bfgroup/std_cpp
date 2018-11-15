@@ -21,9 +21,9 @@ core::core(cli & cli)
 
 [subs=normal]
 ....
-+h
-+?
-++help
+{sopt}h
+{sopt}?
+{lopt}help
 ....
 
 [horizontal]
@@ -43,8 +43,8 @@ Effect:: Displays all available options and exits.
 
 [subs=normal]
 ....
-+o __file__
-++output=__file__
+{sopt}o __file__
+{lopt}output=__file__
 ....
 
 [horizontal]
@@ -65,8 +65,8 @@ Compatibility:: NA
 
 [subs=normal]
 ....
-+D __definition__
-++define=__definition__
+{sopt}D __definition__
+{lopt}define=__definition__
 ....
 
 [horizontal]
@@ -88,8 +88,8 @@ Compatibility:: NA
 
 [subs=normal]
 ....
-+I __directory__
-++include-dir=__directory__
+{sopt}I __directory__
+{lopt}include-dir=__directory__
 ....
 
 [horizontal]
@@ -110,8 +110,8 @@ Compatibility:: NA
 
 [subs=normal]
 ....
-+g
-++debug
+{sopt}g
+{lopt}debug
 ....
 
 [horizontal]
@@ -132,8 +132,8 @@ Compatibility:: NA
 
 [subs=normal]
 ....
-+std __standard__
-++standard=__standard__
+{sopt}std __standard__
+{lopt}standard=__standard__
 ....
 
 [horizontal]
@@ -155,8 +155,8 @@ Compatibility:: Link incompatible.
 
 [subs=normal]
 ....
-+W __warning_option__
-++warnings=__warning_option__
+{sopt}W __warning_option__
+{lopt}warnings=__warning_option__
 ....
 
 [horizontal]
@@ -182,8 +182,8 @@ Compatibility:: Link compatible.
 
 [subs=normal]
 ....
-+O __optimization_level__
-++optimize=__optimization_level__
+{sopt}O __optimization_level__
+{lopt}optimize=__optimization_level__
 ....
 
 [horizontal]
@@ -206,7 +206,7 @@ Compatibility:: Link compatible.
 
 [subs=normal]
 ....
-++address_model=__bits__
+{lopt}address_model=__bits__
 ....
 
 [horizontal]
@@ -232,8 +232,8 @@ Compatibility:: Link incompatible.
 
 [subs=normal]
 ....
-+l __library__
-++library=__library__
+{sopt}l __library__
+{lopt}library=__library__
 ....
 
 [horizontal]
@@ -255,8 +255,8 @@ Compatibility:: NA
 
 [subs=normal]
 ....
-+L __directory__
-++library-dir=__directory__
+{sopt}L __directory__
+{lopt}library-dir=__directory__
 ....
 
 [horizontal]

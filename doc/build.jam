@@ -7,13 +7,18 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 import asciidoctor ;
 
-local PEP_v = D1177R1 ;
+local PEP_v = P1177R1 ;
 local std_cpp_v = D1178R1 ;
 local std_cpp_gcc_v = SDxx ;
+local cpp_opt_v = SD-AA ;
+local cpp_opt_gcc_v = SD-BB ;
 
 local PEP.html = package_ecosystem_plan_$(PEP_v).html ;
 local std_cpp.html = std_compile_$(std_cpp_v).html ;
 local std_cpp_gcc.html = std_compile_vendor_gcc_$(std_cpp_gcc_v).html ;
+
+local cpp_opt.html = cpp_opt_$(cpp_opt_v).html ;
+local cpp_opt_gcc.html = cpp_opt_gcc_$(cpp_opt_gcc_v).html ;
 
 html $(std_cpp.html) : std_compile.adoc ;
 html $(std_cpp_gcc.html) : std_compile_vendor_gcc.adoc ;
@@ -22,6 +27,9 @@ make pep-a.svg : $(PEP.html) : @locate ;
 make pep-present.svg : $(PEP.html) : @locate ;
 make pep-pindex.svg : $(PEP.html) : @locate ;
 make pep-interfaces.svg : $(PEP.html) : @locate ;
+
+html $(cpp_opt.html) : cpp_opt.adoc ;
+html $(cpp_opt_gcc.html) : cpp_opt_gcc.adoc ;
 
 rule locate ( target : source : properties * )
 {
@@ -32,6 +40,8 @@ install html
     :   $(PEP.html)
         $(std_cpp.html)
         $(std_cpp_gcc.html)
+        $(cpp_opt.html)
+        $(cpp_opt_gcc.html)
         pep-a.svg
         pep-present.svg
         pep-pindex.svg

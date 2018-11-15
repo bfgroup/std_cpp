@@ -2,10 +2,10 @@
 :copyright: Copyright 2017-2018 Rene Rivera
 :author: Rene Rivera
 :email: grafikrobot@gmail.com
-:docnumber: P1178
-:revnumber: {docnumber}R1
+:docnumber: SD-AA
+:revnumber: {docnumber}-R0
 :revdate: {docdate}
-:revremark: 1
+:revremark: 0
 :version-label!: 
 :reproducible:
 :nofooter:
@@ -24,8 +24,8 @@
 :CPP: C++
 :PP: ++
 :P: +
-:lopt: +
-:sopt: +
+:lopt: --
+:sopt: -
 
 ifdef::backend-html5[]
 ++++
@@ -39,7 +39,7 @@ endif::[]
 Document number:: ISO/IEC/JTC1/SC22/WG21/{revnumber}
 Date:: {revdate}
 Reply-to:: {author}, {email}
-Audience:: Tooling (SG15), Library Evolution
+Audience:: Tooling (SG15)
 
 == Introduction
 
@@ -73,12 +73,6 @@ Additionally this facility could also support runtime compilation, for example
 for runtime generated source, and other compilation models where the particular
 execution platform is not known ahead of time.
 
-=== Impact On the Standard
-
-This proposal is a library extension and specification. As such it does not
-prescribe changes to any standard classes or functions. It adds one function,
-and overloads, in a new header file, `<compile>`.
-
 === Design Goals
 
 The design herein is driven primarily by the following, in approximate
@@ -94,14 +88,6 @@ order of importance:
 
 === Design Decisions
 
-==== Exceptions
-
-So as to reduce error handling cases for callers of `compile`, i.e. `main`,
-there are no exceptions allowed from calls to `compile`. This has the effect
-of removing the need for exception handling at the caller as any error
-situations are indicated by the simpler return value which can be directly
-mapped to the return value of `main`.
-
 ==== Argument Exclusivity
 
 Recognizing that specifying a complete set of argument options is not possible
@@ -116,15 +102,15 @@ argument is *not* allowed as an acceptable argument option.
 ****
 
 For instance::
-We specify the `{PP}address_model` core option. It would not be allowed for
-a vendor to specify an `{PP}v:xyz:m64` (to specify 64 bit address model) option
+We specify the `{lopt}address_model` core option. It would not be allowed for
+a vendor to specify an `{lopt}v:xyz:m64` (to specify 64 bit address model) option
 as that would overlap with the core option.
 
-==== `{P}` Option Prefix
+==== `{sopt}` Option Prefix
 
 Like choosing names for programming language constructs, choosing a prefix
 for the option arguments is a contentious decision. For this we chose to
-use `{P}` as the prefix, and hence `{PP}` for the long form, for these reasons:
+use `{sopt}` as the prefix, and hence `{lopt}` for the long form, for these reasons:
 
 * It's not used widely by current compiler tooling and hence avoids confusion
   with existing options.
@@ -136,11 +122,11 @@ use `{P}` as the prefix, and hence `{PP}` for the long form, for these reasons:
 Regardless of this choice, this is ostensibly a straw-man choice. There are
 valid reasons to choose other prefix (say `-`). And this proposal does not
 hinge on what this prefix is. But do note that the sample implementation does
-use `{P}` and `{PP}`.
+use `{sopt}` and `{lopt}`.
 
-NOTE: There is at least one class of compilers that historically use the `{P}`
+NOTE: There is at least one class of compilers that historically use the `{sopt}`
 prefix. For example the link:https://www.csee.umbc.edu/portal/help/VHDL/verilog/command_line_plus_options.html[Verilog-XL]
-uses the `{P}` option prefix exclusive.
+uses the `{sopt}` option prefix exclusive.
 
 ==== Use Cases
 
@@ -428,12 +414,12 @@ Returns:: zero (`0`) for success, non-zero (`!= 0`) for an error.
 The `arguments` specify the set of options, translation units to transform,
 or transformed translation units to link into a program. An argument is either
 an option and option value, or a name of a translation unit source. Options
-start with the `{P}` or `{PP}` option prefix.
+start with the `{sopt}` or `{lopt}` option prefix.
 
 ===== Long & Short Options
 
-Arguments that start with `{PP}` are _long options_. And arguments that start
-with a single `{P}` are _short options_. _Long options_ are expected to be
+Arguments that start with `{lopt}` are _long options_. And arguments that start
+with a single `{sopt}` are _short options_. _Long options_ are expected to be
 succinct but reasonably human readable names of options. And _short options_
 are expected to be well known one or two character alternatives to the
 _long options_.
@@ -444,9 +430,9 @@ _Core options_ follow this syntax:
 
 [subs="normal"]
 ....
-{PP}__name__[=__value__]
-{PP}__name__ [__value__]
-{P}__n__ [__value__]
+{lopt}__name__[=__value__]
+{lopt}__name__ [__value__]
+{sopt}__n__ [__value__]
 ....
 
 Where the _value_ for the option may be optional, and may have additional
@@ -464,9 +450,9 @@ follow this syntax:
 
 [subs="normal"]
 ....
-{PP}__vendor-key__:__name__[=__value__]
-{PP}__vendor-key__:__name__ [__value__]
-{P}__vendor-key__:__n__ [__value__]
+{lopt}__vendor-key__:__name__[=__value__]
+{lopt}__vendor-key__:__name__ [__value__]
+{sopt}__vendor-key__:__n__ [__value__]
 ....
 
 Where the _value_ for the option may be optional, and may have additional

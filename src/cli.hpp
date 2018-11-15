@@ -111,7 +111,8 @@ class cli
     struct ClaraParserCustomize : clara::ParserCustomization
     {
         auto token_delimiters() const -> std::string override { return " ="; }
-        auto option_prefix() const -> std::string override { return "+"; }
+        // auto option_prefix() const -> std::string override { return "+"; }
+        auto option_prefix() const -> std::string override { return "-"; }
     };
 
     clara::Parser parser;

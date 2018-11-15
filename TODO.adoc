@@ -1,0 +1,269 @@
+= TODO
+
+== Conan-B2
+
+Dmitry Arkhipov [4:52 AM]
+Hi. I was trying out the new package manager support in b2 together with b2gen. The b2gen readme mentions, that I can reference targets from imported projects using absolute id (`/project//target`), but I could only do it with a relative id. I used b2 1.68 and b2gen 1.2.
+
+*DONE* Turned out to be user error.. The mention of rooted paths is that it works for paths that are at the jamroot level.
+
+== PEP
+
+....
+Rene Rivera [Sep 17th at 9:09 AM]
+Package Ecosystem Plan — https://rawgit.com/bfgroup/std_cpp/master/doc/package_ecosystem_plan_Dxxxx_R0.html
+
+
+3 replies
+Breno Rodrigues Guimarães [5 days ago]
+I might come from a very specific background so somethings are not clear to me (or may have a different meaning). Being someone that refactored the Makefile in our (rather large) software into something more build-system like, I have a lot of interest in this. We have struggled with dependency management and spent some significant time on that.
+So, I suspect there was an intent of not being specific about somethings, but I missed definitions.
+Terms like packages, library or Package and Dependency Manager  may have slightly different meanings depending where you are coming from.
+If not present in the paper, references to these definitions would make the paper more solid and easier to relate to reality (the reality of more people).
+
+Rene Rivera [5 days ago]
+Hm, yes, I can see there might some confusion in that. Especially since some people have used the terms differently at times. I’ll add some definitions. Thanks for the suggestion.
+
+Breno Rodrigues Guimarães [5 days ago]
+No problem!
+....
+
+TODO:: Added definition section, need to complete it.
+*DONE*
+
+....
+Steve Downey [8:36 PM]
+I'd be against universality. It's not actually useful for my cases. There is no situation in which a package is getting pulled into a production build without review, and ongoing review. Automated license checking does not work.
+....
+
+TODO:: This is a good point. Although for beginners, and likely OSS, the source of packages doesn't matter that much. It does for critical production. There are various security and stability issues that can arise from grabbing any random package for your library.
+
+Ultimately this is not an issue of the UPID. This is local sourcing of packages. You can still have the verification you just need to have a method to have the packages locally served after the are cleared for use. For example this is a model that Conan supports by having local private repositories.
+
+Additionally, having localized universality is advantageous for controlling audited packages. If you are the provider of the package index you can ensure that only cleared packaged are available throughout the organization.
+
+....
+Steve Downey [8:36 PM]
+A typical job of a package manager is version selection, which is NP hard. Where does that fit in? Is semver mandatory? Or are versions assumed incompatible? Bug fixes applied by packagers?
+I haven't looked at the compiler API paper yet. Does it address how to consume packages as part of the build? Everyone needs to be built compatibly, which means not just the same compiler options, but seeing the same transitive dependencies.
+
+I'll look at the API next.
+Rene Rivera [9:01 PM]
+I don’t specify anything to do with semver or any semantics for production or consumption of packages on the PEP paper. The goal is to have a structure of what parts need to get worked on by others (and myself but I’m only but one overworked individual).  The `std::compile` paper is one small part of the whole picture. Although a key one if we have hope of getting consistent build understanding.
+....
+
+*DONE*
+
+....
+Rene Rivera [1:22 PM]
+Not sure how to take the lack of comments on the PEP paper :confused:
+Mathias Stearn [1:32 PM]
+The tooling mailing list is very low traffic
+btw, I noticed that you have different formatting in 5.2 vs 5.3. I haven't had time to read enough of it to give you *useful* feedback though :slightly_smiling_face:
+Rene Rivera [1:35 PM]
+Ha, thanks for pointing that different style out :slightly_smiling_face:
+....
+
+DONE:: Fixed the section number.
+*DONE*
+
+....
+Ben Craig [1:53 PM]
+are there a list of questions / open items that you know in advance you want to get feedback on?  Or is it still at a stage where you don't know what people will react strongly to?
+I think it did a decent job at identifying the pieces (and gaps where we need standardized things), but I don't know that that is useful feedback.  I didn't read it with a thoroughly critical eye.
+Rene Rivera [2:19 PM]
+At this stage I’m looking for sanity commentary. At the meeting I’ll come up with some direction polls.
+I.e. if every says you are crazy and insane for thinking like this. I’ll go figure something else out.
+....
+
+TODO:: Come up with questions for SD meeting.
+
+== std::compile
+
+....
+Peter Bindels [11:48 AM]
+does this include a source tree layout paper?
+Rene Rivera [11:52 AM]
+No.
+I'm leaving that to others :wink:
+....
+
+....
+Jonathan Müller [12:11 PM]
+so with std::compile you can write an executable that compiles your executable or is it some compile time magic...?
+Rene Rivera [12:15 PM]
+Yes “you can write an executable that compiles your executable”. For example: https://github.com/bfgroup/std_cpp/blob/master/example/std_cpp.cpp
+There are also some existing projects that could also do JIT (ie compile time magic). At least one of which is doing a CppCon talk.
+....
+
+....
+Ben Craig [1:53 PM]
+are there a list of questions / open items that you know in advance you want to get feedback on?  Or is it still at a stage where you don't know what people will react strongly to?
+I think it did a decent job at identifying the pieces (and gaps where we need standardized things), but I don't know that that is useful feedback.  I didn't read it with a thoroughly critical eye.
+Rene Rivera [2:19 PM]
+At this stage I’m looking for sanity commentary. At the meeting I’ll come up with some direction polls.
+I.e. if every says you are crazy and insane for thinking like this. I’ll go figure something else out.
+....
+
+TODO:: Come up with questions for SD meeting.
+*DONE*
+
+....
+Corentin [3:55 AM]
+@grafikrobot can I be honest ? I really dislike that `std::compile` paper (and i know lot of work is  going into it so i'm feel bad saying that). I guess by putting something in `std::` you try to circumvent the lack of authority wg21 has outside of the standard. but i don't think it's the way to go about it. Maybe I'm wrong :stuck_out_tongue:
+(I like the ecosystem paper though :slightly_smiling_face: )
+....
+
+TODO:: Corner Corentin into more detail as to what, other than putting in `std::`, is there dislike about.
+
+....
+Dan Kalowsky [12:40 PM]
+@grafikrobot a lot of your `std::compile` paper feels like it's got a decent idea.  Having read through it now a few times, there are still some lingering "I don't like it" reactions to it, but I've had a hard time trying to quantify them
+
+Dan Kalowsky [1:00 PM]
+for example, some of it feels like you're trying to embrace the current behavior, when you should be trying to make it clear for a beginner (which seems a strong reasoning for the paper).  A very specific example to this would be the use of the `-g` flag, which unless you've got the history of compiler knowledge makes absolutely no sense
+but it's not wrong either, which is where I come back to "hard to quantify"
+there are others like, `+l`, which (unless it's a typo) ends up looking way too much like `+I` and probably should be make `+L` like all the others (ligatures shouldn't be depended upon) (edited)
+
+Steve Downey [1:17 PM]
+Lower case `l` is a request to search for a library via some mechanism influenced by `L` options. Unix linkers will by default treat an archive specified as a file to link the same as one found by searching. Object files are always included in the `.text` of the resulting binaries, where libraries are (usually) sources for unresolved symbols.
+
+Dan Kalowsky [1:21 PM]
+@sdowney right, but if you're trying to make the argument that this is good for beginners (and that is a point of this paper), what you just explained isn't something I'd know.
+instead I'd see an inconsistent naming pattern.
+but we're also back to the question, does the paper need to be encumbered by decades of prior behavior?  You could define `+L` to act equivalent as `-l`
+
+Steve Downey [1:23 PM]
+Yes, I see. There's no equivalent `i` flag because that's handled via `#include`. Although I'd really like that sometimes.
+You still need some mechanism for saying where libraries should be searched for, if you're using the `-lfoo` model where that will look for something named libfoo.{so,a} in a list of places.
+
+Rene Rivera [1:38 PM]
+There are long name versions for those.. Which is what I would hope beginners would use.
+But it is a battle between making it “easy” and “familiar”. Also making it easier for beginners is not the only goal of the paper. There are a few other goals in there.
+I would say easier for beginners is a selling point more than a goal.
+
+Dan Kalowsky [1:44 PM]
+@grafikrobot correct, that is why I said it was "a goal" of the paper :slightly_smiling_face:
+....
+
+TODO:: Consider either: departing from the existing practice for option names, or providing a rationale for why to use existing practice. This is in terms of the, at times, conflicting goals of "familiarity" for existing users and "ease" for new users. *Formulate some poll question for SD regarding argument names*
+
+....
+Steve Downey [2:31 PM]
+The swapping of `-` for `+` feels a little bit like UTC. A compromise to leave everyone unhappy.
+Rene Rivera [2:33 PM]
+Yep.. That’s the essence of most compromises.
+That is also an area where getting feedback from the vendors would be helpful. IN how willing they are to implement some particular syntax.
+Breno Rodrigues Guimarães [3:06 PM]
+Where did you take the idea of using `+`? Do you know other tools that use that?
+Rene Rivera [3:09 PM]
+I don’t know of any tools that use that. I’ve written some tools myself that use that because they need to differentiate between options they are parsing vs. options they are passing down to other programs it invokes.
+Breno Rodrigues Guimarães [3:11 PM]
+Cool. I've seen that somewhere. The tool I work with supports `+`, but only for a very specific switch. I never asked why. I'm looking for any public information I can share
+And it's a compiler, so having precedents may help :slightly_smiling_face:
+(a verilog compiler, but still)
+https://www.csee.umbc.edu/portal/help/VHDL/verilog/command_line_plus_options.html this is not the tool I work with, but seems to be common for verilog/vhdl compilers
+Rene Rivera [3:23 PM]
+Thanks for that info.
+Breno Rodrigues Guimarães [3:24 PM]
+no problem
+....
+
+TODO:: Add verilog compiler as an example of use of `+` prefix.
+
+TODO:: Jussi briefly requested to have a C api for `std::compile` with dynamic link so that it can be DLL loaded. *Formulate some poll question for SD regarding an `extern "C"` entry point*
+*DONE*
+
+TODO:: Jason Turner asked about making it `constexpr!` so that it's run within the compile phase, since you are compiling anyway. *Formulate some poll question for SD regarding invoking compiler at compile time*
+*DONE*
+
+....
+[JF Bastien]
+> More seriously, the selection of compiler options you've chosen seem semi­random.
+
+First it's not random :­) It's the minimal to get basic actual compiling working and to show highlight some of the differences in link compatibility. Second, it's very incomplete. I'll keep adding options as I implement them from now until the mailing deadline (and keep implementing them afterwards for an R1 paper ­­ and so on). Third, I hope I can get some volunteers to help in adding options.
+
+> It would be useful to have a survey of existing compilers and their options, and some criteria to determine which should be supported here and which shouldn't.
+
+Selection criteria is indeed a hard problem. What's actually needed for core? And what can be delegated to the vendor specific realm?
+....
+
+TODO:: Add some selection criteria for what is a core option vs. vendor option. *DONE*
+
+TODO:: Specify what to return from the function if it's not implemented. *DONE*
+
+....
+[JF Bastien]
+How is this different from, say, how CMake does things? It tries to abstract away some flags and it does so much more than your proposal. Why would I want your proposal over CMake?
+....
+
+TODO:: This is not a build system. It is meant to help build system implementations. Mention this in the paper? This would be part of showing how this helps C++ tools in the future work section.
+
+....
+[JF Bastien]
+As I see it, the proposal is missing a bunch of context and related research. I'd like to see more to understand why it's the right tool for users of C++. I'm not convinced this tool needs to be usable from C++.
+....
+
+TODO:: The use case to use it from C++ is the JIT and specialty cases? I.e. general embedding, and the performance gains from not launching processes. Mention the work about this from Donald?
+
+....
+[Peter Sommerlad]
+Thanks a lot. I didn’t have time to look at everything. But please change the compile function to use a C++ API and not the main() function C API!
+
+A span<string_view> or vector<string> or something in between should make sense. Or come up with something better. But not (int, char**). That is error prone and hard to call from a program that is not directly calling it from main
+....
+
+TODO:: Find a reasonable C++ API for the function as an overload. *DONE*
+
+....
+[JF Bastien]
+>> How is the design different from something like this:
+>> https://clang.llvm.org/docs/DriverInternals.html
+>> ?
+
+> One similarity is that both compile source :­) Another, is of course, that the clang driver (or front end) somewhat simulates the gcc front end. That pattern is not uncommon.. I mention one of them in the prior art section. Others are the various msvc compatible compilers, like Intel.
+
+I'd expect not just a list of prior­art, but a comparison of what each does.
+....
+
+TODO:: Consider adding such a comparison, but of what? I.e. add a "future work" section to say this will be added after R0. *DONE*
+
+....
+[JF Bastien]
+> I meant the opposite: a valid implementation can always say "success" and do nothing AFAICT.
+
+I'll make that clear.. To say that an implementation should indicate an error if it's not implemented.
+....
+
+TODO:: Specify `std::compile` should return an error when not implemented.
+*DONE*
+
+....
+>> As it stands, being a work in progress draft (or proposal), yes it's less comprehensive than almost every other build system. But I don't think it needs to be comprehensive at this point. Perhaps by the time this gets to R2 it will be more comprehensive that most build systems.
+
+[JF Bastien]
+>OK, could you add this as a goal of the paper? It would have helped me understand where you're going with this.
+
+Yes. 
+....
+
+TODO:: Mention the set of options is WIP.
+*DONE*
+
+....
+>> But it's not just build systems. It's anything that needs some understanding of the options, for example code editors, binary package managers, code analyzers, and so on. 
+
+[JF Bastien]
+> Could your paper explain how these are helped by your proposal?
+
+It could. But it will have to be limited.. As I would rather not write, as I don't have infinite time, a novel length proposal. 
+....
+
+TODO:: Future.. Explain how this helps various tools. *DONE*
+
+....
+[Robert Maynard]
+I am reading the current discussion. Might be valuable? to bring up that IBM XL provides a gcc wrapper tool because users couldn’t easily port over to ibm ( https://www-01.ibm.com/support/docview.wss?uid=swg27039014 ) (edited)
+....
+
+TODO:: Add to prior art section. *DONE*
